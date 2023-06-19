@@ -24,13 +24,13 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1687075299659">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1687175216707">
     
-    <link rel="stylesheet" href="/css/style.css?v=1687075299659">
+    <link rel="stylesheet" href="/css/style.css?v=1687175216707">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1687075299659">
+            <link rel="stylesheet" href="/custom.css?v=1687175216707">
         
     
 
@@ -39,7 +39,7 @@
 <script src="/lib/fancybox/fancybox.umd.js" async></script>
 
 
-    <script async src="/js/app.js?v=1687075299659"></script>
+    <script async src="/js/app.js?v=1687175216707"></script>
     
      
 
@@ -77,8 +77,8 @@
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>Articles</span>2</div>
-        <div><span>Tags</span>0</div>
+        <div><span>Articles</span>1</div>
+        <div><span>Tags</span>1</div>
         <div><span>Categories</span>0</div>
     </div>
     <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
@@ -142,13 +142,36 @@
         
             
             
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Java/" style="font-size: 10px;">Java</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(17);
+        var tags_length = parseInt(1);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
         
             
             
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">Archive</h3>
     <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -163,11 +186,7 @@
       <ul>
         
           <li>
-            <a href="/2023/06/18/test/">test</a>
-          </li>
-        
-          <li>
-            <a href="/2023/06/18/hello-world/">Hello World</a>
+            <a href="/2023/06/19/Java-Jndi/">Jndi注入</a>
           </li>
         
       </ul>
@@ -189,7 +208,7 @@
     <section class="nexmoe-archives">
     
     <div class="tagcloud nexmoe-rainbow">
-        
+        <a class="mdui-ripple -unordered list-link" href="/tags/Java/" rel="tag">Java<span class="mdui-ripple -unordered list-count">1</span></a>
     </div>
 
     <div class="categories nexmoe-rainbow-fill">
@@ -204,9 +223,7 @@
             <h2>2023</h2>
             <ul>
             
-                <li><span>06-18</span><a href="/2023/06/18/test/" >test</a></li>
-            
-                <li><span>06-18</span><a href="/2023/06/18/hello-world/" >Hello World</a></li>
+                <li><span>06-19</span><a href="/2023/06/19/Java-Jndi/" >Jndi注入</a></li>
             
             </ul>
         
