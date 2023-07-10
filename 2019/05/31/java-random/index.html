@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://0xr1ngs.github.io/2019/05/31/java-random/5.png">
 <meta property="og:image" content="https://0xr1ngs.github.io/2019/05/31/java-random/6.png">
 <meta property="article:published_time" content="2019-05-31T08:37:35.000Z">
-<meta property="article:modified_time" content="2023-07-10T09:14:22.000Z">
+<meta property="article:modified_time" content="2023-07-10T09:47:36.581Z">
 <meta property="article:author" content="r1ngs">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -34,13 +34,13 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688982031649">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688982682156">
     
-    <link rel="stylesheet" href="/css/style.css?v=1688982031649">
+    <link rel="stylesheet" href="/css/style.css?v=1688982682156">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1688982031649">
+            <link rel="stylesheet" href="/custom.css?v=1688982682156">
         
     
 
@@ -49,7 +49,7 @@
 <script src="/lib/fancybox/fancybox.umd.js" async></script>
 
 
-    <script async src="/js/app.js?v=1688982031649"></script>
+    <script async src="/js/app.js?v=1688982682156"></script>
     
      
 
@@ -392,11 +392,11 @@ mask <span class="token operator">=</span> <span class="token punctuation">(</sp
     <span class="token keyword">print</span> <span class="token string">'{:064b}'</span><span class="token punctuation">.</span>format<span class="token punctuation">(</span>seed3<span class="token operator">>></span><span class="token number">16</span><span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>输出结果为</p>
-<pre><code>141635148990318
-48
-0000000000000000100000001101000100000000101111100100011101101110
-0000000000000000000000000000000010000000110100010000000010111110
-</code></pre>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token number">141635148990318</span>
+<span class="token number">48</span>
+<span class="token number">0000000000000000100000001101000100000000101111100100011101101110</span>
+<span class="token number">0000000000000000000000000000000010000000110100010000000010111110</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这样就能看出问题在哪了，由于seed3右移了16位以后除了补0的高位就只有32位了，使用int强转以后java把它从long类型转换成了int，并且自动忽略了32位以后的高位，这就相当于我们得到的第三个随机数用补码表示为 <code>10000000110100010000000010111110</code></p>
 <p>可以看出来最高位为1，也就是说这个补码代表了一个负数，那么我们怎么通过补码找到这个负数的真值呢？很简单，对补码再求一次补码就行了，也就是取反后加1。</p>
 <p>即 <code>01111111001011101111111101000010</code>，对应的二进制位2133786434，所以第三个随机数应该为-2133786434，如此一来，我们就可以通过负数找到其对应的seed了</p>
@@ -461,7 +461,7 @@ mask <span class="token operator">=</span> <span class="token punctuation">(</sp
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1688982031613"></script>
+    <script async src="/js/copy-codeblock.js?v=1688982682120"></script>
   
 
   

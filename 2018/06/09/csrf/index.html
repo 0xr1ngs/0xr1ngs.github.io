@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://0xr1ngs.github.io/2018/06/09/csrf/url">
 <meta property="og:image" content="https://0xr1ngs.github.io/2018/06/09/csrf/url">
 <meta property="article:published_time" content="2018-06-09T09:18:33.000Z">
-<meta property="article:modified_time" content="2023-07-10T09:13:12.507Z">
+<meta property="article:modified_time" content="2023-07-10T09:51:18.054Z">
 <meta property="article:author" content="r1ngs">
 <meta property="article:tag" content="csrf">
 <meta name="twitter:card" content="summary">
@@ -30,13 +30,13 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688982031681">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688982682189">
     
-    <link rel="stylesheet" href="/css/style.css?v=1688982031681">
+    <link rel="stylesheet" href="/css/style.css?v=1688982682189">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1688982031681">
+            <link rel="stylesheet" href="/custom.css?v=1688982682189">
         
     
 
@@ -45,7 +45,7 @@
 <script src="/lib/fancybox/fancybox.umd.js" async></script>
 
 
-    <script async src="/js/app.js?v=1688982031681"></script>
+    <script async src="/js/app.js?v=1688982682189"></script>
     
      
 
@@ -292,7 +292,7 @@
 
     <h1 id="请求方式"><a href="#请求方式" class="headerlink" title="请求方式"></a>请求方式</h1><h2 id="get"><a href="#get" class="headerlink" title="get"></a>get</h2><p>利用html里的带src属性的元素发出跨域请求</p>
 <pre class="line-numbers language-HTML"><code class="language-HTML"><link href="url">
-<img src="url">
+<img src="url" onerror="alert(1)">
 <iframe src="url">
 <meta http-equiv="refresh" content="0";url="url">
 <script src="url">
@@ -360,7 +360,7 @@
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1688982031614"></script>
+    <script async src="/js/copy-codeblock.js?v=1688982682121"></script>
   
 
   
