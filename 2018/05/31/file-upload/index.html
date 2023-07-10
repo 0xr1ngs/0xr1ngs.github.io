@@ -29,13 +29,13 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688980609175">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1688982031683">
     
-    <link rel="stylesheet" href="/css/style.css?v=1688980609175">
+    <link rel="stylesheet" href="/css/style.css?v=1688982031683">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1688980609175">
+            <link rel="stylesheet" href="/custom.css?v=1688982031683">
         
     
 
@@ -44,7 +44,7 @@
 <script src="/lib/fancybox/fancybox.umd.js" async></script>
 
 
-    <script async src="/js/app.js?v=1688980609175"></script>
+    <script async src="/js/app.js?v=1688982031683"></script>
     
      
 
@@ -58,7 +58,8 @@
   gtag("config", "G-4D4ZJ9G024");
 </script>
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><link rel="stylesheet" href="/css/prism-one-dark.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 <body class="mdui-drawer-body-left">
     <div id="nexmoe-background">
@@ -299,40 +300,46 @@
 <li>可以用evil.Php.aaa，apache如果解析不了.aaa拓展名，会继续向前寻找可以解析的拓展名</li>
 <li>尝试大小写绕过或者找拓展名的漏网之鱼</li>
 </ul>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jsp：jspx、jspf；</span><br><span class="line">asp：asa、cer、aspx；</span><br><span class="line">php：php、php2、php3、php4、php5、phps、pht、phtm、phtml；</span><br><span class="line">exe：exee</span><br></pre></td></tr></table></figure>
-
+<pre><code>jsp：jspx、jspf；
+asp：asa、cer、aspx；
+php：php、php2、php3、php4、php5、phps、pht、phtm、phtml；
+exe：exee
+</code></pre>
 <h2 id="白名单"><a href="#白名单" class="headerlink" title="白名单"></a>白名单</h2><p>0x01 content-type文件类型</p>
 <ul>
 <li>抓包的时候改为image&#x2F;gif<br>0x02 文件头绕过</li>
 <li>在文件头加上文件信息，比如</li>
 </ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GIF89a<span class="meta">&lt;?php</span> <span class="title function_ invoke__">phpinfo</span>();<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-PHP"><code class="language-PHP">GIF89a<?php phpinfo();?>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="00截断"><a href="#00截断" class="headerlink" title="%00截断"></a>%00截断</h2><p>00在ascii里表示NULL，当系统读取到0x00时认为文件名已经结束</p>
 <ul>
 <li>通过抓包将evil.php1.jpg的1换成0x00从而上传evil.php</li>
 <li>也可以是路径&#x2F;upload&#x2F;1.php(0x00) 文件名1.jpg 结合后为&#x2F;upload&#x2F;1.php(0x00)&#x2F;1.jpg存入<br><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2018/05/31/file-upload/1.png" alt="1" data-caption="1" loading="lazy"></li>
 </ul>
 <h2 id="重写解析规则"><a href="#重写解析规则" class="headerlink" title="重写解析规则"></a>重写解析规则</h2><p>上传.htaccess文件，重写解析规则，将图片用脚本方式解析<br>在可以上传.htaccess文件时上传这个文件，文件内容如下,然后再上传evil.gif就可以让它以php方式解析</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;FilesMatch <span class="string">&quot;evil.gif&quot;</span>&gt;</span></span><br><span class="line"><span class="attribute">SetHandler</span> application/x-httpd-php</span><br><span class="line"><span class="section">&lt;/FilesMatch&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code>&lt;FilesMatch &quot;evil.gif&quot;&gt;
+SetHandler application/x-httpd-php
+&lt;/FilesMatch&gt;
+</code></pre>
 <h2 id="ADS流文件"><a href="#ADS流文件" class="headerlink" title="ADS流文件"></a>ADS流文件</h2><p>ADS是NTFS磁盘格式的一个特性。在NTFS文件系统下，每个文件都可以存在多个数据流，即除了主文件流之外还可以有许多非主文件流寄宿在主文件流中。</p>
 <ul>
 <li>上传1.php文件的时候改包为1.php:1.jpg即就是上传一个1.jpg的内容为上传前的1.php的内容的数据流文件，且与宿主文件1.php关联。</li>
 </ul>
 <p>最后上传到服务器的是1.php文件，文件内容为空，在目录下使用命令</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">notepad</span> <span class="number">1</span>.php:<span class="number">1</span>.jpg</span><br></pre></td></tr></table></figure>
-
+<pre><code>notepad 1.php:1.jpg
+</code></pre>
 <p>就可以看到1.jpg文件的内容即之前的1.php的内容<br>可以再结合文件包含把1.php:1.jpg包含进来，达到代码执行的作用</p>
 <ul>
 <li>:$DATA默认数据流</li>
 </ul>
 <p>NTFS文件系统包含对备用数据流的支持，备用数据流允许文件包含多个数据流。每个文件至少有一个数据流，windows中的默认数据流就是:$DATA</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>.php::<span class="variable">$DATA</span> 生成<span class="number">1</span>.php <span class="meta">&lt;?php</span> <span class="title function_ invoke__">phpinfo</span>();<span class="meta">?&gt;</span></span><br><span class="line"><span class="number">1</span>.php::<span class="variable">$INDEX_ALLOCATION</span> 生成<span class="number">1</span>.php文件夹</span><br></pre></td></tr></table></figure>
-
+<pre><code>1.php::$DATA 生成1.php &lt;?php phpinfo();?&gt;
+1.php::$INDEX_ALLOCATION 生成1.php文件夹
+</code></pre>
 <h1 id="windows系统"><a href="#windows系统" class="headerlink" title="windows系统"></a>windows系统</h1><p>windows系统不允许文件名包含下列任何字符</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>\:<span class="operator">*</span>?<span class="operator">&lt;&gt;</span><span class="operator">|</span>&quot;</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-SQL"><code class="language-SQL">/\:*?<>|"
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>可以在发包的时候改为1.php&#x2F;1.jpg上传的时候会自动删除不规范字符后面的内容，但是<strong>文件内容为空</strong><br>如果服务器使用<strong>黑名单</strong>的思想去校验我们可以覆盖文件内容，并且<strong>没有重命名文件</strong>，那么就可以再次上传覆盖<br>由windows搜索文件名的特性: <code>&lt;</code> 符号可以匹配任意字符<br>如果我们的文件为1.php，那么再上传一个1.&lt;&lt;&lt;，内容为webshell，那么就可以把webshell写入1.php了<br>补充：</p>
 <ul>
 <li>php对文件做处理的函数使用的时候会调用一个windows的底层api</li>
@@ -356,7 +363,7 @@
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1688980609102"></script>
+    <script async src="/js/copy-codeblock.js?v=1688982031614"></script>
   
 
   
